@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Company;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CompanyController extends Controller
 {
@@ -12,7 +13,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view('admin.company.company');
+        $companies = Company::all();
+        return view('admin.company.company',compact('companies'));
     }
 
     /**
@@ -28,8 +30,41 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the request data
+        $validatedData = $request->validate([
+            'company_name' => 'required|string',
+            'company_address' => 'nullable|string',
+            'district' => 'nullable|string',
+            'zipcode' => 'nullable|string',
+            'contact_number' => 'nullable|string',
+            'whatsapp_number' => 'nullable|string',
+            'land_line_number' => 'nullable|string',
+            'email' => 'required|email',
+            'company_website' => 'nullable|url',
+            'company_facebook_url' => 'nullable|url',
+            'company_logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Image validation
+            'registration_number' => 'nullable|string|max:255',
+            'status' => 'required|boolean',
+        ]);
+
+        // Debugging the validated data if needed
+        // dd($validatedData);
+
+        // Handle file upload if there is a logo
+        if ($request->hasFile('company_logo')) {
+            $logoPath = $request->file('company_logo')->store('company_logos', 'public');
+            $validatedData['company_logo'] = $logoPath;
+        }
+
+        // Create the company
+        $company = Company::create($validatedData);
+
+        // Redirect with success message
+        return redirect()->route('company.index')
+                        ->with('success', 'Company added successfully.');
     }
+
+
 
     /**
      * Display the specified resource.
@@ -58,8 +93,11 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $company = Company::findOrFail($id);
+        $company->delete();
+
+        return redirect()->route('company.index')->with('success', 'Company deleted successfully.');
     }
 }
