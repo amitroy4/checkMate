@@ -36,10 +36,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::resource('/dashboard/basicform',BasicformController::class);
 
-    Route::resource('/dashboard/basictable',BasicTableController::class);
-    Route::resource('/dashboard/datatable',DataTableController::class);
 
     Route::resource('/dashboard/company',CompanyController::class);
     Route::resource('/dashboard/bank',BankController::class);
@@ -49,6 +46,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('/dashboard/chequerecive',ChequeReceiveController::class);
     Route::resource('/dashboard/chequebook-register',ChequeBookRegisterController::class);
     Route::resource('/dashboard/chequebook-report',ChequeBookReportController::class);
+
+    Route::post('/dashboard/chequepay/vendor/store',[ChequePayController::class, 'vendorStore'])->name('extra.vendor.store');
+    Route::post('/dashboard/chequepay/bank/store',[ChequePayController::class, 'bankStore'])->name('extra.bank.store');
+
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

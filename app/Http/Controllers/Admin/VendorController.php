@@ -27,14 +27,14 @@ class VendorController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'vendor_name' => 'required|string|max:255',
-            'vendor_designation' => 'required|string|max:255',
-            'company_name' => 'required|string|max:255',
-            'mobile_number' => 'required|string|max:255',
-            'whatsapp_number' => 'required|string|max:255',
-            'email' => 'required|email|unique:vendors,email,',
-        ]);
+        // $request->validate([
+        //     'vendor_name' => 'required|string|max:255',
+        //     'vendor_designation' => 'required|string|max:255',
+        //     'company_name' => 'required|string|max:255',
+        //     'mobile_number' => 'required|string|max:255',
+        //     'whatsapp_number' => 'required|string|max:255',
+        //     'email' => 'required|email|unique:vendors,email,',
+        // ]);
 
         Vendor::create($request->all());
         return redirect()->back()->with('success', 'vendor added successfully.');

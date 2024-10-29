@@ -30,11 +30,11 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'bank_name' => 'required|string|max:255',
-            'branch_name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-        ]);
+        // $request->validate([
+        //     'bank_name' => 'required|string|max:255',
+        //     'branch_name' => 'required|string|max:255',
+        //     'address' => 'required|string|max:255',
+        // ]);
 
         Bank::create($request->all());
         return redirect()->back()->with('success', 'bank added successfully.');

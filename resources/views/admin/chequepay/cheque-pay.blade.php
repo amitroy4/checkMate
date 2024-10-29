@@ -6,13 +6,14 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center justify-content-between">
                     <h4 class="card-title"> Manage Cheque Pay</h4>
-                    <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
-                        data-bs-target="#newChequepay">
-                        <i class="fa fa-plus"></i>
-                        New Cheque Pay
-                    </button>
+                    <a href="{{route('chequepay.create')}}">
+                        <button class="btn btn-primary btn-round ms-auto">
+                            <i clss="fa fa-plus"></i>
+                            New Cheque Pay
+                        </button>
+                    </a>
                 </div>
             </div>
             <div class="card-body">
@@ -93,95 +94,6 @@
                     </table>
                 </div>
             </div>
-
- <!-- Modal -->
-                <div class="modal fade" id="newChequepay" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header bg-info border-0">
-                                <h5 class="modal-title">
-                                    <span class="fw-mediumbold">
-                                        Create New Cheque Pay</span>
-                                </h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <form action="" method="post">
-                                <div class="modal-body">
-
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group ">
-                                                <label for="date">Date<span class="required-label">*</span></label>
-                                                <input id="date" type="date" class="form-control" name="date">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group ">
-                                                <label for="payee">Payee<span class="required-label">*</span></label>
-                                                <select id="payee" class="form-control" name="payee">
-                                                    <option value="">Select Payee</option>
-                                                </select>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group ">
-                                                <label for="bank">Bank<span class="required-label">*</span></label>
-                                                <select id="bank" class="form-control" name="bank">
-                                                    <option value="">Select bank</option>
-                                                </select>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group ">
-                                                <label for="amount">Amount<span class="required-label">*</span></label>
-                                                <input id="amount" type="number" class="form-control"
-                                                    placeholder="Enter Amount" name="amount">
-
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group ">
-                                                <label for="paytype">Pay Type<span
-                                                        class="required-label">*</span></label>
-                                                <select id="paytype" class="form-control" name="paytype">
-                                                    <option value="">Select Pay Type</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group ">
-                                                <label for="flyCheque">IS Fly Cheque<span
-                                                        class="required-label">*</span></label>
-                                                <select id="flyCheque" class="form-control" name="flyCheque">
-                                                    <option value="">Select</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group ">
-                                                <label for="file">File<span class="required-label">*</span></label>
-                                                <input id="file" type="file" class="form-control" name="file">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer border-0">
-
-                                    <button type="button" class="btn btn-outline-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="Submit" class="btn btn-secondary">Submit</button>
-                                </div>
-                        </div>
-
-                        </form>
-
-                    </div>
-                </div>
-
             {{-- @if (session('success'))
                     <span class="alert alert-success">{{session('success')}}</span>
             @elseif (session('danger'))

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bank;
+use App\Models\Company;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 
 class ChequePayController extends Controller
@@ -20,7 +23,10 @@ class ChequePayController extends Controller
      */
     public function create()
     {
-        //
+        $companies = Company::all();
+        $vendors = Vendor::all();
+        $banks = Bank::all();
+        return view('admin.chequepay.addcheque-pay',compact('companies','vendors','banks'));
     }
 
     /**
@@ -62,4 +68,18 @@ class ChequePayController extends Controller
     {
         //
     }
+
+    public function vendorStore(Request $request)
+    {
+        Vendor::create($request->all());
+        return redirect()->back()->with('success', 'vendor added successfully.');
+    }
+
+    public function bankStore(Request $request)
+    {
+        Bank::create($request->all());
+        return redirect()->back()->with('success', 'bank added successfully.');
+    }
+
+
 }
