@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -14,7 +15,7 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::all();
-        return view('admin.company.company',compact('companies'));
+        return view('admin.company.company', compact('companies'));
     }
 
     /**
@@ -22,7 +23,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.company.addcompany');
     }
 
     /**
@@ -45,9 +46,6 @@ class CompanyController extends Controller
             'status' => 'required|boolean',
         ]);
 
-        // Debugging the validated data if needed
-        // dd($validatedData);
-
         // Handle file upload if there is a logo
         if ($request->hasFile('company_logo')) {
             $logoPath = $request->file('company_logo')->store('company_logos', 'public');
@@ -55,21 +53,10 @@ class CompanyController extends Controller
         }
 
         // Create the company
-        $company = Company::create($validatedData);
+        Company::create($validatedData);
 
         // Redirect with success message
-        return redirect()->route('company.index')
-                        ->with('success', 'Company added successfully.');
-    }
-
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        return redirect()->route('company.index')->with('success', 'Company added successfully.');
     }
 
     /**
@@ -77,7 +64,8 @@ class CompanyController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $company = Company::findOrFail($id);
+        return view('admin.company.editcompany', compact('company'));
     }
 
     /**
@@ -85,7 +73,40 @@ class CompanyController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $company = Company::findOrFail($id);
+
+        // Validate the request data
+        $validatedData = $request->validate([
+            'company_name' => 'required|string',
+            'company_address' => 'nullable|string',
+            'contact_number' => 'nullable|string',
+            'whatsapp_number' => 'nullable|string',
+            'land_line_number' => 'nullable|string',
+            'email' => 'required|email',
+            'company_website' => 'nullable|url',
+            'company_facebook_url' => 'nullable|url',
+            'company_logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Image validation
+            'registration_number' => 'nullable|string|max:255',
+            'status' => 'required|boolean',
+        ]);
+
+        // Handle file upload if a new logo is provided
+        if ($request->hasFile('company_logo')) {
+            // Delete the old logo if it exists
+            if ($company->company_logo && Storage::disk('public')->exists($company->company_logo)) {
+                Storage::disk('public')->delete($company->company_logo);
+            }
+
+            // Store the new logo
+            $logoPath = $request->file('company_logo')->store('company_logos', 'public');
+            $validatedData['company_logo'] = $logoPath;
+        }
+
+        // Update the company data
+        $company->update($validatedData);
+
+        // Redirect with success message
+        return redirect()->route('company.index')->with('success', 'Company updated successfully.');
     }
 
     /**
@@ -94,6 +115,12 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         $company = Company::findOrFail($id);
+
+        // Delete the logo if it exists
+        if ($company->company_logo && Storage::disk('public')->exists($company->company_logo)) {
+            Storage::disk('public')->delete($company->company_logo);
+        }
+
         $company->delete();
 
         return redirect()->route('company.index')->with('success', 'Company deleted successfully.');

@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bank;
 use Illuminate\Http\Request;
 
 class BankController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.bank.bank');
+        $banks = Bank::all();
+        return view('admin.bank.bank',compact('banks'));
     }
 
     /**
@@ -28,7 +30,14 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'bank_name' => 'required|string|max:255',
+            'branch_name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+        ]);
+
+        Bank::create($request->all());
+        return redirect()->back()->with('success', 'bank added successfully.');
     }
 
     /**
@@ -50,16 +59,32 @@ class BankController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'bank_name' => 'required|string|max:255',
+            'branch_name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+        ]);
+
+        $bank = Bank::findOrFail($id);
+        $bank->bank_name = $request->bank_name;
+        $bank->branch_name = $request->branch_name;
+        $bank->address = $request->address;
+        $bank->save();
+
+        return response()->json(['success' => 'bank updated successfully!'], 200);
     }
+
+
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        Bank::destroy($id);
+        return redirect()->back()->with('success', 'bank deleted successfully.');
     }
 }

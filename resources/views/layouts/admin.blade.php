@@ -79,31 +79,31 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('client.index')}}">
-                                <i class="fa fa-list"></i>
+                                <i class="fas fa-user"></i>
                                 <p>Clients</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('client.index')}}">
-                                <i class="fa fa-list"></i>
+                            <a href="{{route('vendor.index')}}">
+                                <i class="fas fa-user-edit"></i>
                                 <p>Vendors</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('bank.index')}}">
-                                <i class="fa fa-list"></i>
-                                <p>Bank</p>
+                                <i class="fas fa-university"></i>
+                                <p>Banks</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('chequepay.index')}}">
-                                <i class="fa fa-book"></i>
+                                <i class="fas fa-money-check-alt"></i>
                                 <p>Cheque Pay</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('chequerecive.index')}}">
-                                <i class="fas fa-layer-group"></i>
+                                <i class="fa fa-book"></i>
                                 <p>Cheque Receive</p>
                             </a>
                         </li>
@@ -331,15 +331,14 @@
         $(document).ready(function () {
             $.notify({
                 // Options
-                message: '{{ session('
-                success ') }}'
+                message: '{{ session('success') }}'
             }, {
                 // Settings
                 type: 'success',
                 delay: 3000,
                 allow_dismiss: true,
                 placement: {
-                    from: "top",
+                    from: "bottom",
                     align: "right"
                 }
             });
@@ -353,15 +352,14 @@
         $(document).ready(function () {
             $.notify({
                 // Options
-                message: '{{ session('
-                danger ') }}'
+                message: '{{ session('danger') }}'
             }, {
                 // Settings
                 type: 'danger',
                 delay: 3000,
                 allow_dismiss: true,
                 placement: {
-                    from: "top",
+                    from: "bottom",
                     align: "right"
                 }
             });
@@ -374,8 +372,7 @@
         $(document).ready(function () {
             $.notify({
                 // Options
-                message: '{{ session('
-                errror ') }}'
+                message: '{{ session('errror ') }}'
             }, {
                 // Settings
                 type: 'danger',
@@ -390,6 +387,7 @@
 
     </script>
     @endif
+    @yield('scripts')
 
 </body>
 

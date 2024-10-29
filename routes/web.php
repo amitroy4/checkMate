@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ChequeReceiveController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\DataTableController;
+use App\Http\Controllers\Admin\VendorController;
 use App\Http\Controllers\ChequeReceivesController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/dashboard/company',CompanyController::class);
     Route::resource('/dashboard/bank',BankController::class);
     Route::resource('/dashboard/client',ClientController::class);
+    Route::resource('/dashboard/vendor',VendorController::class);
     Route::resource('/dashboard/chequepay',ChequePayController::class);
     Route::resource('/dashboard/chequerecive',ChequeReceiveController::class);
     Route::resource('/dashboard/chequebook-register',ChequeBookRegisterController::class);
