@@ -35,20 +35,6 @@
                                         <textarea id="company_address" type="text" class="form-control" name="company_address"></textarea>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 d-flex">
-                                    <div class="col-sm-6">
-                                        <div class="form-group ">
-                                            <label class="form-label">District</label>
-                                            <input id="district" type="text" class="form-control" name="district">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group ">
-                                            <label class="form-label">Zipcode</label>
-                                            <input id="zipcode" type="text" class="form-control" name="zipcode">
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-sm-12">
                                     <div class="form-group ">
                                         <label class="form-label">Contact Number</label>
@@ -151,10 +137,10 @@
                                                         data-client-id="">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
-                                                        <form action="{{ route('company.destroy', $company->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this company?');">
+                                                        <form action="{{ route('company.destroy', $company->id) }}" method="POST" class="d-inline-block" onsubmit="event.preventDefault(); confirmDelete(this);">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" data-bs-toggle="tooltip" title="Remove" class="btn btn-link btn-danger delete" data-original-title="Remove">
+                                                            <button type="submit" class="btn btn-link btn-danger delete" data-bs-toggle="tooltip" title="Remove">
                                                                 <i class="fa fa-trash"></i>
                                                             </button>
                                                         </form>
@@ -180,6 +166,26 @@
         </div>
     </div>
 </div>
+
+<script>
+    function confirmDelete(form) {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this data!",
+            icon: "warning",
+            buttons: ["Cancel", "Yes, delete it!"],
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                form.submit();
+                swal("Deleted!", "The company has been deleted.", "success");
+            } else {
+                swal("Your data is safe!");
+            }
+        });
+    }
+</script>
+
 
 @endsection
 

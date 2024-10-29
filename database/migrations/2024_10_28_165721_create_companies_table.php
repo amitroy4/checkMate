@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('company_name');
             $table->text('company_address')->nullable();
-            $table->string('district')->nullable();
-            $table->string('zipcode')->nullable();
             $table->string('contact_number')->nullable();
             $table->string('whatsapp_number')->nullable();
             $table->string('land_line_number')->nullable();

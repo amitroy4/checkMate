@@ -34,8 +34,6 @@ class CompanyController extends Controller
         $validatedData = $request->validate([
             'company_name' => 'required|string',
             'company_address' => 'nullable|string',
-            'district' => 'nullable|string',
-            'zipcode' => 'nullable|string',
             'contact_number' => 'nullable|string',
             'whatsapp_number' => 'nullable|string',
             'land_line_number' => 'nullable|string',

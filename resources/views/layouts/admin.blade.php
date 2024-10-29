@@ -78,21 +78,21 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('company.index')}}">
+                            <a href="{{route('client.index')}}">
                                 <i class="fa fa-list"></i>
-                                <p>Company List</p>
+                                <p>Clients</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('client.index')}}">
                                 <i class="fa fa-list"></i>
-                                <p>Client List</p>
+                                <p>Vendors</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('bank.index')}}">
                                 <i class="fa fa-list"></i>
-                                <p>Bank List</p>
+                                <p>Bank</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -108,9 +108,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{route('company.index')}}">
+                                <i class="fa fa-list"></i>
+                                <p>Company</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a data-bs-toggle="collapse" href="#forms">
-                                <i class="fas fa-pen-square"></i>
-                                <p>Report</p>
+                                <i class="far fa-chart-bar"></i>
+                                <p>Reports</p>
                                 <span class="caret"></span>
                             </a>
                             <div class="collapse" id="forms">
@@ -123,6 +129,37 @@
                                     <li>
                                         <a href="{{route('chequebook-report.index')}}">
                                             <span class="sub-item">Cheque Book Receive Report</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{route('chequebook-report.index')}}">
+                                            <span class="sub-item">Cheque Book Status Report</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#users">
+                                <i class="fas fa-pen-square"></i>
+                                <p>Manage users</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="users">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a href="#">
+                                            <span class="sub-item">Create User</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="sub-item">User Role</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="sub-item">Permission</span>
                                         </a>
                                     </li>
                                 </ul>
