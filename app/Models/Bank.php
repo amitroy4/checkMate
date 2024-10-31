@@ -13,4 +13,8 @@ class Bank extends Model
         'branch_name',
         'address',
     ];
+    public function chequePays()
+    {
+        return $this->hasMany(ChequePay::class);
+    }
 }

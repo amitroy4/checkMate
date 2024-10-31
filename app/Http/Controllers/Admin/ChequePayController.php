@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Bank;
-use App\Models\Company;
 use App\Models\Vendor;
+use App\Models\Company;
+use App\Models\ChequePay;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ChequePayController extends Controller
 {
@@ -15,7 +16,11 @@ class ChequePayController extends Controller
      */
     public function index()
     {
-        return view('admin.chequepay.cheque-pay');
+        $companies = Company::all();
+        $vendors = Vendor::all();
+        $banks = Bank::all();
+        $chequepays = ChequePay::all();
+        return view('admin.chequepay.cheque-pay',compact('chequepays','companies','vendors','banks'));
     }
 
     /**
@@ -34,7 +39,23 @@ class ChequePayController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'company_id' => 'required|integer|exists:companies,id',
+            'cheque_date' => 'required|date',
+            'payee_id' => 'required|integer|exists:vendors,id',
+            'bank_id' => 'required|integer|exists:banks,id',
+            'amount' => 'required|numeric|min:0',
+            'paytype' => 'required|string|max:255',
+            'cheque_number' => 'required|string|max:50',
+            'is_fly_cheque' => 'required|boolean',
+            'cheque_status' => 'nullable|string',
+            'cheque_clearing_date' => 'nullable|date',
+            'cheque_over_date' => 'nullable|date',
+        ]);
+
+        ChequePay::create($validatedData);
+
+        return redirect()->route('chequepay.index')->with('success', 'Cheque Pay record created successfully!');
     }
 
     /**
@@ -64,9 +85,12 @@ class ChequePayController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $chequePay = ChequePay::findOrFail($id);
+        $chequePay->delete();
+
+        return redirect()->route('chequepay.index')->with('success', 'Cheque Pay record deleted successfully.');
     }
 
     public function vendorStore(Request $request)
