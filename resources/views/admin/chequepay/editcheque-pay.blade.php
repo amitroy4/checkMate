@@ -102,7 +102,7 @@
                                         <option value="" disabled>Choose...</option>
                                         <option value="Pending" {{ $chequePay->paytype == 'Pending' ? 'selected' : '' }}>Pending</option>
                                         <option value="Approved" {{ $chequePay->paytype == 'Approved' ? 'selected' : '' }}>Approved</option>
-                                        <option value="Reject" {{ $chequePay->paytype == 'Reject' ? 'selected' : '' }}>Reject</option>
+                                        <option value="Rejected" {{ $chequePay->paytype == 'Rejected' ? 'selected' : '' }}>Rejected</option>
                                         <option value="Bounce" {{ $chequePay->paytype == 'Bounce' ? 'selected' : '' }}>Bounce</option>
                                     </select>
                                 </div>
