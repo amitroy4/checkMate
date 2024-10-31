@@ -71,7 +71,11 @@ class ChequePayController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $chequePay = ChequePay::findOrFail($id);
+        $companies = Company::all();
+        $vendors = Vendor::all();
+        $banks = Bank::all();
+        return view('admin.chequepay.editcheque-pay', compact('chequePay', 'companies', 'vendors', 'banks'));
     }
 
     /**
@@ -79,7 +83,24 @@ class ChequePayController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'company_id' => 'required|integer|exists:companies,id',
+            'cheque_date' => 'required|date',
+            'payee_id' => 'required|integer|exists:vendors,id',
+            'bank_id' => 'required|integer|exists:banks,id',
+            'amount' => 'required|numeric|min:0',
+            'paytype' => 'required|string|max:255',
+            'cheque_number' => 'required|string|max:50',
+            'is_fly_cheque' => 'required|boolean',
+            'cheque_status' => 'nullable|string',
+            'cheque_clearing_date' => 'nullable|date',
+            'cheque_over_date' => 'nullable|date',
+        ]);
+
+        $chequePay = ChequePay::findOrFail($id);
+        $chequePay->update($validatedData);
+
+        return redirect()->route('chequepay.index')->with('success', 'Cheque Pay record updated successfully!');
     }
 
     /**

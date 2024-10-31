@@ -96,8 +96,7 @@
                                     </td>
                                     <td>
                                         <div class="form-button-action">
-                                            <a href="#" class="btn btn-link btn-primary edit" data-bs-toggle="modal"
-                                                data-bs-target="#updateClientModal" data-client-id="">
+                                            <a href="{{ route('chequepay.edit', $chequepay->id) }}" class="btn btn-link btn-primary edit" >
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                             <form action="{{ route('chequepay.destroy', $chequepay->id) }}" method="POST" class="d-inline-block" onsubmit="event.preventDefault(); confirmDelete(this);">
