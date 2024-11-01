@@ -23,7 +23,7 @@ return new class extends Migration
             $table->boolean('is_fly_cheque');
             $table->string('cheque_status')->default('Pending')->nullable();
             $table->date('cheque_clearing_date')->nullable();
-            $table->date('cheque_over_date')->nullable();
+            $table->string('cheque_reason')->nullable();
             $table->timestamps();
 
         });

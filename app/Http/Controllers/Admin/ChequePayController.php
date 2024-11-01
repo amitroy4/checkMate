@@ -28,8 +28,8 @@ class ChequePayController extends Controller
      */
     public function create()
     {
-        $companies = Company::all();
-        $vendors = Vendor::all();
+        $companies = Company::where('status', 1)->get();
+        $vendors = Vendor::where('status', 1)->get();
         $banks = Bank::all();
         return view('admin.chequepay.addcheque-pay',compact('companies','vendors','banks'));
     }
@@ -50,7 +50,7 @@ class ChequePayController extends Controller
             'is_fly_cheque' => 'required|boolean',
             'cheque_status' => 'nullable|string',
             'cheque_clearing_date' => 'nullable|date',
-            'cheque_over_date' => 'nullable|date',
+            'cheque_reason' => 'nullable|string',
         ]);
 
         ChequePay::create($validatedData);
@@ -94,7 +94,7 @@ class ChequePayController extends Controller
             'is_fly_cheque' => 'required|boolean',
             'cheque_status' => 'nullable|string',
             'cheque_clearing_date' => 'nullable|date',
-            'cheque_over_date' => 'nullable|date',
+            'cheque_reason' => 'nullable|string',
         ]);
 
         $chequePay = ChequePay::findOrFail($id);

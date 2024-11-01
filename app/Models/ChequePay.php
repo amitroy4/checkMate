@@ -19,7 +19,7 @@ class ChequePay extends Model
         'is_fly_cheque',
         'cheque_status',
         'cheque_clearing_date',
-        'cheque_over_date',
+        'cheque_reason',
     ];
 
     public function company()

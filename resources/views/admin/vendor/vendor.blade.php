@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'vendor')
+@section('title', 'Vendors')
 @section('content')
 
 <div class="row">

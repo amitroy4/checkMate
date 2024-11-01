@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Client')
+@section('title', 'Cheque Pay')
 @section('content')
 
 <div class="row">
@@ -17,6 +17,26 @@
                 </div>
             </div>
             <div class="card-body">
+                <!-- Modal for Show Reason -->
+                <div class="modal fade" id="show_reason" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header bg-info border-0">
+                                <h5 class="modal-title">Reason</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <p id="reason-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-group col-md-2">
                         <label for="date">Date</label>
@@ -82,7 +102,13 @@
                                     <td>{{ $chequepay->amount }}</td>
                                     <td>{{ $chequepay->cheque_clearing_date ?? "N/A" }}</td>
                                     <td>{{ $chequepay->paytype }}</td>
-                                    <td>{{ $chequepay->cheque_status }}</td>
+                                    <td>
+                                        <button class="btn btn-outline-info show-reason" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#show_reason"
+                                                data-reason="{{ $chequepay->cheque_reason }}">
+                                            {{ $chequepay->cheque_status }}
+                                        </button>
+                                    </td>
                                     <td>
                                         @php
                                             $clearingDate = \Carbon\Carbon::parse($chequepay->cheque_clearing_date);
@@ -140,6 +166,15 @@
                 .columns(6).search(paytype);;
 
             table.draw();
+        });
+
+        $('#show_reason').on('show.bs.modal', function (event) {
+            // Get the button that triggered the modal
+            var button = $(event.relatedTarget);
+            // Extract info from data-* attributes
+            var reason = button.data('reason');
+            // Update the modal's body with the reason
+            $('#reason-text').text(reason || 'No reason provided');
         });
     });
 
