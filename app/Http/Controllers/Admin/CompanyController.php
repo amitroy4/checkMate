@@ -125,4 +125,13 @@ class CompanyController extends Controller
 
         return redirect()->route('company.index')->with('success', 'Company deleted successfully.');
     }
+    public function status($id)
+    {
+
+        $client = Company::findOrFail($id);
+        $client->status = $client->status === 1 ? 0 : 1 ;
+        $client->save();
+
+        return redirect()->back()->with('success','Company Status updated successfully!');
+    }
 }

@@ -39,9 +39,12 @@ Route::middleware('auth')->group(function () {
 
 
     Route::resource('/dashboard/company',CompanyController::class);
+    Route::get('/dashboard/company/status/{id}',[CompanyController::class,'status'])->name('status.company');
     Route::resource('/dashboard/bank',BankController::class);
     Route::resource('/dashboard/client',ClientController::class);
+    Route::get('/dashboard/client/status/{id}',[ClientController::class,'status'])->name('status.client');
     Route::resource('/dashboard/vendor',VendorController::class);
+    Route::get('/dashboard/vendor/status/{id}',[VendorController::class,'status'])->name('status.vendor');
     Route::resource('/dashboard/chequepay',ChequePayController::class);
     Route::resource('/dashboard/chequerecive',ChequeReceiveController::class);
     Route::resource('/dashboard/chequebook-register',ChequeBookRegisterController::class);

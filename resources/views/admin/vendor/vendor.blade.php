@@ -166,9 +166,15 @@
                                     <td>{{ $vendor->email }}</td>
                                     <td>{{ $vendor->company_name }}</td>
                                     <td>
-                                        <span class="badge rounded-pill {{ $vendor->status ? 'bg-primary' : 'bg-danger' }}">
-                                            {{ $vendor->status ? 'Active' : 'Inactive' }}
-                                        </span>
+                                        @if ($vendor->status)
+                                            <a href="{{route('status.vendor',$vendor->id)}}" class="badge rounded-pill bg-primary text-decoration-none">
+                                                Active
+                                            </a>
+                                        @else
+                                            <a href="{{route('status.vendor',$vendor->id)}}" class="badge rounded-pill bg-danger text-decoration-none">
+                                                Inactive
+                                            </a>
+                                        @endif
                                     </td>
                                     <td>
                                         <div class="form-button-action">
