@@ -187,13 +187,13 @@
                                                data-mobile-number="{{ $client->mobile_number }}"
                                                data-whatsapp-number="{{ $client->whatsapp_number }}"
                                                data-email="{{ $client->email }}"
-                                               data-status="{{ $client->status }}">
+                                               data-status="{{ $client->status }}" title="Edit">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                             <form action="{{ route('client.destroy', $client->id) }}" method="POST" style="display: inline-block;" onsubmit="event.preventDefault(); confirmDelete(this);">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-link btn-danger">
+                                                <button type="submit" class="btn btn-link btn-danger" data-bs-toggle="tooltip" title="Delete">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </form>

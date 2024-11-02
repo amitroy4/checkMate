@@ -129,10 +129,13 @@
                                     </td>
                                     <td>
                                         <div class="form-button-action">
-                                            <a href="{{ route('chequepay.edit', $chequepay->id) }}" class="btn btn-link btn-primary edit">
+                                            <a href="#" class="btn btn-link btn-info edit" data-bs-toggle="tooltip" title="Print">
+                                                <i class="fa-solid fa-print"></i>
+                                            </a>
+                                            <a href="{{ route('chequepay.edit', $chequepay->id) }}" class="btn btn-link btn-primary edit" data-bs-toggle="tooltip" title="Edit">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <form action="{{ route('chequepay.destroy', $chequepay->id) }}" method="POST" class="d-inline-block" onsubmit="event.preventDefault(); confirmDelete(this);">
+                                            <form action="{{ route('chequepay.destroy', $chequepay->id) }}" method="POST" class="d-inline-block" onsubmit="event.preventDefault(); confirmDelete(this);" >
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-link btn-danger delete" data-bs-toggle="tooltip" title="Delete">

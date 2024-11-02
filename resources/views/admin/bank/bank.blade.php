@@ -129,13 +129,13 @@
                                                data-bank-id="{{ $bank->id }}"
                                                data-bank-name="{{ $bank->bank_name }}"
                                                data-branch-name="{{ $bank->branch_name }}"
-                                               data-address="{{ $bank->address }}">
+                                               data-address="{{ $bank->address }}" title="Edit">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                             <form action="{{ route('bank.destroy', $bank->id) }}" method="POST" style="display: inline-block;" onsubmit="event.preventDefault(); confirmDelete(this);">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-link btn-danger">
+                                                <button type="submit" class="btn btn-link btn-danger" data-bs-toggle="tooltip" title="Delete">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </form>
