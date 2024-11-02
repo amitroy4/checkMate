@@ -7,7 +7,8 @@
     >
       <div>
         <h3 class="fw-bold mb-3">Main Dashboard</h3>
-        <h6 class="op-7 mb-2">Welcoome <a href="{{ Auth::user()->name }}">{{ Auth::user()->name }}</a>, you are logged in  as {{ Auth::user()->name }}</h6>
+        <h6 class="op-7 mb-2">Welcoome <a href="{{ Auth::user()->name }}">{{ Auth::user()->name }}</a>,
+            you are logged in  as {{ Auth::user()->name }}</h6>
       </div>
     </div>
     <div class="row">
