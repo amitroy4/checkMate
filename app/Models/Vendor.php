@@ -17,4 +17,9 @@ class Vendor extends Model
         'email',
         'status',
     ];
+
+    public function chequePays()
+    {
+        return $this->hasMany(ChequePay::class,'payee_id');
+    }
 }

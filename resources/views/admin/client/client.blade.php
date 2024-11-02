@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Client')
+@section('title', 'Clients')
 @section('content')
 
 <div class="row">
@@ -167,9 +167,15 @@
                                     <td>{{ $client->email }}</td>
                                     <td>{{ $client->company_name }}</td>
                                     <td>
-                                        <span class="badge rounded-pill {{ $client->status ? 'bg-primary' : 'bg-danger' }}">
-                                            {{ $client->status ? 'Active' : 'Inactive' }}
-                                        </span>
+                                        @if ($client->status)
+                                            <a href="{{route('status.client',$client->id)}}" class="badge rounded-pill bg-primary text-decoration-none">
+                                                Active
+                                            </a>
+                                        @else
+                                            <a href="{{route('status.client',$client->id)}}" class="badge rounded-pill bg-danger text-decoration-none">
+                                                Inactive
+                                            </a>
+                                        @endif
                                     </td>
                                     <td>
                                         <div class="form-button-action">

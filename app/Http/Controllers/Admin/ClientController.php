@@ -101,4 +101,15 @@ class ClientController extends Controller
         Client::destroy($id);
         return redirect()->back()->with('success', 'Client deleted successfully.');
     }
+
+
+    public function status($id)
+    {
+
+        $client = Client::findOrFail($id);
+        $client->status = $client->status === 1 ? 0 : 1 ;
+        $client->save();
+
+        return redirect()->back()->with('success','Client Status updated successfully!');
+    }
 }

@@ -23,4 +23,8 @@ class Company extends Model
         'registration_number',
         'status',
     ];
+    public function chequePays()
+    {
+        return $this->hasMany(ChequePay::class);
+    }
 }

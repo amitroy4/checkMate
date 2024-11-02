@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Client')
+@section('title', 'Company')
 @section('content')
 
 
@@ -40,10 +40,14 @@
                                     <td>{{$company->company_address}}</td>
                                     <td>{{$company->contact_number}}</td>
                                     <td>
-                                        @if ($company->status == 1)
-                                            <span class="badge rounded-pill bg-primary">Active</span>
-                                        @elseif ($company->status == 0)
-                                            <span class="badge rounded-pill bg-danger">Inactive</span>
+                                        @if ($company->status)
+                                            <a href="{{route('status.company',$company->id)}}" class="badge rounded-pill bg-primary text-decoration-none">
+                                                Active
+                                            </a>
+                                        @else
+                                            <a href="{{route('status.company',$company->id)}}" class="badge rounded-pill bg-danger text-decoration-none">
+                                                Inactive
+                                            </a>
                                         @endif
                                     </td>
                                     <td>
