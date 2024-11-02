@@ -126,5 +126,24 @@ class ChequePayController extends Controller
         return redirect()->back()->with('success', 'bank added successfully.');
     }
 
+    public function updateStatus(Request $request)
+    {
+        $chequepay = ChequePay::findOrFail($request->id);
+        $chequepay->cheque_status = $request->cheque_status;
+        $chequepay->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function updateReason(Request $request)
+    {
+        $chequepay = ChequePay::findOrFail($request->id);
+        $chequepay->cheque_reason = $request->cheque_reason;
+        $chequepay->save();
+
+        return response()->json(['success' => true]);
+    }
+
+
 
 }

@@ -46,6 +46,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('/dashboard/vendor',VendorController::class);
     Route::get('/dashboard/vendor/status/{id}',[VendorController::class,'status'])->name('status.vendor');
     Route::resource('/dashboard/chequepay',ChequePayController::class);
+    Route::post('/dashboard/chequepay/update/status', [ChequePayController::class, 'updateStatus'])->name('chequepay.updateStatus');
+    Route::post('/dashboard/chequepay/update/reason', [ChequePayController::class, 'updateReason'])->name('chequepay.updateReason');
+
+
     Route::resource('/dashboard/chequerecive',ChequeReceiveController::class);
     Route::resource('/dashboard/chequebook-register',ChequeBookRegisterController::class);
     Route::resource('/dashboard/chequebook-report',ChequeBookReportController::class);
