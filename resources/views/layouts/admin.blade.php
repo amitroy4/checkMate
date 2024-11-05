@@ -102,7 +102,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('chequerecive.index')}}">
+                            <a href="{{route('chequereceive.index')}}">
                                 <i class="fa fa-book"></i>
                                 <p>Cheque Receive</p>
                             </a>

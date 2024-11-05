@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Cheque Pay')
+@section('title', 'Cheque Receive')
 @section('content')
 
 <div class="row">
@@ -7,10 +7,10 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex align-items-center justify-content-between">
-                    <h4 class="card-title"> Manage Cheque Pay</h4>
-                    <a href="{{ route('chequepay.create') }}">
+                    <h4 class="card-title"> Manage Cheque Receive</h4>
+                    <a href="{{ route('chequereceive.create') }}">
                         <button class="btn btn-primary btn-round ms-auto">
-                            <i class="fa fa-plus"></i> New Cheque Pay
+                            <i class="fa fa-plus"></i> New Cheque Receive
                         </button>
                     </a>
                 </div>
@@ -44,11 +44,11 @@
                         <input id="date" type="date" class="form-control">
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="payee">Payee<span class="required-label">*</span></label>
-                        <select id="payee" class="form-control" name="payee">
-                            <option value="">Select Payee</option>
-                            @foreach ($vendors as $vendor)
-                                <option value="{{ $vendor->vendor_name }}">{{ $vendor->vendor_name }}</option>
+                        <label for="client">client<span class="required-label">*</span></label>
+                        <select id="client" class="form-control" name="client">
+                            <option value="">Select Client</option>
+                            @foreach ($clients as $client)
+                                <option value="{{ $client->client_name }}">{{ $client->client_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -62,13 +62,13 @@
                         </select>
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="paytype">Pay Type<span class="required-label">*</span></label>
-                        <select id="paytype" class="form-control" name="paytype">
-                            <option value="">Select Pay Type</option>
+                        <label for="receivetype">Receive Type<span class="required-label">*</span></label>
+                        <select id="receivetype" class="form-control" name="receivetype">
+                            <option value="">Select receive Type</option>
                             <option value="No Cross">No Cross</option>
                             <option value="Cross Only">Cross Only</option>
-                            <option value="Cross A/C Payee + Not Negotiable + Or Brear">Cross A/C Payee + Not Negotiable + Or Brear</option>
-                            <option value="Cross A/C Payee + Or Brear">Cross A/C Payee + Or Brear</option>
+                            <option value="Cross A/C client + Not Negotiable + Or Brear">Cross A/C client + Not Negotiable + Or Brear</option>
+                            <option value="Cross A/C client + Or Brear">Cross A/C client + Or Brear</option>
                         </select>
                     </div>
                     <div class="d-flex align-items-end col-md-1">
@@ -83,10 +83,10 @@
                         <thead>
                             <tr>
                                 <th>Sl</th>
-                                <th>Vendor Name</th>
-                                <th>Cheque Date</th>
+                                <th>client Name</th>
+                                <th>Cheque Receive Date</th>
                                 <th>Bank Name</th>
-                                <th>Cheque Amount</th>
+                                <th>Cheque Receive Amount</th>
                                 <th>Clearing Date</th>
                                 <th>Cheque Type</th>
                                 <th>Cheque Status</th>
@@ -95,30 +95,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($chequepays as $key => $chequepay)
+                            @foreach ($chequereceives as $key => $chequereceive)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $chequepay->payee->vendor_name }}</td>
-                                    <td>{{ $chequepay->cheque_date }}</td>
-                                    <td>{{ $chequepay->bank->bank_name }}</td>
-                                    <td>{{ $chequepay->amount }}</td>
-                                    <td>{{ $chequepay->cheque_clearing_date ?? 'N/A' }}</td>
-                                    <td>{{ $chequepay->paytype }}</td>
+                                    <td>{{ $chequereceive->client->client_name }}</td>
+                                    <td>{{ $chequereceive->cheque_date }}</td>
+                                    <td>{{ $chequereceive->bank->bank_name }}</td>
+                                    <td>{{ $chequereceive->amount }}</td>
+                                    <td>{{ $chequereceive->cheque_clearing_date ?? 'N/A' }}</td>
+                                    <td>{{ $chequereceive->receivetype }}</td>
                                     <td>
-                                        <select id="cheque_status_{{ $chequepay->id }}" class="form-control form-select cheque-status" name="cheque_status" data-id="{{ $chequepay->id }}" required>
+                                        <select id="cheque_status_{{ $chequereceive->id }}" class="form-control form-select cheque-status" name="cheque_status" data-id="{{ $chequereceive->id }}" required>
                                             <option value="" disabled>Choose...</option>
-                                            <option value="Pending" {{ $chequepay->cheque_status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                                            <option value="Approved" {{ $chequepay->cheque_status == 'Approved' ? 'selected' : '' }}>Approved</option>
-                                            <option value="Rejected" {{ $chequepay->cheque_status == 'Rejected' ? 'selected' : '' }}>Rejected</option>
-                                            <option value="Bounce" {{ $chequepay->cheque_status == 'Bounce' ? 'selected' : '' }}>Bounce</option>
+                                            <option value="Pending" {{ $chequereceive->cheque_status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                            <option value="Approved" {{ $chequereceive->cheque_status == 'Approved' ? 'selected' : '' }}>Approved</option>
+                                            <option value="Rejected" {{ $chequereceive->cheque_status == 'Rejected' ? 'selected' : '' }}>Rejected</option>
+                                            <option value="Bounce" {{ $chequereceive->cheque_status == 'Bounce' ? 'selected' : '' }}>Bounce</option>
                                         </select>
-                                        <div class="reason-group" id="reason-group-{{ $chequepay->id }}" style="display: {{ in_array($chequepay->cheque_status, ['Rejected', 'Bounce']) ? 'block' : 'none' }};">
-                                            <textarea id="cheque_reason_{{ $chequepay->id }}" class="form-control cheque-reason" name="cheque_reason">{{ $chequepay->cheque_reason }}</textarea>
+                                        <div class="reason-group" id="reason-group-{{ $chequereceive->id }}" style="display: {{ in_array($chequereceive->cheque_status, ['Rejected', 'Bounce']) ? 'block' : 'none' }};">
+                                            <textarea id="cheque_reason_{{ $chequereceive->id }}" class="form-control cheque-reason" name="cheque_reason">{{ $chequereceive->cheque_reason }}</textarea>
                                         </div>
                                     </td>
                                     <td>
                                         @php
-                                            $clearingDate = \Carbon\Carbon::parse($chequepay->cheque_clearing_date);
+                                            $clearingDate = \Carbon\Carbon::parse($chequereceive->cheque_clearing_date);
                                             $today = \Carbon\Carbon::today();
                                         @endphp
                                         @if ($clearingDate->isPast())
@@ -132,10 +132,10 @@
                                             <a href="#" class="btn btn-link btn-info edit" data-bs-toggle="tooltip" title="Print">
                                                 <i class="fa-solid fa-print"></i>
                                             </a>
-                                            <a href="{{ route('chequepay.edit', $chequepay->id) }}" class="btn btn-link btn-primary edit" data-bs-toggle="tooltip" title="Edit">
+                                            <a href="{{ route('chequereceive.edit', $chequereceive->id) }}" class="btn btn-link btn-primary edit" data-bs-toggle="tooltip" title="Edit">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <form action="{{ route('chequepay.destroy', $chequepay->id) }}" method="POST" class="d-inline-block" onsubmit="event.preventDefault(); confirmDelete(this);">
+                                            <form action="{{ route('chequereceive.destroy', $chequereceive->id) }}" method="POST" class="d-inline-block" onsubmit="event.preventDefault(); confirmDelete(this);">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-link btn-danger delete" data-bs-toggle="tooltip" title="Delete">
@@ -164,14 +164,14 @@ $(document).ready(function() {
     $('#filterButton').click(function() {
         // Capture filter values and apply them to DataTable
         var date = $('#date').val();
-        var payee = $('#payee').val();
+        var client = $('#client').val();
         var bank = $('#bank').val();
-        var paytype = $('#paytype').val();
+        var receivetype = $('#receivetype').val();
 
         table.columns(2).search(date)
-            .columns(1).search(payee)
+            .columns(1).search(client)
             .columns(3).search(bank)
-            .columns(6).search(paytype)
+            .columns(6).search(receivetype)
             .draw();
     });
 
@@ -200,7 +200,7 @@ $(document).ready(function() {
 
         // AJAX call to update cheque status
         $.ajax({
-            url: '{{ route("chequepay.updateStatus") }}', // Replace with your route
+            url: '{{ route("chequereceive.updateStatus") }}', // Replace with your route
             method: 'POST',
             data: {
                 cheque_status: selectedStatus,
@@ -228,7 +228,7 @@ $(document).ready(function() {
 
         // AJAX call to update cheque reason
         $.ajax({
-            url: '{{ route("chequepay.updateReason") }}', // Replace with your route
+            url: '{{ route("chequereceive.updateReason") }}', // Replace with your route
             method: 'POST',
             data: {
                 cheque_reason: selectedStatus === 'Rejected' || selectedStatus === 'Bounce' ? reasonValue : null,
@@ -246,7 +246,6 @@ $(document).ready(function() {
         });
     });
 });
-
 
 function confirmDelete(form) {
         swal({
