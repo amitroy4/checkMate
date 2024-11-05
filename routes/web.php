@@ -49,13 +49,19 @@ Route::middleware('auth')->group(function () {
     Route::post('/dashboard/chequepay/update/status', [ChequePayController::class, 'updateStatus'])->name('chequepay.updateStatus');
     Route::post('/dashboard/chequepay/update/reason', [ChequePayController::class, 'updateReason'])->name('chequepay.updateReason');
 
+        Route::post('/dashboard/chequepay/vendor/store',[ChequePayController::class, 'vendorStore'])->name('extra.vendor.store');
+        Route::post('/dashboard/chequepay/bank/store',[ChequePayController::class, 'bankStore'])->name('extra.bank.store');
 
-    Route::resource('/dashboard/chequerecive',ChequeReceiveController::class);
+
+    Route::resource('/dashboard/chequereceive',ChequeReceiveController::class);
+    Route::post('/dashboard/chequereceive/update/status', [ChequeReceiveController::class, 'updateStatus'])->name('chequereceive.updateStatus');
+    Route::post('/dashboard/chequereceive/update/reason', [ChequeReceiveController::class, 'updateReason'])->name('chequereceive.updateReason');
+
+    Route::post('/dashboard/chequepay/client/store',[ChequeReceiveController::class, 'clientStore'])->name('extra.client.store');
+    Route::post('/dashboard/chequepay/bank/store',[ChequeReceiveController::class, 'bankStore'])->name('extra.bank.store');
+
     Route::resource('/dashboard/chequebook-register',ChequeBookRegisterController::class);
     Route::resource('/dashboard/chequebook-report',ChequeBookReportController::class);
-
-    Route::post('/dashboard/chequepay/vendor/store',[ChequePayController::class, 'vendorStore'])->name('extra.vendor.store');
-    Route::post('/dashboard/chequepay/bank/store',[ChequePayController::class, 'bankStore'])->name('extra.bank.store');
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
