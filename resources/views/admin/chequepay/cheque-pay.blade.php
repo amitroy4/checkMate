@@ -44,7 +44,7 @@
                         <input id="date" type="date" class="form-control">
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="payee">Payee<span class="required-label">*</span></label>
+                        <label for="payee">Payee</label>
                         <select id="payee" class="form-control" name="payee">
                             <option value="">Select Payee</option>
                             @foreach ($vendors as $vendor)
@@ -53,7 +53,7 @@
                         </select>
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="bank">Bank<span class="required-label">*</span></label>
+                        <label for="bank">Bank</label>
                         <select id="bank" class="form-control" name="bank">
                             <option value="">Select bank</option>
                             @foreach ($banks as $bank)
@@ -62,7 +62,7 @@
                         </select>
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="paytype">Pay Type<span class="required-label">*</span></label>
+                        <label for="paytype">Pay Type</label>
                         <select id="paytype" class="form-control" name="paytype">
                             <option value="">Select Pay Type</option>
                             <option value="No Cross">No Cross</option>
@@ -96,6 +96,7 @@
                         </thead>
                         <tbody>
                             @foreach ($chequepays as $key => $chequepay)
+                                @if (!$chequepay->is_fly_cheque)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $chequepay->payee->vendor_name }}</td>
@@ -129,7 +130,7 @@
                                     </td>
                                     <td>
                                         <div class="form-button-action">
-                                            <a href="#" class="btn btn-link btn-info edit" data-bs-toggle="tooltip" title="Print">
+                                            <a href="{{route('pdf.chequepayee', $chequepay->id)}}" class="btn btn-link btn-info edit" data-bs-toggle="tooltip" title="Print" target="_blank">
                                                 <i class="fa-solid fa-print"></i>
                                             </a>
                                             <a href="{{ route('chequepay.edit', $chequepay->id) }}" class="btn btn-link btn-primary edit" data-bs-toggle="tooltip" title="Edit">
@@ -145,6 +146,8 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @endif
+
                             @endforeach
                         </tbody>
                     </table>

@@ -55,8 +55,15 @@ class ChequeReceiveController extends Controller
             'cheque_clearing_date' => 'nullable|date',
             'cheque_reason' => 'nullable|string',
         ]);
+        if ($request->is_fly_cheque == 1) {
+            $validatedData['cheque_status'] = 'Approved';
+        }
 
-        ChequeReceive::create($validatedData);
+        $chequeReceive = ChequeReceive::create($validatedData);
+
+        if ($request->is_fly_cheque == 1) {
+            return redirect()->route('pdf.chequereceive', ['receiveId' => $chequeReceive->id]);
+        }
 
         return redirect()->route('chequereceive.index')->with('success', 'Cheque Receive record created successfully!');
     }
