@@ -28,13 +28,13 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label class="form-label">vendor Name <span class="required-label">*</span></label>
+                                                    <label class="form-label">Vendor Name <span class="required-label">*</span></label>
                                                     <input id="vendor_name" type="text" class="form-control" name="vendor_name" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label class="form-label">vendor Designation</label>
+                                                    <label class="form-label">Vendor Designation</label>
                                                     <input id="vendor_designation" type="text" class="form-control" name="vendor_designation">
                                                 </div>
                                             </div>
@@ -46,7 +46,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label class="form-label">vendor Mobile Number</label>
+                                                    <label class="form-label">Vendor Mobile Number</label>
                                                     <input id="mobile_number" type="text" class="form-control" name="mobile_number">
                                                 </div>
                                             </div>
@@ -58,7 +58,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label class="form-label">vendor Email</label>
+                                                    <label class="form-label">Vendor Email</label>
                                                     <input id="email" type="email" class="form-control" name="email" required>
                                                 </div>
                                             </div>
@@ -86,7 +86,7 @@
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header bg-info border-0">
-                                    <h5 class="modal-title">Add New bank</h5>
+                                    <h5 class="modal-title">Add New Bank</h5>
                                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>

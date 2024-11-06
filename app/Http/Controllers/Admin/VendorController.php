@@ -67,7 +67,7 @@ class VendorController extends Controller
             'company_name' => 'required|string|max:255',
             'mobile_number' => 'required|string|max:255',
             'whatsapp_number' => 'required|string|max:255',
-            'email' => 'required|email|unique:vendors,email,',
+            'email' => 'required|email',
         ]);
 
         $vendor = vendor::findOrFail($id);

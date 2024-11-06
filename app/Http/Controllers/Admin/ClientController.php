@@ -71,7 +71,7 @@ class ClientController extends Controller
             'company_name' => 'required|string|max:255',
             'mobile_number' => 'required|string|max:255',
             'whatsapp_number' => 'required|string|max:255',
-            'email' => 'required|email|unique:clients',
+            'email' => 'required|email',
         ]);
 
         $client = Client::findOrFail($id);
