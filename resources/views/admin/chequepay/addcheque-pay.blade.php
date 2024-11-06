@@ -211,7 +211,7 @@
                         </div>
                         <div class="modal-footer border-0">
                             <button type="submit" id="submitButton" class="btn btn-success btn-lg mx-2" style="display: none;">Submit</button>
-                            <button type="button" id="printButton" class="btn btn-primary btn-lg mx-2" style="display: none;">Print</button>
+                            <button type="submit" id="printButton" class="btn btn-primary btn-lg mx-2" style="display: none;">Print</button>
                         </div>
                     </form>
                 </div>

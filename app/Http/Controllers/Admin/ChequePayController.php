@@ -52,8 +52,16 @@ class ChequePayController extends Controller
             'cheque_clearing_date' => 'nullable|date',
             'cheque_reason' => 'nullable|string',
         ]);
+        
+        if ($request->is_fly_cheque == 1) {
+            $validatedData['cheque_status'] = 'Approved';
+        }
 
-        ChequePay::create($validatedData);
+        $chequePayee = ChequePay::create($validatedData);
+
+        if ($request->is_fly_cheque == 1) {
+            return redirect()->route('pdf.chequepayee', ['payeeId' => $chequePayee->id]);
+        }
 
         return redirect()->route('chequepay.index')->with('success', 'Cheque Pay record created successfully!');
     }

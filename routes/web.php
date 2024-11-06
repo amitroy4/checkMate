@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BasicTableController;
 use App\Http\Controllers\Admin\ChequeBookRegisterController;
 use App\Http\Controllers\Admin\ChequeBookReportController;
 use App\Http\Controllers\Admin\ChequePayController;
+use App\Http\Controllers\Admin\ChequePdfController;
 use App\Http\Controllers\Admin\ChequeReceiveController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\CompanyController;
@@ -49,8 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/dashboard/chequepay/update/status', [ChequePayController::class, 'updateStatus'])->name('chequepay.updateStatus');
     Route::post('/dashboard/chequepay/update/reason', [ChequePayController::class, 'updateReason'])->name('chequepay.updateReason');
 
-        Route::post('/dashboard/chequepay/vendor/store',[ChequePayController::class, 'vendorStore'])->name('extra.vendor.store');
-        Route::post('/dashboard/chequepay/bank/store',[ChequePayController::class, 'bankStore'])->name('extra.bank.store');
+    Route::post('/dashboard/chequepay/vendor/store',[ChequePayController::class, 'vendorStore'])->name('extra.vendor.store');
+    Route::post('/dashboard/chequepay/bank/store',[ChequePayController::class, 'bankStore'])->name('extra.bank.store');
 
 
     Route::resource('/dashboard/chequereceive',ChequeReceiveController::class);
@@ -59,6 +60,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/dashboard/chequepay/client/store',[ChequeReceiveController::class, 'clientStore'])->name('extra.client.store');
     Route::post('/dashboard/chequepay/bank/store',[ChequeReceiveController::class, 'bankStore'])->name('extra.bank.store');
+
+    Route::get('/dashboard/chequepayee/pdf/{payeeId}',[ChequePdfController::class, 'generateChequePayeePdf'])->name('pdf.chequepayee');
+    Route::get('/dashboard/chequereceive/pdf/{receiveId}',[ChequePdfController::class, 'generatechequeReceivePdf'])->name('pdf.chequereceive');
 
     Route::resource('/dashboard/chequebook-register',ChequeBookRegisterController::class);
     Route::resource('/dashboard/chequebook-report',ChequeBookReportController::class);

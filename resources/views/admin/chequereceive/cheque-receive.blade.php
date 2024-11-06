@@ -96,6 +96,7 @@
                         </thead>
                         <tbody>
                             @foreach ($chequereceives as $key => $chequereceive)
+                            @if (!$chequereceive->is_fly_cheque)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $chequereceive->client->client_name }}</td>
@@ -129,7 +130,7 @@
                                     </td>
                                     <td>
                                         <div class="form-button-action">
-                                            <a href="#" class="btn btn-link btn-info edit" data-bs-toggle="tooltip" title="Print">
+                                            <a href="{{route('pdf.chequereceive', $chequereceive->id)}}" class="btn btn-link btn-info edit" data-bs-toggle="tooltip" title="Print" target="_blank">
                                                 <i class="fa-solid fa-print"></i>
                                             </a>
                                             <a href="{{ route('chequereceive.edit', $chequereceive->id) }}" class="btn btn-link btn-primary edit" data-bs-toggle="tooltip" title="Edit">
@@ -145,6 +146,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                            @endif
                             @endforeach
                         </tbody>
                     </table>
