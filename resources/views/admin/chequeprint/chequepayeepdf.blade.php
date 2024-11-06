@@ -54,7 +54,7 @@
             top: 37mm;
             left: 6mm;
             font-size: 18px;
-            width: 450px;
+            width: 445px;
             line-height: 1.5;
         }
         .amount-box {

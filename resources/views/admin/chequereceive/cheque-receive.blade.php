@@ -44,7 +44,7 @@
                         <input id="date" type="date" class="form-control">
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="client">client<span class="required-label">*</span></label>
+                        <label for="client">client</label>
                         <select id="client" class="form-control" name="client">
                             <option value="">Select Client</option>
                             @foreach ($clients as $client)
@@ -53,7 +53,7 @@
                         </select>
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="bank">Bank<span class="required-label">*</span></label>
+                        <label for="bank">Bank</label>
                         <select id="bank" class="form-control" name="bank">
                             <option value="">Select bank</option>
                             @foreach ($banks as $bank)
@@ -62,7 +62,7 @@
                         </select>
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="receivetype">Receive Type<span class="required-label">*</span></label>
+                        <label for="receivetype">Receive Type</label>
                         <select id="receivetype" class="form-control" name="receivetype">
                             <option value="">Select receive Type</option>
                             <option value="No Cross">No Cross</option>
