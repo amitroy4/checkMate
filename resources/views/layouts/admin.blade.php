@@ -149,12 +149,12 @@
                                 <ul class="nav nav-collapse">
                                     <li>
                                         <a href="{{route('manageuser.index')}}">
-                                            <span class="sub-item">Create User</span>
+                                            <span class="sub-item">Users</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="{{route('manageuserrole.index')}}">
-                                            <span class="sub-item">User Role</span>
+                                            <span class="sub-item">Role</span>
                                         </a>
                                     </li>
                                     <li>
@@ -338,7 +338,7 @@
                 delay: 3000,
                 allow_dismiss: true,
                 placement: {
-                    from: "bottom",
+                    from: "top",
                     align: "right"
                 }
             });
@@ -359,7 +359,7 @@
                 delay: 3000,
                 allow_dismiss: true,
                 placement: {
-                    from: "bottom",
+                    from: "top",
                     align: "right"
                 }
             });

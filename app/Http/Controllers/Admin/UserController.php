@@ -15,9 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::where('is_superadmin', 0)->get();
         $userroles = UserRole::all();
-        return view('admin.manageuser.manageuser',compact('users','userroles'));
+        return view('admin.manageuser.user',compact('users','userroles'));
     }
 
     /**
@@ -103,9 +103,9 @@ class UserController extends Controller
         }
         $user->save();
 
-        session()->flash('success', 'user updated successfully!');
+        session()->flash('success', 'User updated successfully!');
 
-        return response()->json(['success' => 'user updated successfully!'], 200);
+        return response()->json(['success' => 'User updated successfully!'], 200);
     }
 
 
@@ -128,6 +128,6 @@ class UserController extends Controller
         $user->status = $user->status === 1 ? 0 : 1 ;
         $user->save();
 
-        return redirect()->back()->with('success','user Status updated successfully!');
+        return redirect()->back()->with('success','User Status updated successfully!');
     }
 }

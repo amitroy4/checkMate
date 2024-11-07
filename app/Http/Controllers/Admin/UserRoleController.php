@@ -14,7 +14,7 @@ class UserRoleController extends Controller
     public function index()
     {
         $roles = UserRole::all();
-        return view('admin.manageuser.userrole',compact('roles'));
+        return view('admin.manageuser.role',compact('roles'));
     }
 
     /**
@@ -76,6 +76,6 @@ class UserRoleController extends Controller
     public function destroy(string $id)
     {
         UserRole::destroy($id);
-        return redirect()->back()->with('success', 'user deleted successfully.');
+        return redirect()->back()->with('success', 'Role deleted successfully.');
     }
 }

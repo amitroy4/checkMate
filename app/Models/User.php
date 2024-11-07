@@ -25,6 +25,7 @@ class User extends Authenticatable
         'status',
         'role_id',
         'password',
+        'is_superadmin',
     ];
 
     /**

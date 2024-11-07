@@ -190,12 +190,12 @@
                                         @if ($user->status)
                                     <a href="{{route('status.manageuser',$user->id)}}"
                                         class="btn btn-link btn-success" data-bs-toggle="tooltip" title="Active">
-                                        <i class="fa-solid fa-circle-check"></i>
+                                        <i class="fa-solid fa-lock-open"></i>
                                     </a>
                                     @else
                                     <a href="{{route('status.manageuser',$user->id)}}"
                                         class="btn btn-link btn-danger" data-bs-toggle="tooltip" title="Deactive">
-                                        <i class="fa-solid fa-circle-xmark"></i>
+                                        <i class="fa-solid fa-lock"></i>
                                     </a>
                                     @endif
                                         <a href="#" id="edit" class="btn btn-link btn-primary" data-bs-toggle="modal"

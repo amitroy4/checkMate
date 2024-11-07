@@ -46,66 +46,77 @@
 
                 <div class="row d-flex justify-content-around">
                     <div class="col-4 p-10">
-                        <form action="{{ route('manageuserrole.store') }}" method="POST">
-                            @csrf
-                            <div class="col-8">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label class="form-label">Role Name <span
-                                                    class="required-label">*</span></label>
-                                            <input id="role_name" type="text" class="form-control"
-                                                name="role_name" placeholder="Role Name" required>
+                        <div class="card">
+                            <h5 class="card-header">Add Role</h5>
+                            <div class="card-body">
+                                <form action="{{ route('manageuserrole.store') }}" method="POST">
+                                    @csrf
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Role Name <span
+                                                            class="required-label">*</span></label>
+                                                    <input id="role_name" type="text" class="form-control"
+                                                        name="role_name" placeholder="Role Name" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer border-0">
+                                            <button type="submit" class="btn btn-success btn-round">Save</button>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="modal-footer border-0">
-                                    <button type="submit" class="btn btn-success btn-round">Save</button>
-                                </div>
+                                </form>
                             </div>
-                        </form>
+                          </div>
+
                     </div>
                     <div class="col-6">
-                        <div class="table-responsive">
-                            <table id="datatable" class="display table table-striped table-hover table-head-bg-info">
-                                <thead>
-                                    <tr>
-                                        <th>Sl</th>
-                                        <th>Role</th>
-                                        <th style="width: 10%">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($roles as $index => $role)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $role->role_name }}</td>
-                                        <td style="width: 100px;">
-                                            <div class="form-button-action">
+                        <div class="card">
+                            <h5 class="card-header">Manage Role</h5>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="datatable" class="display table table-striped table-hover table-head-bg-info">
+                                        <thead>
+                                            <tr>
+                                                <th>Sl</th>
+                                                <th>Role</th>
+                                                <th style="width: 10%">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($roles as $index => $role)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $role->role_name }}</td>
+                                                <td style="width: 100px;">
+                                                    <div class="form-button-action">
 
-                                                <a href="#" id="edit" class="btn btn-link btn-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#updateroleModal" data-role-id="{{ $role->id }}"
-                                                    data-role-role_name="{{ $role->role_name }}"
-                                                    data-bs-toggle="tooltip"
-                                                    title="Edit">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <form action="{{ route('manageuserrole.destroy', $role->id) }}" method="POST"
-                                                    style="display: inline-block;"
-                                                    onsubmit="event.preventDefault(); confirmDelete(this);">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-link btn-danger"
-                                                        data-bs-toggle="tooltip" title="Delete">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                        <a href="#" id="edit" class="btn btn-link btn-primary" data-bs-toggle="modal"
+                                                            data-bs-target="#updateroleModal" data-role-id="{{ $role->id }}"
+                                                            data-role-role_name="{{ $role->role_name }}"
+                                                            data-bs-toggle="tooltip"
+                                                            title="Edit">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                        <form action="{{ route('manageuserrole.destroy', $role->id) }}" method="POST"
+                                                            style="display: inline-block;"
+                                                            onsubmit="event.preventDefault(); confirmDelete(this);">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-link btn-danger"
+                                                                data-bs-toggle="tooltip" title="Delete">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('role_id');
             $table->string('password');
             $table->boolean('status');
+            $table->boolean('is_superadmin');
             $table->rememberToken();
             $table->timestamps();
         });
