@@ -181,8 +181,8 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $user->name }}</td>
-                                <td>{{ $user->userId }}</td>
-                                <td>{{ $user->role->role_name}}</td>
+                                <td>{{ $user->userId}}</td>
+                                <td>{{ $user->role->role_name ?? "N/A" }}</td>
                                 <td>{{ $user->phone ? $user->phone : 'N/A' }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
