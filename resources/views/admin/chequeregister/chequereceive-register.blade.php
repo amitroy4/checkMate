@@ -22,22 +22,31 @@
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="payee">Client<span class="required-label">*</span></label>
+                        <label for="payee">Payee<span class="required-label">*</span></label>
                             <select id="payee" class="form-control" name="payee">
-                              <option value="">Select Client</option>
+                              <option value="">Select Payee</option>
+                                    @foreach ($vendors as $vendor)
+                                        <option value="{{$vendor->company_name}}">{{$vendor->company_name}}</option>
+                                    @endforeach
                             </select>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="bank">Bank<span class="required-label">*</span></label>
                             <select id="bank" class="form-control" name="bank">
                                 <option value="">Select bank</option>
+                                @foreach ($banks as $bank)
+                                        <option value="{{$bank->bank_name}}">{{$bank->bank_name}}</option>
+                                    @endforeach
                             </select>
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="paytype">Pay Type<span class="required-label">*</span></label>
-                                <select id="paytype" class="form-control" name="paytype">
-                                    <option value="">Select Pay Type</option>
-                                </select>
+                        <select id="paytype" class="form-control" name="paytype">
+                            <option value="">Select Pay Type</option>
+                            <option value="No Cross">No Cross</option>
+                            <option value="Cross Only">Cross Only</option>
+                            <option value="Cross A/C Payee + Not Negotiable + Or Brear">Cross A/C Payee + Not Negotiable + Or Brear</option>
+                            <option value="Cross A/C Payee + Or Brear">Cross A/C Payee + Or Brear</option>
+                        </select>
                     </div>
                     <div class="d-flex align-items-end col-md-1">
                         <button type="button" class="btn btn-info mb-2" id="filterButton">Download</button>

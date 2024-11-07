@@ -37,31 +37,31 @@
             left: -25px;
         }
         .date {
-            font-size: 16px;
+            font-size: 14px;
             position: absolute;
             top: 16mm;
             right: 13mm;
-            letter-spacing: 5px;
+            letter-spacing: 6px;
         }
         .pay-to {
             position: absolute;
-            top: 29mm;
+            top: 30mm;
             left: 20mm;
-            font-size: 18px;
+            font-size: 14px;
         }
         .amount-in-words {
             position: absolute;
             top: 37mm;
             left: 6mm;
-            font-size: 18px;
+            font-size: 14px;
             width: 445px;
-            line-height: 1.5;
+            line-height: 2;
         }
         .amount-box {
             position: absolute;
-            top: 40mm;
-            right: 20mm;
-            font-size: 18px;
+            top: 41mm;
+            right: 25mm;
+            font-size: 14px;
         }
         .check{
             position: absolute;
@@ -76,7 +76,7 @@
 <body>
 
     <div class="check">
-        <img src="{{base_path('public/admin/img/EasternBank_BD.jpg')}}" alt="No cheque">
+        <img src="{{base_path('public/admin/img/citybank.jpg')}}" alt="No cheque" style="width: 100%">
     </div>
     <div class="cheque">
         <div class="ac-payee">A/C PAYEE ONLY</div>
@@ -88,7 +88,7 @@
         </div>
 
         <div class="amount-in-words">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;** {{ \App\Helpers\NumberHelper::convertToWords($chequePay->amount) }} **
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;** {{ \App\Helpers\NumberHelper::convertToWords($chequePay->amount) }} **
         </div>
 
         <div class="amount-box">

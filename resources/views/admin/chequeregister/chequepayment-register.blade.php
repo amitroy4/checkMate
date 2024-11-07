@@ -25,19 +25,28 @@
                         <label for="payee">Payee<span class="required-label">*</span></label>
                             <select id="payee" class="form-control" name="payee">
                               <option value="">Select Payee</option>
+                                    @foreach ($vendors as $vendor)
+                                        <option value="{{$vendor->company_name}}">{{$vendor->company_name}}</option>
+                                    @endforeach
                             </select>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="bank">Bank<span class="required-label">*</span></label>
                             <select id="bank" class="form-control" name="bank">
                                 <option value="">Select bank</option>
+                                @foreach ($banks as $bank)
+                                        <option value="{{$bank->bank_name}}">{{$bank->bank_name}}</option>
+                                    @endforeach
                             </select>
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="paytype">Pay Type<span class="required-label">*</span></label>
-                                <select id="paytype" class="form-control" name="paytype">
-                                    <option value="">Select Pay Type</option>
-                                </select>
+                        <select id="paytype" class="form-control" name="paytype">
+                            <option value="">Select Pay Type</option>
+                            <option value="No Cross">No Cross</option>
+                            <option value="Cross Only">Cross Only</option>
+                            <option value="Cross A/C Payee + Not Negotiable + Or Brear">Cross A/C Payee + Not Negotiable + Or Brear</option>
+                            <option value="Cross A/C Payee + Or Brear">Cross A/C Payee + Or Brear</option>
+                        </select>
                     </div>
                     <div class="d-flex align-items-end col-md-1">
                         <button type="button" class="btn btn-info mb-2" id="filterButton">Download</button>
@@ -62,19 +71,33 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($chequepays as $key=>$chequepay)
                             <tr>
-                                <td>1</td>
-                                <td>22-05-2024</td>
-                                <td>AB BANK</td>
-                                <td>Qbittech</td>
-                                <td>100000.00</td>
-                                <td>30-08-2024</td>
-                                <td>no type</td>
+                                <td>{{$key+1}}</td>
+                                <td>{{$chequepay->cheque_date}}</td>
+                                <td>{{$chequepay->bank->bank_name}}</td>
+                                <td>{{$chequepay->company->company_name}}</td>
+                                <td>{{$chequepay->amount}}</td>
+                                <td>{{$chequepay->cheque_clearing_date ?? "N/A"}}</td>
+                                <td>{{$chequepay->paytype}}</td>
                                 <td>
-                                    <span class="badge rounded-pill bg-primary">Active</span>
+                                    @if ($chequepay->cheque_status == 'Approved')
+                                        <span class="badge rounded-pill bg-success">{{$chequepay->cheque_status}}</span>
+                                    @endif
+                                    @if ($chequepay->cheque_status == 'Rejected')
+                                        <span class="badge rounded-pill bg-danger">{{$chequepay->cheque_status}}</span>
+                                    @endif
+                                    @if ($chequepay->cheque_status == 'Pending')
+                                        <span class="badge rounded-pill bg-info">{{$chequepay->cheque_status}}</span>
+                                    @endif
+                                    @if ($chequepay->cheque_status == 'Bounce')
+                                        <span class="badge rounded-pill bg-warning">{{$chequepay->cheque_status}}</span>
+                                    @endif
                                 </td>
                                 <td>23-10-2024</td>
                             </tr>
+                            @endforeach
+
                         </tbody>
                     </table>
                 </div>
