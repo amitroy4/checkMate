@@ -31,21 +31,21 @@
                                     <div class="row">
                                         <div class="form-group">
                                             <label class="form-label">Bank Name <span class="required-label">*</span></label>
-                                            <input id="bank_name" type="text" class="form-control" name="bank_name" required>
+                                            <input id="bank_name" type="text" class="form-control" name="bank_name" placeholder="Bank Name" required>
                                             @error('bank_name')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Branch Name<span class="required-label">*</span></label>
-                                            <input id="branch_name" type="text" class="form-control" name="branch_name" required>
+                                            <input id="branch_name" type="text" class="form-control" name="branch_name" placeholder="Branch Name" required>
                                             @error('branch_name')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Address<span class="required-label">*</span></label>
-                                            <input id="address" type="text" class="form-control" name="address" required>
+                                            <input id="address" type="text" class="form-control" name="address" placeholder="Address" required>
                                             @error('address')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -77,21 +77,21 @@
                                     <input type="hidden" id="edit_bank_id" name="bank_id" value="">
                                     <div class="form-group">
                                         <label class="form-label">Bank Name <span class="required-label">*</span></label>
-                                        <input id="edit_bank_name" type="text" class="form-control" name="bank_name" required>
+                                        <input id="edit_bank_name" type="text" class="form-control" name="bank_name" placeholder="Bank Name" required>
                                         @error('bank_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Branch Name<span class="required-label">*</span></label>
-                                        <input id="edit_branch_name" type="text" class="form-control" name="branch_name" required>
+                                        <input id="edit_branch_name" type="text" class="form-control" name="branch_name" placeholder="Branch Name" required>
                                         @error('branch_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Address<span class="required-label">*</span></label>
-                                        <input id="edit_address" type="text" class="form-control" name="address" required>
+                                        <input id="edit_address" type="text" class="form-control" name="address" placeholder="Address" required>
                                         @error('address')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

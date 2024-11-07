@@ -122,17 +122,17 @@
                             <div class="collapse" id="forms">
                                 <ul class="nav nav-collapse">
                                     <li>
-                                        <a href="{{route('chequebook-register.index')}}">
-                                            <span class="sub-item">Cheque Book Register</span>
+                                        <a href="{{route('chequepayment-register.index')}}">
+                                            <span class="sub-item">Cheque Payment Register</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{route('chequebook-report.index')}}">
-                                            <span class="sub-item">Cheque Book Receive Report</span>
+                                        <a href="{{route('chequereceive-register.index')}}">
+                                            <span class="sub-item">Cheque Receive Register</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{route('chequebook-report.index')}}">
+                                        <a href="#">
                                             <span class="sub-item">Cheque Book Status Report</span>
                                         </a>
                                     </li>
@@ -148,13 +148,13 @@
                             <div class="collapse" id="users">
                                 <ul class="nav nav-collapse">
                                     <li>
-                                        <a href="#">
-                                            <span class="sub-item">Create User</span>
+                                        <a href="{{route('manageuser.index')}}">
+                                            <span class="sub-item">Users</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
-                                            <span class="sub-item">User Role</span>
+                                        <a href="{{route('manageuserrole.index')}}">
+                                            <span class="sub-item">Role</span>
                                         </a>
                                     </li>
                                     <li>
@@ -338,7 +338,7 @@
                 delay: 3000,
                 allow_dismiss: true,
                 placement: {
-                    from: "bottom",
+                    from: "top",
                     align: "right"
                 }
             });
@@ -359,7 +359,7 @@
                 delay: 3000,
                 allow_dismiss: true,
                 placement: {
-                    from: "bottom",
+                    from: "top",
                     align: "right"
                 }
             });

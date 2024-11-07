@@ -41,8 +41,8 @@
                                                         <i class="bi bi-envelope-fill"></i>
                                                     </div>
                                                     <input type="text" class="form-control radius-30 ps-5"
-                                                        id="inputEmailAddress" placeholder="UserID" name="user_id">
-                                                        @error('user_id')
+                                                        id="inputEmailAddress" placeholder="UserID" name="userId">
+                                                        @error('userId')
                                                         <span class="text-danger">{{$message}}</span>
                                                         @enderror
                                                 </div>

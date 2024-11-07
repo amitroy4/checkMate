@@ -20,7 +20,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header bg-info border-0">
-                                <h5 class="modal-title">Add New vendor</h5>
+                                <h5 class="modal-title">Add New Vendor</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -31,38 +31,38 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="form-label">vendor Name <span class="required-label">*</span></label>
-                                                <input id="vendor_name" type="text" class="form-control" name="vendor_name" required>
+                                                <label class="form-label">Vendor Name <span class="required-label">*</span></label>
+                                                <input id="vendor_name" type="text" class="form-control" name="vendor_name" placeholder="Vendor Name" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="form-label">vendor Designation</label>
-                                                <input id="vendor_designation" type="text" class="form-control" name="vendor_designation">
+                                                <label class="form-label">Vendor Designation</label>
+                                                <input id="vendor_designation" type="text" class="form-control" name="vendor_designation" placeholder="Vendor Designation">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="form-label">Company Name</label>
-                                                <input id="company_name" type="text" class="form-control" name="company_name">
+                                                <input id="company_name" type="text" class="form-control" name="company_name" placeholder="Company Name">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="form-label">vendor Mobile Number</label>
-                                                <input id="mobile_number" type="text" class="form-control" name="mobile_number">
+                                                <label class="form-label">Vendor Mobile Number</label>
+                                                <input id="mobile_number" type="text" class="form-control" name="mobile_number" placeholder="Vendor Mobile Number">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="form-label">WhatsApp Number</label>
-                                                <input id="whatsapp_number" type="text" class="form-control" name="whatsapp_number">
+                                                <input id="whatsapp_number" type="text" class="form-control" name="whatsapp_number" placeholder="WhatsApp Number">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="form-label">vendor Email</label>
-                                                <input id="email" type="email" class="form-control" name="email" required>
+                                                <label class="form-label">Vendor Email</label>
+                                                <input id="email" type="email" class="form-control" name="email" placeholder="Vendor Email" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
@@ -89,7 +89,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header bg-info border-0">
-                                <h5 class="modal-title">Edit vendor</h5>
+                                <h5 class="modal-title">Edit Vendor</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -100,28 +100,28 @@
                                 <div class="modal-body">
                                     <input type="hidden" id="edit_vendor_id" name="vendor_id" value="">
                                     <div class="form-group">
-                                        <label class="form-label">vendor Name <span class="required-label">*</span></label>
-                                        <input id="edit_vendor_name" type="text" class="form-control" name="vendor_name" required>
+                                        <label class="form-label">Vendor Name <span class="required-label">*</span></label>
+                                        <input id="edit_vendor_name" type="text" class="form-control" name="vendor_name" placeholder="Vendor Name" required>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">vendor Designation</label>
-                                        <input id="edit_vendor_designation" type="text" class="form-control" name="vendor_designation">
+                                        <label class="form-label">Vendor Designation</label>
+                                        <input id="edit_vendor_designation" type="text" class="form-control" name="vendor_designation" placeholder="Vendor Designation">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Company Name</label>
-                                        <input id="edit_company_name" type="text" class="form-control" name="company_name">
+                                        <input id="edit_company_name" type="text" class="form-control" name="company_name" placeholder="Company Name">
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">vendor Mobile Number</label>
-                                        <input id="edit_mobile_number" type="text" class="form-control" name="mobile_number">
+                                        <label class="form-label">Vendor Mobile Number</label>
+                                        <input id="edit_mobile_number" type="text" class="form-control" name="mobile_number" placeholder="Vendor Mobile Number">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">WhatsApp Number</label>
-                                        <input id="edit_whatsapp_number" type="text" class="form-control" name="whatsapp_number">
+                                        <input id="edit_whatsapp_number" type="text" class="form-control" name="whatsapp_number" placeholder="WhatsApp Number">
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">vendor Email</label>
-                                        <input id="edit_email" type="email" class="form-control" name="email" required>
+                                        <label class="form-label">Vendor Email</label>
+                                        <input id="edit_email" type="email" class="form-control" name="email" placeholder="Vendor Email" required>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Status</label>

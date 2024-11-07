@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Clients')
+@section('title', 'users')
 @section('content')
 
 <div class="row">
@@ -7,73 +7,75 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex align-items-center">
-                    <h4 class="card-title">Manage Client</h4>
+                    <h4 class="card-title">Manage user</h4>
                     <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
-                        data-bs-target="#addclient">
+                        data-bs-target="#adduser">
                         <i class="fa fa-plus"></i>
-                        New Client
+                        New user
                     </button>
                 </div>
             </div>
             <div class="card-body">
-                <!-- Modal for Adding Client -->
-                <div class="modal fade" id="addclient" tabindex="-1" role="dialog" aria-hidden="true">
+                <!-- Modal for Adding user -->
+                <div class="modal fade" id="adduser" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header bg-info border-0">
-                                <h5 class="modal-title">Add New Client</h5>
+                                <h5 class="modal-title">Add New user</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="{{ route('client.store') }}" method="POST">
+                            <form action="{{ route('manageuser.store') }}" method="POST">
                                 @csrf
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="form-label">Client Name <span
+                                                <label class="form-label">Name <span
                                                         class="required-label">*</span></label>
-                                                <input id="client_name" type="text" class="form-control"
-                                                    name="client_name" placeholder="Client Name" required>
+                                                <input id="name" type="text" class="form-control"
+                                                    name="name" required placeholder="Name">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="form-label">Client Designation</label>
-                                                <input id="client_designation" type="text" class="form-control"
-                                                    name="client_designation" placeholder="Client Designation">
+                                                <label class="form-label">Id</label>
+                                                <input id="user_id" type="text" class="form-control"
+                                                    name="user_id" placeholder="Id">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="form-label">Company Name</label>
-                                                <input id="company_name" type="text" class="form-control"
-                                                    name="company_name" placeholder="Company Name">
+                                                <label class="form-label">Phone Number</label>
+                                                <input id="phone" type="text" class="form-control"
+                                                    name="phone" placeholder="Phone Number">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="form-label">Client Mobile Number</label>
-                                                <input id="mobile_number" type="text" class="form-control"
-                                                    name="mobile_number" placeholder="Client Mobile Number">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">WhatsApp Number</label>
-                                                <input id="whatsapp_number" type="text" class="form-control"
-                                                    name="whatsapp_number" placeholder="WhatsApp Number">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Client Email</label>
-                                                <input id="email" type="email" class="form-control" name="email" placeholder="Client Email"
+                                                <label class="form-label">Email</label>
+                                                <input id="email" type="email" class="form-control" name="email" placeholder="Email"
                                                     required>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Password</label>
+                                                <input id="password" type="password" class="form-control"
+                                                    name="password" placeholder="Password">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Role</label>
+                                                <select id="role" class="form-control" name="role">
+                                                    <option value="">Select A Role...</option>
+                                                    @foreach ($userroles as $userrole)
+                                                        <option value="{{ $userrole->id }}">{{ $userrole->role_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                             <div class="form-group">
                                                 <label class="form-label">Status</label>
                                                 <select id="status" class="form-control" name="status">
@@ -93,51 +95,54 @@
                         </div>
                     </div>
                 </div>
-                <!-- Modal for Editing Client -->
-                <div class="modal fade" id="updateClientModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <!-- Modal for Editing user -->
+                <div class="modal fade" id="updateuserModal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header bg-info border-0">
-                                <h5 class="modal-title">Edit Client</h5>
+                                <h5 class="modal-title">Edit user</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="" method="POST" id="editClientForm">
+                            <form action="" method="POST" id="edituserForm">
                                 @csrf
                                 @method('PUT')
                                 <!-- Use PUT for updates -->
                                 <div class="modal-body">
-                                    <input type="hidden" id="edit_client_id" name="client_id" value="">
+                                    <input type="hidden" id="edit_user_id" name="user_id" value="">
                                     <div class="form-group">
-                                        <label class="form-label">Client Name <span
+                                        <label class="form-label">Name <span
                                                 class="required-label">*</span></label>
-                                        <input id="edit_client_name" type="text" class="form-control" name="client_name" placeholder="Client Name"
+                                        <input id="edit_name" type="text" class="form-control" name="name" placeholder="Name"
                                             required>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">Client Designation</label>
-                                        <input id="edit_client_designation" type="text" class="form-control"
-                                            name="client_designation" placeholder="Client Designation">
+                                        <label class="form-label">Id</label>
+                                        <input id="edit_user_nameid" type="text" class="form-control"
+                                            name="user_id" placeholder="Id">
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">Company Name</label>
-                                        <input id="edit_company_name" type="text" class="form-control"
-                                            name="company_name" placeholder="Company Name">
+                                        <label class="form-label">Phone Number</label>
+                                        <input id="edit_phone" type="text" class="form-control"
+                                            name="phone" placeholder="Phone Number">
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">Client Mobile Number</label>
-                                        <input id="edit_mobile_number" type="text" class="form-control"
-                                            name="mobile_number" placeholder="Client Mobile Number">
+                                        <label class="form-label">Email</label>
+                                        <input id="edit_email" type="email" class="form-control" name="email" placeholder="Email" required>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">WhatsApp Number</label>
-                                        <input id="edit_whatsapp_number" type="text" class="form-control"
-                                            name="whatsapp_number" placeholder="WhatsApp Number">
+                                        <label class="form-label">Password</label>
+                                        <input id="edit_password" type="text" class="form-control"
+                                            name="password" placeholder="Password">
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">Client Email</label>
-                                        <input id="edit_email" type="email" class="form-control" name="email" placeholder="Client Email" required>
+                                        <label class="form-label">Role</label>
+                                        <select id="edit_role" class="form-control" name="role">
+                                            @foreach ($userroles as $userrole)
+                                                <option value="{{ $userrole->id }}">{{ $userrole->role_name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Status</label>
@@ -163,53 +168,49 @@
                         <thead>
                             <tr>
                                 <th>Sl</th>
-                                <th>Client Name</th>
-                                <th>Designation</th>
-                                <th>Phone No</th>
-                                <th>WhatsApp No</th>
+                                <th>Name</th>
+                                <th>Id</th>
+                                <th>Role</th>
+                                <th>Phone Number</th>
                                 <th>Email</th>
-                                <th>Company Name</th>
-                                <th>Client Status</th>
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($clients as $index => $client)
+                            @foreach($users as $index => $user)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $client->client_name }}</td>
-                                <td>{{ $client->client_designation }}</td>
-                                <td>{{ $client->mobile_number }}</td>
-                                <td>{{ $client->whatsapp_number }}</td>
-                                <td>{{ $client->email }}</td>
-                                <td>{{ $client->company_name }}</td>
-                                <td>
-                                    @if ($client->status)
-                                    <a href="{{route('status.client',$client->id)}}"
-                                        class="badge rounded-pill bg-primary text-decoration-none">
-                                        Active
-                                    </a>
-                                    @else
-                                    <a href="{{route('status.client',$client->id)}}"
-                                        class="badge rounded-pill bg-danger text-decoration-none">
-                                        Inactive
-                                    </a>
-                                    @endif
-                                </td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->userId}}</td>
+                                <td>{{ $user->role->role_name ?? "N/A" }}</td>
+                                <td>{{ $user->phone ? $user->phone : 'N/A' }}</td>
+                                <td>{{ $user->email }}</td>
                                 <td>
                                     <div class="form-button-action">
+                                        @if ($user->status)
+                                    <a href="{{route('status.manageuser',$user->id)}}"
+                                        class="btn btn-link btn-success" data-bs-toggle="tooltip" title="Active">
+                                        <i class="fa-solid fa-lock-open"></i>
+                                    </a>
+                                    @else
+                                    <a href="{{route('status.manageuser',$user->id)}}"
+                                        class="btn btn-link btn-danger" data-bs-toggle="tooltip" title="Deactive">
+                                        <i class="fa-solid fa-lock"></i>
+                                    </a>
+                                    @endif
                                         <a href="#" id="edit" class="btn btn-link btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#updateClientModal" data-client-id="{{ $client->id }}"
-                                            data-client-name="{{ $client->client_name }}"
-                                            data-client-designation="{{ $client->client_designation }}"
-                                            data-company-name="{{ $client->company_name }}"
-                                            data-mobile-number="{{ $client->mobile_number }}"
-                                            data-whatsapp-number="{{ $client->whatsapp_number }}"
-                                            data-email="{{ $client->email }}" data-status="{{ $client->status }}"
+                                            data-bs-target="#updateuserModal" data-user-id="{{ $user->id }}"
+                                            data-user-name="{{ $user->name }}"
+                                            data-user-nameid="{{ $user->userId }}"
+                                            data-mobile-number="{{ $user->phone }}"
+                                            data-email="{{ $user->email }}"
+                                            data-status="{{ $user->status }}"
+                                            data-role="{{ $user->role_id }}"
+                                            data-bs-toggle="tooltip"
                                             title="Edit">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('client.destroy', $client->id) }}" method="POST"
+                                        {{-- <form action="{{ route('manageuser.destroy', $user->id) }}" method="POST"
                                             style="display: inline-block;"
                                             onsubmit="event.preventDefault(); confirmDelete(this);">
                                             @csrf
@@ -218,7 +219,7 @@
                                                 data-bs-toggle="tooltip" title="Delete">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                        </form>
+                                        </form> --}}
                                     </div>
                                 </td>
                             </tr>
@@ -236,35 +237,36 @@
 @section('scripts')
 <script>
     $(document).on('click', '#edit', function () {
-        const clientId = $(this).data('client-id');
-        const clientName = $(this).data('client-name');
-        const clientDesignation = $(this).data('client-designation');
-        const companyName = $(this).data('company-name');
+        const userId = $(this).data('user-id');
+        const userName = $(this).data('user-name');
+        const userNameId = $(this).data('user-nameid');
+        const userPassword = $(this).data('password');
         const mobileNumber = $(this).data('mobile-number');
         const whatsappNumber = $(this).data('whatsapp-number');
         const email = $(this).data('email');
         const status = $(this).data('status');
+        const role = $(this).data('role');
         console.log(status);
 
 
         // Populate the fields in the edit modal
-        $('#edit_client_id').val(clientId);
-        $('#edit_client_name').val(clientName);
-        $('#edit_client_designation').val(clientDesignation);
-        $('#edit_company_name').val(companyName);
-        $('#edit_mobile_number').val(mobileNumber);
-        $('#edit_whatsapp_number').val(whatsappNumber);
+        $('#edit_user_id').val(userId);
+        $('#edit_name').val(userName);
+        $('#edit_user_nameid').val(userNameId);
+        $('#edit_password').val(userPassword);
+        $('#edit_phone').val(mobileNumber);
         $('#edit_email').val(email);
         $('#edit_status').val(status); // Ensure the status dropdown is correctly set
+        $('#edit_role').val(role); // Ensure the status dropdown is correctly set
     });
 
-    $('#editClientForm').on('submit', function (e) {
+    $('#edituserForm').on('submit', function (e) {
         e.preventDefault(); // Prevent the default form submission
 
         // Get the form data
         const formData = $(this).serialize(); // Serializes the form's elements
 
-        const clientId = $('#edit_client_id').val(); // Get the client ID for the URL
+        const userId = $('#edit_user_id').val(); // Get the user ID for the URL
 
         $.ajaxSetup({
             headers: {
@@ -273,11 +275,11 @@
         });
 
         $.ajax({
-            url: `/dashboard/client/${clientId}`,
+            url: `/dashboard/manageuser/${userId}`,
             type: 'PUT',
             data: formData,
             success: function (response) {
-                $('#updateClientModal').modal('hide');
+                $('#updateuserModal').modal('hide');
                 location.reload();
                 $.notify({
                     // Options
@@ -297,7 +299,7 @@
             error: function (xhr) {
                 console.error(xhr.responseText);
                 alert(
-                'An error occurred while updating the client. Please try again.'); // Optional user notification
+                'An error occurred while updating the user. Please try again.'); // Optional user notification
             }
         });
     });
@@ -312,7 +314,7 @@
         }).then((willDelete) => {
             if (willDelete) {
                 form.submit();
-                swal("Deleted!", "Client been deleted.", "success");
+                swal("Deleted!", "user been deleted.", "success");
             } else {
                 swal("Your data is safe!");
             }
