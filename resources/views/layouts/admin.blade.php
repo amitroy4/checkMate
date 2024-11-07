@@ -122,17 +122,17 @@
                             <div class="collapse" id="forms">
                                 <ul class="nav nav-collapse">
                                     <li>
-                                        <a href="{{route('chequebook-register.index')}}">
-                                            <span class="sub-item">Cheque Book Register</span>
+                                        <a href="{{route('chequepayment-register.index')}}">
+                                            <span class="sub-item">Cheque Payment Register</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{route('chequebook-report.index')}}">
-                                            <span class="sub-item">Cheque Book Receive Report</span>
+                                        <a href="{{route('chequereceive-register.index')}}">
+                                            <span class="sub-item">Cheque Receive Register</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{route('chequebook-report.index')}}">
+                                        <a href="#">
                                             <span class="sub-item">Cheque Book Status Report</span>
                                         </a>
                                     </li>

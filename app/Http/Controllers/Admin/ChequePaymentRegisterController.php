@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ChequeBookRegisterController extends Controller
+class ChequePaymentRegisterController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.chequebookregister.chequebook-register');
+        return view('admin.chequeregister.chequepayment-register');
     }
 
     /**

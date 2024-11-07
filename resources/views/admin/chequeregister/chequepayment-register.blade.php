@@ -50,45 +50,31 @@
                     <table id="datatable" class="display table table-striped table-hover table-head-bg-info">
                         <thead>
                             <tr>
-
-                                <th>Client Name</th>
+                                <th>SL</th>
+                                <th>Issue Date</th>
                                 <th>Bank Name</th>
-                                <th>Pay Type</th>
-                                <th>Amount</th>
-                                <th>Cheque Date</th>
-                                <th>Client_Status</th>
-                                <th style="width: 10%">Action</th>
+                                <th>Vendor Name</th>
+                                <th>Cheque Amount</th>
+                                <th>Clearing Date</th>
+                                <th>Type Of Cheque</th>
+                                <th>Cheque Status</th>
+                                <th>Over Date</th>
                             </tr>
                         </thead>
                         <tbody>
-
                             <tr>
-                                <td>Client Name</td>
-                                <td>Bank Name</td>
-                                <td>Pay Type</td>
-                                <td>Amount</td>
-                                <td>Cheque Date</td>
+                                <td>1</td>
+                                <td>22-05-2024</td>
+                                <td>AB BANK</td>
+                                <td>Qbittech</td>
+                                <td>100000.00</td>
+                                <td>30-08-2024</td>
+                                <td>no type</td>
                                 <td>
                                     <span class="badge rounded-pill bg-primary">Active</span>
-
                                 </td>
-                                <td>
-                                    <div class="form-button-action">
-                                        <a href="#" class="btn btn-link btn-primary edit" data-bs-toggle="modal"
-                                            data-bs-target="#updateClientModal" data-client-id="">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <form action="" method="post" class="d-inline-block">
-                                            <button type="submit" data-bs-toggle="tooltip" title=""
-                                                class="btn btn-link btn-danger delete" data-original-title="Remove">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </form>
-
-                                    </div>
-                                </td>
+                                <td>23-10-2024</td>
                             </tr>
-
                         </tbody>
                     </table>
                 </div>
