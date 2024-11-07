@@ -30,7 +30,7 @@
                                     <div class="form-group">
                                         <label class="form-label">Name <span
                                                 class="required-label">*</span></label>
-                                        <input id="edit_role_name" type="text" class="form-control" name="role_name"
+                                        <input id="edit_role_name" type="text" class="form-control" name="role_name" placeholder="Role Name"
                                             required>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                                             <label class="form-label">Role Name <span
                                                     class="required-label">*</span></label>
                                             <input id="role_name" type="text" class="form-control"
-                                                name="role_name" required>
+                                                name="role_name" placeholder="Role Name" required>
                                         </div>
                                     </div>
                                 </div>

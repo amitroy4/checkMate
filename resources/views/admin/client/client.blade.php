@@ -35,41 +35,41 @@
                                                 <label class="form-label">Client Name <span
                                                         class="required-label">*</span></label>
                                                 <input id="client_name" type="text" class="form-control"
-                                                    name="client_name" required>
+                                                    name="client_name" placeholder="Client Name" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="form-label">Client Designation</label>
                                                 <input id="client_designation" type="text" class="form-control"
-                                                    name="client_designation">
+                                                    name="client_designation" placeholder="Client Designation">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="form-label">Company Name</label>
                                                 <input id="company_name" type="text" class="form-control"
-                                                    name="company_name">
+                                                    name="company_name" placeholder="Company Name">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="form-label">Client Mobile Number</label>
                                                 <input id="mobile_number" type="text" class="form-control"
-                                                    name="mobile_number">
+                                                    name="mobile_number" placeholder="Client Mobile Number">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="form-label">WhatsApp Number</label>
                                                 <input id="whatsapp_number" type="text" class="form-control"
-                                                    name="whatsapp_number">
+                                                    name="whatsapp_number" placeholder="WhatsApp Number">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="form-label">Client Email</label>
-                                                <input id="email" type="email" class="form-control" name="email"
+                                                <input id="email" type="email" class="form-control" name="email" placeholder="Client Email"
                                                     required>
                                             </div>
                                         </div>
@@ -112,32 +112,32 @@
                                     <div class="form-group">
                                         <label class="form-label">Client Name <span
                                                 class="required-label">*</span></label>
-                                        <input id="edit_client_name" type="text" class="form-control" name="client_name"
+                                        <input id="edit_client_name" type="text" class="form-control" name="client_name" placeholder="Client Name"
                                             required>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Client Designation</label>
                                         <input id="edit_client_designation" type="text" class="form-control"
-                                            name="client_designation">
+                                            name="client_designation" placeholder="Client Designation">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Company Name</label>
                                         <input id="edit_company_name" type="text" class="form-control"
-                                            name="company_name">
+                                            name="company_name" placeholder="Company Name">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Client Mobile Number</label>
                                         <input id="edit_mobile_number" type="text" class="form-control"
-                                            name="mobile_number">
+                                            name="mobile_number" placeholder="Client Mobile Number">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">WhatsApp Number</label>
                                         <input id="edit_whatsapp_number" type="text" class="form-control"
-                                            name="whatsapp_number">
+                                            name="whatsapp_number" placeholder="WhatsApp Number">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Client Email</label>
-                                        <input id="edit_email" type="email" class="form-control" name="email" required>
+                                        <input id="edit_email" type="email" class="form-control" name="email" placeholder="Client Email" required>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Status</label>
