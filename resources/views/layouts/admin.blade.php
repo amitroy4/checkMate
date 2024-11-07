@@ -148,12 +148,12 @@
                             <div class="collapse" id="users">
                                 <ul class="nav nav-collapse">
                                     <li>
-                                        <a href="#">
+                                        <a href="{{route('manageuser.index')}}">
                                             <span class="sub-item">Create User</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="{{route('manageuserrole.index')}}">
                                             <span class="sub-item">User Role</span>
                                         </a>
                                     </li>
