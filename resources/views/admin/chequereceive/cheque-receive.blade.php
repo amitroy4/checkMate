@@ -67,8 +67,8 @@
                             <option value="">Select receive Type</option>
                             <option value="No Cross">No Cross</option>
                             <option value="Cross Only">Cross Only</option>
-                            <option value="Cross A/C client + Not Negotiable + Or Brear">Cross A/C client + Not Negotiable + Or Brear</option>
-                            <option value="Cross A/C client + Or Brear">Cross A/C client + Or Brear</option>
+                            <option value="Cross A/C client / Not Negotiable / Or Brear">Cross A/C client / Not Negotiable / Or Brear</option>
+                            <option value="Cross A/C client / Or Brear">Cross A/C client / Or Brear</option>
                         </select>
                     </div>
                     <div class="d-flex align-items-end col-md-1">
@@ -170,10 +170,10 @@ $(document).ready(function() {
         var bank = $('#bank').val();
         var receivetype = $('#receivetype').val();
 
-        table.columns(2).search(date)
-            .columns(1).search(client)
-            .columns(3).search(bank)
-            .columns(6).search(receivetype)
+        table.columns(2).search(date ? '^' + date + '$' : '', true, false)
+            .columns(1).search(client ? '^' + client + '$' : '', true, false)
+            .columns(3).search(bank ? '^' + bank + '$' : '', true, false)
+            .columns(6).search(receivetype ? '^' + receivetype + '$' : '', true, false)
             .draw();
     });
 

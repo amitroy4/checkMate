@@ -67,8 +67,8 @@
                             <option value="">Select Pay Type</option>
                             <option value="No Cross">No Cross</option>
                             <option value="Cross Only">Cross Only</option>
-                            <option value="Cross A/C Payee + Not Negotiable + Or Brear">Cross A/C Payee + Not Negotiable + Or Brear</option>
-                            <option value="Cross A/C Payee + Or Brear">Cross A/C Payee + Or Brear</option>
+                            <option value="Cross A/C Payee / Not Negotiable / Or Brear">Cross A/C Payee / Not Negotiable / Or Brear</option>
+                            <option value="Cross A/C Payee / Or Brear">Cross A/C Payee / Or Brear</option>
                         </select>
                     </div>
                     <div class="d-flex align-items-end col-md-1">
@@ -171,10 +171,10 @@ $(document).ready(function() {
         var bank = $('#bank').val();
         var paytype = $('#paytype').val();
 
-        table.columns(2).search(date)
-            .columns(1).search(payee)
-            .columns(3).search(bank)
-            .columns(6).search(paytype)
+        table.columns(2).search(date ? '^' + date + '$' : '', true, false)
+            .columns(1).search(payee ? '^' + payee + '$' : '', true, false)
+            .columns(3).search(bank ? '^' + bank + '$' : '', true, false)
+            .columns(6).search(paytype ? '^' + paytype + '$' : '', true, false)
             .draw();
     });
 
