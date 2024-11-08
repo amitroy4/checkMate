@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\ChequeBookReportController;
 use App\Http\Controllers\Admin\ChequeBookRegisterController;
 use App\Http\Controllers\Admin\ChequePaymentRegisterController;
 use App\Http\Controllers\Admin\ChequeReceiveRegisterController;
+use App\Http\Controllers\Admin\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard/chequepayee/pdf/{payeeId}',[ChequePdfController::class, 'generateChequePayeePdf'])->name('pdf.chequepayee');
     Route::get('/dashboard/chequereceive/pdf/{receiveId}',[ChequePdfController::class, 'generatechequeReceivePdf'])->name('pdf.chequereceive');
+
+    Route::get('/dashboard/reports/chequereport', [ReportController::class, 'paymentRegisterPdf'])->name('chequereport.payment.register');
 
 
     Route::resource('/dashboard/manageuser',UserController::class);

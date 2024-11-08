@@ -187,8 +187,8 @@
                                         <option selected>Choose...</option>
                                         <option value="No Cross">No Cross</option>
                                         <option value="Cross Only">Cross Only</option>
-                                        <option value="Cross A/C client + Not Negotiable + Or Brear">Cross A/C client + Not Negotiable + Or Brear</option>
-                                        <option value="Cross A/C client + Or Brear">Cross A/C client + Or Brear</option>
+                                        <option value="Cross A/C client / Not Negotiable / Or Brear">Cross A/C client / Not Negotiable / Or Brear</option>
+                                        <option value="Cross A/C client / Or Brear">Cross A/C client / Or Brear</option>
                                     </select>
                                 </div>
                             </div>

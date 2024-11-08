@@ -17,35 +17,36 @@
                         <input id="fromDate" type="date" class="form-control">
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="todate">To Date</label>
+                        <label for="toDate">To Date</label>
                         <input id="toDate" type="date" class="form-control">
                     </div>
 
                     <div class="form-group col-md-3">
                         <label for="payee">Payee<span class="required-label">*</span></label>
-                            <select id="payee" class="form-control" name="payee">
-                              <option value="">Select Payee</option>
-                                    @foreach ($vendors as $vendor)
-                                        <option value="{{$vendor->company_name}}">{{$vendor->company_name}}</option>
-                                    @endforeach
-                            </select>
+                        <select id="payee" class="form-control" name="payee">
+                            <option value="">Select Payee</option>
+                            @foreach ($vendors as $vendor)
+                                <option value="{{$vendor->vendor_name}}">{{$vendor->vendor_name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="bank">Bank<span class="required-label">*</span></label>
-                            <select id="bank" class="form-control" name="bank">
-                                <option value="">Select bank</option>
-                                @foreach ($banks as $bank)
-                                        <option value="{{$bank->bank_name}}">{{$bank->bank_name}}</option>
-                                    @endforeach
-                            </select>
+                        <select id="bank" class="form-control" name="bank">
+                            <option value="">Select bank</option>
+                            @foreach ($banks as $bank)
+                                <option value="{{$bank->bank_name}}">{{$bank->bank_name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group col-md-3">
+                        <label for="paytype">Pay Type</label>
                         <select id="paytype" class="form-control" name="paytype">
                             <option value="">Select Pay Type</option>
                             <option value="No Cross">No Cross</option>
                             <option value="Cross Only">Cross Only</option>
-                            <option value="Cross A/C Payee + Not Negotiable + Or Brear">Cross A/C Payee + Not Negotiable + Or Brear</option>
-                            <option value="Cross A/C Payee + Or Brear">Cross A/C Payee + Or Brear</option>
+                            <option value="Cross A/C Payee / Not Negotiable / Or Brear">Cross A/C Payee / Not Negotiable / Or Brear</option>
+                            <option value="Cross A/C Payee / Or Brear">Cross A/C Payee / Or Brear</option>
                         </select>
                     </div>
                     <div class="d-flex align-items-end col-md-1">
@@ -53,7 +54,6 @@
                     </div>
                 </div>
                 <hr>
-
 
                 <div class="table-responsive">
                     <table id="datatable" class="display table table-striped table-hover table-head-bg-info">
@@ -71,47 +71,100 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($chequepays as $key=>$chequepay)
+                            @foreach ($chequepays as $key => $chequepay)
                             <tr>
-                                <td>{{$key+1}}</td>
-                                <td>{{$chequepay->cheque_date}}</td>
-                                <td>{{$chequepay->bank->bank_name}}</td>
-                                <td>{{$chequepay->company->company_name}}</td>
-                                <td>{{$chequepay->amount}}</td>
-                                <td>{{$chequepay->cheque_clearing_date ?? "N/A"}}</td>
-                                <td>{{$chequepay->paytype}}</td>
+                                <td>{{ $key + 1 }}</td>
+                                <td>{{ $chequepay->cheque_date }}</td>
+                                <td>{{ $chequepay->bank->bank_name }}</td>
+                                <td>{{ $chequepay->payee->vendor_name }}</td>
+                                <td>{{ $chequepay->amount }}</td>
+                                <td>{{ $chequepay->cheque_clearing_date ?? 'N/A' }}</td>
+                                <td>{{ $chequepay->paytype }}</td>
                                 <td>
-                                    @if ($chequepay->cheque_status == 'Approved')
-                                        <span class="badge rounded-pill bg-success">{{$chequepay->cheque_status}}</span>
-                                    @endif
-                                    @if ($chequepay->cheque_status == 'Rejected')
-                                        <span class="badge rounded-pill bg-danger">{{$chequepay->cheque_status}}</span>
-                                    @endif
-                                    @if ($chequepay->cheque_status == 'Pending')
-                                        <span class="badge rounded-pill bg-info">{{$chequepay->cheque_status}}</span>
-                                    @endif
-                                    @if ($chequepay->cheque_status == 'Bounce')
-                                        <span class="badge rounded-pill bg-warning">{{$chequepay->cheque_status}}</span>
-                                    @endif
+                                    <span class="badge rounded-pill bg-{{ $chequepay->cheque_status == 'Approved' ? 'success' : ($chequepay->cheque_status == 'Rejected' ? 'danger' : ($chequepay->cheque_status == 'Pending' ? 'info' : 'warning')) }}">{{ $chequepay->cheque_status }}</span>
                                 </td>
-                                <td>23-10-2024</td>
+                                <td>
+                                    @php
+                                        $clearingDate = \Carbon\Carbon::parse($chequepay->cheque_clearing_date);
+                                        $today = \Carbon\Carbon::today();
+                                    @endphp
+                                    {{ $clearingDate->isPast() ? 'Over' : $today->diffInDays($clearingDate) . ' days left.' }}
+                                </td>
                             </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                 </div>
             </div>
-
-
-            {{-- @if (session('success'))
-                    <span class="alert alert-success">{{session('success')}}</span>
-            @elseif (session('danger'))
-            <span class="alert alert-danger">{{session('danger')}}</span>
-            @endif --}}
         </div>
     </div>
 </div>
 @endsection
 
+@section('scripts')
+<script>
+   $(document).ready(function () {
+    $('#filterButton').hide();
+    var table = $('#datatable').DataTable();
 
+    // Custom filtering function for date range
+    $.fn.dataTable.ext.search.push(
+        function(settings, data, dataIndex) {
+            let fromDate = $('#fromDate').val();
+            let toDate = $('#toDate').val();
+            let issueDate = data[1]; // Issue Date column
+
+            if (fromDate && toDate) {
+                // Convert dates to JavaScript Date objects for comparison
+                let from = new Date(fromDate);
+                let to = new Date(toDate);
+                let issue = new Date(issueDate);
+
+                // Check if issueDate falls within the range
+                return issue >= from && issue <= to;
+            }
+            return true; // If no date range is applied, show all records
+        }
+    );
+
+    // Filter function for all inputs
+    function filterTable() {
+        let payee = $('#payee').val();
+        let bank = $('#bank').val();
+        let paytype = $('#paytype').val();
+
+        // Apply other column filters
+        table.column(3).search(payee ? '^' + payee + '$' : '', true, false); // Exact match for Payee
+        table.column(2).search(bank ? '^' + bank + '$' : '', true, false); // Exact match for Bank
+        table.column(6).search(paytype ? '^' + paytype + '$' : '', true, false); // Exact match for Pay Type
+
+        // Draw the table to apply all filters
+        table.draw();
+    }
+
+    // Apply the date filter and other filters on input change
+    $('#fromDate, #toDate').on('change', function () {
+        table.draw(); // Date range filter is handled by the custom function
+        $('#filterButton').show();
+    });
+
+    $('#payee, #bank, #paytype').on('change', function () {
+        filterTable(); // Other filters are handled by column search
+        $('#filterButton').show();
+    });
+
+    $('#filterButton').on('click', function() {
+    let fromDate = $('#fromDate').val();
+    let toDate = $('#toDate').val();
+    let payee = $('#payee').val();
+    let bank = $('#bank').val();
+    let paytype = $('#paytype').val();
+
+    // Redirect to the PDF generation route with filters as query parameters
+    let url = `/dashboard/reports/chequereport?fromDate=${fromDate}&toDate=${toDate}&payee=${payee}&bank=${bank}&paytype=${paytype}`;
+    window.open(url, '_blank');
+});
+});
+
+</script>
+@endsection
