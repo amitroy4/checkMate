@@ -3,13 +3,34 @@
 <head>
     <title>Cheque Pay Report</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            width: 100px;
+            height: auto;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .header p {
+            margin: 5px 0;
+            font-size: 12px;
+            color: #555;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 12px;
         }
         table, th, td {
             border: 1px solid black;
-            padding: 8px;
+            padding: 5px;
             text-align: center;
         }
         th {
@@ -18,7 +39,13 @@
     </style>
 </head>
 <body>
-    <h2>Cheque Pay Report</h2>
+    <div class="header">
+        <h2>Company Name</h2>
+        <p>Company Address</p>
+        <p>Phone: (123) 456-7890 | Website: www.companywebsite.com</p>
+    </div>
+
+    <h4 style="margin-left:10px;">Cheque Pay Report</h4>
     <table>
         <thead>
             <tr>
