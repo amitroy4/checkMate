@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Client')
+@section('title', 'Reports')
 @section('content')
 
 <div class="row">
@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex align-items-center">
-                    <h4 class="card-title"> Manage Cheque Pay</h4>
+                    <h4 class="card-title"> Manage Cheque Payment Register Report</h4>
                 </div>
             </div>
             <div class="card-body">
@@ -40,9 +40,9 @@
                         </select>
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="paytype">Pay Type</label>
+                        <label for="paytype">Cheque Type</label>
                         <select id="paytype" class="form-control" name="paytype">
-                            <option value="">Select Pay Type</option>
+                            <option value="">Select Cheque Type</option>
                             <option value="No Cross">No Cross</option>
                             <option value="Cross Only">Cross Only</option>
                             <option value="Cross A/C Payee / Not Negotiable / Or Brear">Cross A/C Payee / Not Negotiable / Or Brear</option>
@@ -65,7 +65,7 @@
                                 <th>Vendor Name</th>
                                 <th>Cheque Amount</th>
                                 <th>Clearing Date</th>
-                                <th>Type Of Cheque</th>
+                                <th>Cheque Type</th>
                                 <th>Cheque Status</th>
                                 <th>Over Date</th>
                             </tr>
@@ -161,7 +161,7 @@
     let paytype = $('#paytype').val();
 
     // Redirect to the PDF generation route with filters as query parameters
-    let url = `/dashboard/reports/chequereport?fromDate=${fromDate}&toDate=${toDate}&payee=${payee}&bank=${bank}&paytype=${paytype}`;
+    let url = `/dashboard/reports/chequereport/paymentregister?fromDate=${fromDate}&toDate=${toDate}&payee=${payee}&bank=${bank}&paytype=${paytype}`;
     window.open(url, '_blank');
 });
 });

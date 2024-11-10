@@ -19,7 +19,7 @@ class ChequeReceiveController extends Controller
         $companies = Company::all();
         $clients = Client::all();
         $banks = Bank::all();
-        $chequereceives = ChequeReceive::all();
+        $chequereceives = ChequeReceive::where('is_fly_cheque', false)->get();
         return view('admin.chequereceive.cheque-receive',compact('companies','clients','banks','chequereceives'));
     }
 

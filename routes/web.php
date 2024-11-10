@@ -69,7 +69,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/chequepayee/pdf/{payeeId}',[ChequePdfController::class, 'generateChequePayeePdf'])->name('pdf.chequepayee');
     Route::get('/dashboard/chequereceive/pdf/{receiveId}',[ChequePdfController::class, 'generatechequeReceivePdf'])->name('pdf.chequereceive');
 
-    Route::get('/dashboard/reports/chequereport', [ReportController::class, 'paymentRegisterPdf'])->name('chequereport.payment.register');
+    Route::get('/dashboard/reports/chequereport/paymentregister', [ReportController::class, 'paymentRegisterPdf'])->name('chequereport.payment.register');
+    Route::get('/dashboard/reports/chequereport/receiveregister', [ReportController::class, 'receiveRegisterPdf'])->name('chequereport.receive.register');
 
 
     Route::resource('/dashboard/manageuser',UserController::class);
