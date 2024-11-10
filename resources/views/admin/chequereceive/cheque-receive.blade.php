@@ -96,7 +96,7 @@
                         </thead>
                         <tbody>
                             @foreach ($chequereceives as $key => $chequereceive)
-                            @if (!$chequereceive->is_fly_cheque)
+
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $chequereceive->client->client_name }}</td>
@@ -146,7 +146,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endif
+                          
                             @endforeach
                         </tbody>
                     </table>

@@ -69,7 +69,7 @@ class ReportController extends Controller
     public function paymentRegisterPdf(Request $request)
     {
         // Apply filters
-        $query = ChequePay::query();
+        $query = ChequePay::where('is_fly_cheque', false); // Add the is_fly_cheque condition here
 
         if ($request->fromDate && $request->toDate) {
             $query->whereBetween('cheque_date', [$request->fromDate, $request->toDate]);
@@ -95,24 +95,22 @@ class ReportController extends Controller
         $chequepays = $query->get();
 
         // Load view and pass data
-
         $html = view('admin.report.chequepaymentregisterreport', compact('chequepays'))->render();
 
-            // Generate the PDF using the Pdf facade
-            $pdf = Pdf::loadHTML($html);
-            // $pdf->setPaper('A4', 'portrait');
+        // Generate the PDF using the Pdf facade
+        $pdf = Pdf::loadHTML($html);
+        // $pdf->setPaper('A4', 'portrait');
 
-            // Output the generated PDF
-            return $pdf->stream('chequepaymentregisterreport.pdf');
+        // Output the generated PDF
+        return $pdf->stream('chequepaymentregisterreport.pdf');
     }
+
 
 
     public function receiveRegisterPdf(Request $request)
     {
-
-        // dd($request->all());
         // Apply filters
-        $query = ChequeReceive::query();
+        $query = ChequeReceive::where('is_fly_cheque', false); // Add the is_fly_cheque condition here
 
         if ($request->fromDate && $request->toDate) {
             $query->whereBetween('cheque_date', [$request->fromDate, $request->toDate]);
@@ -138,16 +136,16 @@ class ReportController extends Controller
         $chequereceives = $query->get();
 
         // Load view and pass data
-
         $html = view('admin.report.chequereceiveregisterreport', compact('chequereceives'))->render();
 
-            // Generate the PDF using the Pdf facade
-            $pdf = Pdf::loadHTML($html);
-            // $pdf->setPaper('A4', 'portrait');
+        // Generate the PDF using the Pdf facade
+        $pdf = Pdf::loadHTML($html);
+        // $pdf->setPaper('A4', 'portrait');
 
-            // Output the generated PDF
-            return $pdf->stream('chequereceiveregisterreport.pdf');
+        // Output the generated PDF
+        return $pdf->stream('chequereceiveregisterreport.pdf');
     }
+
 
 
 }

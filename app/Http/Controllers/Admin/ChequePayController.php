@@ -19,7 +19,7 @@ class ChequePayController extends Controller
         $companies = Company::all();
         $vendors = Vendor::all();
         $banks = Bank::all();
-        $chequepays = ChequePay::all();
+        $chequepays = ChequePay::where('is_fly_cheque', false)->get();
         return view('admin.chequepay.cheque-pay',compact('chequepays','companies','vendors','banks'));
     }
 
@@ -52,7 +52,7 @@ class ChequePayController extends Controller
             'cheque_clearing_date' => 'nullable|date',
             'cheque_reason' => 'nullable|string',
         ]);
-        
+
         if ($request->is_fly_cheque == 1) {
             $validatedData['cheque_status'] = 'Approved';
         }

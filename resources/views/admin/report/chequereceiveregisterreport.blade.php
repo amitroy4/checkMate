@@ -55,7 +55,7 @@
                 <th>Client Name</th>
                 <th>Cheque Amount</th>
                 <th>Clearing Date</th>
-                <th>Type Of Cheque</th>
+                <th>Cheque Type</th>
                 <th>Cheque Status</th>
                 <th>Over Date</th>
             </tr>

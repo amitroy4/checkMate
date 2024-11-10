@@ -17,7 +17,7 @@ class ChequeReceiveRegisterController extends Controller
     {
         $clients = Client::all();
         $banks = Bank::all();
-        $chequereceives = ChequeReceive::all();
+        $chequereceives = ChequeReceive::where('is_fly_cheque', false)->get();
         return view('admin.chequeregister.chequereceive-register', compact('chequereceives','banks','clients'));
     }
 

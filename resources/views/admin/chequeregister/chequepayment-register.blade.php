@@ -40,9 +40,9 @@
                         </select>
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="paytype">Pay Type</label>
+                        <label for="paytype">Cheque Type</label>
                         <select id="paytype" class="form-control" name="paytype">
-                            <option value="">Select Pay Type</option>
+                            <option value="">Select Cheque Type</option>
                             <option value="No Cross">No Cross</option>
                             <option value="Cross Only">Cross Only</option>
                             <option value="Cross A/C Payee / Not Negotiable / Or Brear">Cross A/C Payee / Not Negotiable / Or Brear</option>
@@ -65,7 +65,7 @@
                                 <th>Vendor Name</th>
                                 <th>Cheque Amount</th>
                                 <th>Clearing Date</th>
-                                <th>Type Of Cheque</th>
+                                <th>Cheque Type</th>
                                 <th>Cheque Status</th>
                                 <th>Over Date</th>
                             </tr>

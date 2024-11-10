@@ -96,7 +96,7 @@
                         </thead>
                         <tbody>
                             @foreach ($chequepays as $key => $chequepay)
-                                @if (!$chequepay->is_fly_cheque)
+
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $chequepay->payee->vendor_name }}</td>
@@ -146,7 +146,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                @endif
+                            
 
                             @endforeach
                         </tbody>

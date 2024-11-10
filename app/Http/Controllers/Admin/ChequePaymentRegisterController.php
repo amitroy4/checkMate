@@ -17,7 +17,7 @@ class ChequePaymentRegisterController extends Controller
     {
         $vendors = Vendor::all();
         $banks = Bank::all();
-        $chequepays = ChequePay::all();
+        $chequepays = ChequePay::where('is_fly_cheque', false)->get();
         return view('admin.chequeregister.chequepayment-register', compact('chequepays','vendors','banks'));
     }
 
