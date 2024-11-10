@@ -78,6 +78,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{route('company.index')}}">
+                                <i class="fa fa-list"></i>
+                                <p>Company</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{route('client.index')}}">
                                 <i class="fas fa-user"></i>
                                 <p>Clients</p>
@@ -105,12 +111,6 @@
                             <a href="{{route('chequereceive.index')}}">
                                 <i class="fa fa-book"></i>
                                 <p>Cheque Receive</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('company.index')}}">
-                                <i class="fa fa-list"></i>
-                                <p>Company</p>
                             </a>
                         </li>
                         <li class="nav-item">

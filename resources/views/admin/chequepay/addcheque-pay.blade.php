@@ -34,35 +34,11 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label class="form-label">Vendor Designation</label>
-                                                    <input id="vendor_designation" type="text" class="form-control" name="vendor_designation">
+                                                    <label class="form-label">Vendor Mobile Number <span class="required-label">*</span></label>
+                                                    <input id="mobile_number" type="text" class="form-control" name="mobile_number" required>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label class="form-label">Company Name</label>
-                                                    <input id="company_name" type="text" class="form-control" name="company_name">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label class="form-label">Vendor Mobile Number</label>
-                                                    <input id="mobile_number" type="text" class="form-control" name="mobile_number">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label class="form-label">WhatsApp Number</label>
-                                                    <input id="whatsapp_number" type="text" class="form-control" name="whatsapp_number">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label class="form-label">Vendor Email</label>
-                                                    <input id="email" type="email" class="form-control" name="email" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-12" style="display: none;">
                                                 <div class="form-group">
                                                     <label class="form-label">Status</label>
                                                     <select id="status" class="form-control" name="status">
@@ -106,13 +82,6 @@
                                                 <label class="form-label">Branch Name<span class="required-label">*</span></label>
                                                 <input id="branch_name" type="text" class="form-control" name="branch_name" required>
                                                 @error('branch_name')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label">Address<span class="required-label">*</span></label>
-                                                <input id="address" type="text" class="form-control" name="address" required>
-                                                @error('address')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>

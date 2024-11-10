@@ -44,8 +44,8 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-label">Address<span class="required-label">*</span></label>
-                                            <input id="address" type="text" class="form-control" name="address" placeholder="Address" required>
+                                            <label class="form-label">Address</label>
+                                            <input id="address" type="text" class="form-control" name="address" placeholder="Address">
                                             @error('address')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -90,8 +90,8 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">Address<span class="required-label">*</span></label>
-                                        <input id="edit_address" type="text" class="form-control" name="address" placeholder="Address" required>
+                                        <label class="form-label">Address</label>
+                                        <input id="edit_address" type="text" class="form-control" name="address" placeholder="Address">
                                         @error('address')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

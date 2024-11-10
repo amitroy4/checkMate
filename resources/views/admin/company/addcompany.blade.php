@@ -16,8 +16,9 @@
                     <div class="d-flex flex-wrap">
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label class="form-label">Company Name</label>
-                                <input id="company_name" type="text" class="form-control @error('company_name') is-invalid @enderror" name="company_name" value="{{ old('company_name') }}">
+                                <label class="form-label">Company Name <span
+                                    class="required-label">*</span></label>
+                                <input id="company_name" type="text" class="form-control @error('company_name') is-invalid @enderror" name="company_name" value="{{ old('company_name') }}" required>
                                 @error('company_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -56,8 +57,8 @@
 
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label class="form-label">Contact Number</label>
-                                <input id="contact_number" type="text" class="form-control @error('contact_number') is-invalid @enderror" name="contact_number" value="{{ old('contact_number') }}">
+                                <label class="form-label">Contact Number <span class="required-label">*</span></label>
+                                <input id="contact_number" type="text" class="form-control @error('contact_number') is-invalid @enderror" name="contact_number" value="{{ old('contact_number') }}" required>
                                 @error('contact_number')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
