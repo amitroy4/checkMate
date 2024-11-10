@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bank;
+use Exception;
 use Illuminate\Http\Request;
 
 class BankController extends Controller
@@ -84,7 +85,12 @@ class BankController extends Controller
      */
     public function destroy(string $id)
     {
-        Bank::destroy($id);
-        return redirect()->back()->with('success', 'bank deleted successfully.');
+        try {
+            Bank::destroy($id);
+            return redirect()->back()->with('success', 'bank deleted successfully.');
+        } catch (Exception) {
+            // Handle the case where the Bank cannot be deleted due to foreign key constraint
+            return redirect()->back()->with('danger','This Bank cannot be deleted.');
+        }
     }
 }

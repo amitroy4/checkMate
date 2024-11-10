@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('cheque_pays', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_id');
+            $table->foreignId('company_id')->constrained('companies')->onDelete('restrict');
             $table->date('cheque_date');
-            $table->unsignedBigInteger('payee_id');
-            $table->unsignedBigInteger('bank_id');
+            $table->foreignId('payee_id')->constrained('vendors')->onDelete('restrict');
+            $table->foreignId('bank_id')->constrained('banks')->onDelete('restrict');
             $table->decimal('amount', 10, 2);
             $table->string('paytype');
             $table->string('cheque_number');

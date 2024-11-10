@@ -372,7 +372,7 @@
         $(document).ready(function () {
             $.notify({
                 // Options
-                message: '{{ session('errror ') }}'
+                message: '{{ session('error ') }}'
             }, {
                 // Settings
                 type: 'danger',

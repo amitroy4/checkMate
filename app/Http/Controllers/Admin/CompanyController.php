@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
@@ -115,15 +116,20 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         $company = Company::findOrFail($id);
+        $company_logo = $company->company_logo;
+        try {
 
-        // Delete the logo if it exists
-        if ($company->company_logo && Storage::disk('public')->exists($company->company_logo)) {
-            Storage::disk('public')->delete($company->company_logo);
+            $company->delete();
+            // Delete the logo if it exists
+            if ($company_logo && Storage::disk('public')->exists($company_logo)) {
+                Storage::disk('public')->delete($company_logo);
+            }
+
+            return redirect()->route('company.index')->with('success', 'Company deleted successfully.');
+
+        } catch (Exception) {
+            return redirect()->back()->with('danger', 'This Company cannot be deleted.');
         }
-
-        $company->delete();
-
-        return redirect()->route('company.index')->with('success', 'Company deleted successfully.');
     }
     public function status($id)
     {
