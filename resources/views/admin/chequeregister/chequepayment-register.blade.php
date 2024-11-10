@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Client')
+@section('title', 'Reports')
 @section('content')
 
 <div class="row">
@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex align-items-center">
-                    <h4 class="card-title"> Manage Cheque Pay</h4>
+                    <h4 class="card-title"> Manage Cheque Payment Register Report</h4>
                 </div>
             </div>
             <div class="card-body">
@@ -161,7 +161,7 @@
     let paytype = $('#paytype').val();
 
     // Redirect to the PDF generation route with filters as query parameters
-    let url = `/dashboard/reports/chequereport?fromDate=${fromDate}&toDate=${toDate}&payee=${payee}&bank=${bank}&paytype=${paytype}`;
+    let url = `/dashboard/reports/chequereport/paymentregister?fromDate=${fromDate}&toDate=${toDate}&payee=${payee}&bank=${bank}&paytype=${paytype}`;
     window.open(url, '_blank');
 });
 });

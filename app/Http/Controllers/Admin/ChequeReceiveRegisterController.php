@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Bank;
-use App\Models\Vendor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ChequeReceive;
+use App\Models\Client;
 
 class ChequeReceiveRegisterController extends Controller
 {
@@ -14,9 +15,10 @@ class ChequeReceiveRegisterController extends Controller
      */
     public function index()
     {
-        $vendors = Vendor::all();
+        $clients = Client::all();
         $banks = Bank::all();
-        return view('admin.chequeregister.chequereceive-register', compact('vendors','banks'));
+        $chequereceives = ChequeReceive::all();
+        return view('admin.chequeregister.chequereceive-register', compact('chequereceives','banks','clients'));
     }
 
     /**

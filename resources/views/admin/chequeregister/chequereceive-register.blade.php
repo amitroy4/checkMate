@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Client')
+@section('title', 'Reports')
 @section('content')
 
 <div class="row">
@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex align-items-center">
-                    <h4 class="card-title"> Manage Cheque Receive</h4>
+                    <h4 class="card-title"> Manage Cheque Receive Register Report</h4>
                 </div>
             </div>
             <div class="card-body">
@@ -17,35 +17,36 @@
                         <input id="fromDate" type="date" class="form-control">
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="todate">To Date</label>
+                        <label for="toDate">To Date</label>
                         <input id="toDate" type="date" class="form-control">
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="payee">Payee<span class="required-label">*</span></label>
-                            <select id="payee" class="form-control" name="payee">
-                              <option value="">Select Payee</option>
-                                    @foreach ($vendors as $vendor)
-                                        <option value="{{$vendor->company_name}}">{{$vendor->company_name}}</option>
-                                    @endforeach
-                            </select>
+                        <label for="client">Client<span class="required-label">*</span></label>
+                        <select id="client" class="form-control" name="client">
+                            <option value="">Select Client</option>
+                            @foreach ($clients as $client)
+                                <option value="{{$client->client_name}}">{{$client->client_name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="bank">Bank<span class="required-label">*</span></label>
-                            <select id="bank" class="form-control" name="bank">
-                                <option value="">Select bank</option>
-                                @foreach ($banks as $bank)
-                                        <option value="{{$bank->bank_name}}">{{$bank->bank_name}}</option>
-                                    @endforeach
-                            </select>
+                        <select id="bank" class="form-control" name="bank">
+                            <option value="">Select bank</option>
+                            @foreach ($banks as $bank)
+                                <option value="{{$bank->bank_name}}">{{$bank->bank_name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group col-md-3">
-                        <select id="paytype" class="form-control" name="paytype">
+                        <label for="receivetype">Pay Type</label>
+                        <select id="receivetype" class="form-control" name="receivetype">
                             <option value="">Select Pay Type</option>
                             <option value="No Cross">No Cross</option>
                             <option value="Cross Only">Cross Only</option>
-                            <option value="Cross A/C Payee + Not Negotiable + Or Brear">Cross A/C Payee + Not Negotiable + Or Brear</option>
-                            <option value="Cross A/C Payee + Or Brear">Cross A/C Payee + Or Brear</option>
+                            <option value="Cross A/C client / Not Negotiable / Or Brear">Cross A/C client / Not Negotiable / Or Brear</option>
+                            <option value="Cross A/C client / Or Brear">Cross A/C client / Or Brear</option>
                         </select>
                     </div>
                     <div class="d-flex align-items-end col-md-1">
@@ -53,7 +54,6 @@
                     </div>
                 </div>
                 <hr>
-
 
                 <div class="table-responsive">
                     <table id="datatable" class="display table table-striped table-hover table-head-bg-info">
@@ -71,33 +71,100 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($chequereceives as $key => $chequereceive)
                             <tr>
-                                <td>1</td>
-                                <td>22-05-2024</td>
-                                <td>AB BANK</td>
-                                <td>Arif Hossen</td>
-                                <td>156052.00</td>
-                                <td>21-08-2024</td>
-                                <td>yes type</td>
+                                <td>{{ $key + 1 }}</td>
+                                <td>{{ $chequereceive->cheque_date }}</td>
+                                <td>{{ $chequereceive->bank->bank_name }}</td>
+                                <td>{{ $chequereceive->client->client_name }}</td>
+                                <td>{{ $chequereceive->amount }}</td>
+                                <td>{{ $chequereceive->cheque_clearing_date ?? 'N/A' }}</td>
+                                <td>{{ $chequereceive->receivetype }}</td>
                                 <td>
-                                    <span class="badge rounded-pill bg-primary">Active</span>
+                                    <span class="badge rounded-pill bg-{{ $chequereceive->cheque_status == 'Approved' ? 'success' : ($chequereceive->cheque_status == 'Rejected' ? 'danger' : ($chequereceive->cheque_status == 'Pending' ? 'info' : 'warning')) }}">{{ $chequereceive->cheque_status }}</span>
                                 </td>
-                                <td>23-10-2024</td>
+                                <td>
+                                    @php
+                                        $clearingDate = \Carbon\Carbon::parse($chequereceive->cheque_clearing_date);
+                                        $today = \Carbon\Carbon::today();
+                                    @endphp
+                                    {{ $clearingDate->isPast() ? 'Over' : $today->diffInDays($clearingDate) . ' days left.' }}
+                                </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
-
-
-            {{-- @if (session('success'))
-                    <span class="alert alert-success">{{session('success')}}</span>
-            @elseif (session('danger'))
-            <span class="alert alert-danger">{{session('danger')}}</span>
-            @endif --}}
         </div>
     </div>
 </div>
 @endsection
 
+@section('scripts')
+<script>
+   $(document).ready(function () {
+    $('#filterButton').hide();
+    var table = $('#datatable').DataTable();
 
+    // Custom filtering function for date range
+    $.fn.dataTable.ext.search.push(
+        function(settings, data, dataIndex) {
+            let fromDate = $('#fromDate').val();
+            let toDate = $('#toDate').val();
+            let issueDate = data[1]; // Issue Date column
+
+            if (fromDate && toDate) {
+                // Convert dates to JavaScript Date objects for comparison
+                let from = new Date(fromDate);
+                let to = new Date(toDate);
+                let issue = new Date(issueDate);
+
+                // Check if issueDate falls within the range
+                return issue >= from && issue <= to;
+            }
+            return true; // If no date range is applied, show all records
+        }
+    );
+
+    // Filter function for all inputs
+    function filterTable() {
+        let client = $('#client').val();
+        let bank = $('#bank').val();
+        let receivetype = $('#receivetype').val();
+
+        // Apply other column filters
+        table.column(3).search(client ? '^' + client + '$' : '', true, false); // Exact match for client
+        table.column(2).search(bank ? '^' + bank + '$' : '', true, false); // Exact match for Bank
+        table.column(6).search(receivetype ? '^' + receivetype + '$' : '', true, false); // Exact match for Pay Type
+
+        // Draw the table to apply all filters
+        table.draw();
+    }
+
+    // Apply the date filter and other filters on input change
+    $('#fromDate, #toDate').on('change', function () {
+        table.draw(); // Date range filter is handled by the custom function
+        $('#filterButton').show();
+    });
+
+    $('#client, #bank, #receivetype').on('change', function () {
+        filterTable(); // Other filters are handled by column search
+        $('#filterButton').show();
+    });
+
+    $('#filterButton').on('click', function() {
+    let fromDate = $('#fromDate').val();
+    let toDate = $('#toDate').val();
+    let client = $('#client').val();
+    let bank = $('#bank').val();
+    let receivetype = $('#receivetype').val();
+
+    // Redirect to the PDF generation route with filters as query parameters
+    let url = `/dashboard/reports/chequereport/receiveregister?fromDate=${fromDate}&toDate=${toDate}&client=${client}&bank=${bank}&receivetype=${receivetype}`;
+    window.open(url, '_blank');
+});
+});
+
+</script>
+@endsection
