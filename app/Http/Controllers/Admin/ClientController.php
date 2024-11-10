@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Exception;
 
 class ClientController extends Controller
 {
@@ -98,8 +99,15 @@ class ClientController extends Controller
      */
     public function destroy(string $id)
     {
-        Client::destroy($id);
-        return redirect()->back()->with('success', 'Client deleted successfully.');
+        try {
+            // Try to delete the client
+            Client::destroy($id);
+
+            return redirect()->back()->with('success', 'Client deleted successfully.');
+        } catch (Exception) {
+            // Handle the case where the client cannot be deleted due to foreign key constraint
+            return redirect()->back()->with('danger','This client cannot be deleted.');
+        }
     }
 
 

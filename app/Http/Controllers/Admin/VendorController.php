@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Vendor;
+use Exception;
 use Illuminate\Http\Request;
 
 class VendorController extends Controller
@@ -37,7 +38,7 @@ class VendorController extends Controller
         // ]);
 
         Vendor::create($request->all());
-        return redirect()->back()->with('success', 'vendor added successfully.');
+        return redirect()->back()->with('success', 'Vendor added successfully.');
     }
 
     /**
@@ -80,7 +81,7 @@ class VendorController extends Controller
         $vendor->status = $request->status;
         $vendor->save();
 
-        return response()->json(['success' => 'vendor updated successfully!'], 200);
+        return response()->json(['success' => 'Vendor updated successfully!'], 200);
     }
 
 
@@ -91,8 +92,14 @@ class VendorController extends Controller
      */
     public function destroy(string $id)
     {
-        Vendor::destroy($id);
-        return redirect()->back()->with('success', 'vendor deleted successfully.');
+        try {
+            Vendor::destroy($id);
+            return redirect()->back()->with('success', 'Vendor deleted successfully.');
+
+        } catch (Exception) {
+            // Handle the case where the Vendor cannot be deleted due to foreign key constraint
+            return redirect()->back()->with('danger','This Vendor cannot be deleted.');
+        }
     }
 
     public function status($id)
