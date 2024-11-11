@@ -119,13 +119,13 @@
                                     </td>
                                     <td>
                                         @php
-                                            $clearingDate = \Carbon\Carbon::parse($chequereceive->cheque_clearing_date);
-                                            $today = \Carbon\Carbon::today();
+                                        $clearingDate = \Carbon\Carbon::parse($chequereceive->cheque_clearing_date);
+                                        $today = \Carbon\Carbon::today();
                                         @endphp
                                         @if ($clearingDate->isPast())
-                                            Over
+                                            {{ $today->diffInDays($clearingDate) . ' days over' }}
                                         @else
-                                            {{ $today->diffInDays($clearingDate) }} days left.
+                                            {{ $today->diffInDays($clearingDate) . ' days left.' }}
                                         @endif
                                     </td>
                                     <td>
@@ -133,20 +133,23 @@
                                             <a href="{{route('pdf.chequereceive', $chequereceive->id)}}" class="btn btn-link btn-info edit" data-bs-toggle="tooltip" title="Print" target="_blank">
                                                 <i class="fa-solid fa-print"></i>
                                             </a>
-                                            <a href="{{ route('chequereceive.edit', $chequereceive->id) }}" class="btn btn-link btn-primary edit" data-bs-toggle="tooltip" title="Edit">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <form action="{{ route('chequereceive.destroy', $chequereceive->id) }}" method="POST" class="d-inline-block" onsubmit="event.preventDefault(); confirmDelete(this);">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-link btn-danger delete" data-bs-toggle="tooltip" title="Delete">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
-                                            </form>
+
+                                            @if ($chequereceive->cheque_status == 'Pending')
+                                                <a href="{{ route('chequereceive.edit', $chequereceive->id) }}" class="btn btn-link btn-primary edit" data-bs-toggle="tooltip" title="Edit">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <form action="{{ route('chequereceive.destroy', $chequereceive->id) }}" method="POST" class="d-inline-block" onsubmit="event.preventDefault(); confirmDelete(this);">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-link btn-danger delete" data-bs-toggle="tooltip" title="Delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
-                          
+
                             @endforeach
                         </tbody>
                     </table>

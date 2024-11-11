@@ -46,7 +46,7 @@
                     <div class="form-group col-md-2">
                         <label for="payee">Payee</label>
                         <select id="payee" class="form-control" name="payee">
-                            <option value="">Select Payee</option>
+                            <option value="">Select Vendor...</option>
                             @foreach ($vendors as $vendor)
                                 <option value="{{ $vendor->vendor_name }}">{{ $vendor->vendor_name }}</option>
                             @endforeach
@@ -106,6 +106,7 @@
                                     <td>{{ $chequepay->cheque_clearing_date ?? 'N/A' }}</td>
                                     <td>{{ $chequepay->paytype }}</td>
                                     <td>
+                                        @if($chequepay->cheque_status == 'Pending')
                                         <select id="cheque_status_{{ $chequepay->id }}" class="form-control form-select cheque-status" name="cheque_status" data-id="{{ $chequepay->id }}" required>
                                             <option value="" disabled>Choose...</option>
                                             <option value="Pending" {{ $chequepay->cheque_status == 'Pending' ? 'selected' : '' }}>Pending</option>
@@ -113,6 +114,20 @@
                                             <option value="Rejected" {{ $chequepay->cheque_status == 'Rejected' ? 'selected' : '' }}>Rejected</option>
                                             <option value="Bounce" {{ $chequepay->cheque_status == 'Bounce' ? 'selected' : '' }}>Bounce</option>
                                         </select>
+                                        @elseif($chequepay->cheque_status == 'Approved')
+                                        <div class="form-control cheque-status text-center bg-success">
+                                            {{$chequepay->cheque_status}}
+                                        </div>
+                                        @elseif($chequepay->cheque_status == 'Rejected')
+                                        <div class="form-control cheque-status text-center bg-danger">
+                                            {{$chequepay->cheque_status}}
+                                        </div>
+                                        @elseif($chequepay->cheque_status == 'Bounce')
+                                        <div class="form-control cheque-status text-center bg-warning">
+                                            {{$chequepay->cheque_status}}
+                                        </div>
+                                        @endif
+
                                         <div class="reason-group" id="reason-group-{{ $chequepay->id }}" style="display: {{ in_array($chequepay->cheque_status, ['Rejected', 'Bounce']) ? 'block' : 'none' }};">
                                             <textarea id="cheque_reason_{{ $chequepay->id }}" class="form-control cheque-reason" name="cheque_reason">{{ $chequepay->cheque_reason }}</textarea>
                                         </div>
@@ -123,9 +138,9 @@
                                             $today = \Carbon\Carbon::today();
                                         @endphp
                                         @if ($clearingDate->isPast())
-                                            Over
+                                            {{ $today->diffInDays($clearingDate) . ' days over' }}
                                         @else
-                                            {{ $today->diffInDays($clearingDate) }} days left.
+                                            {{ $today->diffInDays($clearingDate) . ' days left.' }}
                                         @endif
                                     </td>
                                     <td>
@@ -133,20 +148,22 @@
                                             <a href="{{route('pdf.chequepayee', $chequepay->id)}}" class="btn btn-link btn-info edit" data-bs-toggle="tooltip" title="Print" target="_blank">
                                                 <i class="fa-solid fa-print"></i>
                                             </a>
-                                            <a href="{{ route('chequepay.edit', $chequepay->id) }}" class="btn btn-link btn-primary edit" data-bs-toggle="tooltip" title="Edit">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <form action="{{ route('chequepay.destroy', $chequepay->id) }}" method="POST" class="d-inline-block" onsubmit="event.preventDefault(); confirmDelete(this);">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-link btn-danger delete" data-bs-toggle="tooltip" title="Delete">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
-                                            </form>
+                                            @if ($chequepay->cheque_status == 'Pending')
+                                                <a href="{{ route('chequepay.edit', $chequepay->id) }}" class="btn btn-link btn-primary edit" data-bs-toggle="tooltip" title="Edit">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <form action="{{ route('chequepay.destroy', $chequepay->id) }}" method="POST" class="d-inline-block" onsubmit="event.preventDefault(); confirmDelete(this);">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-link btn-danger delete" data-bs-toggle="tooltip" title="Delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
-                            
+
 
                             @endforeach
                         </tbody>

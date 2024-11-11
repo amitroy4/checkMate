@@ -76,7 +76,11 @@
                         $clearingDate = \Carbon\Carbon::parse($chequereceive->cheque_clearing_date);
                         $today = \Carbon\Carbon::today();
                     @endphp
-                    {{ $clearingDate->isPast() ? 'Over' : $today->diffInDays($clearingDate) . ' days left.' }}
+                    @if ($clearingDate->isPast())
+                        {{ $today->diffInDays($clearingDate) . ' days over' }}
+                    @else
+                        {{ $today->diffInDays($clearingDate) . ' days left.' }}
+                    @endif
                 </td>
             </tr>
             @endforeach
