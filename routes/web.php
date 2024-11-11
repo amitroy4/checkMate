@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\ChequeBookRegisterController;
 use App\Http\Controllers\Admin\ChequePaymentRegisterController;
 use App\Http\Controllers\Admin\ChequeReceiveRegisterController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +37,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class,'dashboard'] )->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
 
