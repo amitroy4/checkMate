@@ -147,6 +147,7 @@ class ChequePayController extends Controller
     {
         $chequepay = ChequePay::findOrFail($request->id);
         $chequepay->cheque_reason = $request->cheque_reason;
+        $chequepay->cheque_status = $request->cheque_status;
         $chequepay->save();
 
         return response()->json(['success' => true]);
