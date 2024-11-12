@@ -106,7 +106,7 @@
                                     <td>{{ $chequereceive->cheque_clearing_date ?? 'N/A' }}</td>
                                     <td>{{ $chequereceive->receivetype }}</td>
                                     <td>
-                                        <select id="cheque_status_{{ $chequereceive->id }}" class="form-control form-select cheque-status" name="cheque_status" data-id="{{ $chequereceive->id }}" required>
+                                        {{-- <select id="cheque_status_{{ $chequereceive->id }}" class="form-control form-select cheque-status" name="cheque_status" data-id="{{ $chequereceive->id }}" required>
                                             <option value="" disabled>Choose...</option>
                                             <option value="Pending" {{ $chequereceive->cheque_status == 'Pending' ? 'selected' : '' }}>Pending</option>
                                             <option value="Approved" {{ $chequereceive->cheque_status == 'Approved' ? 'selected' : '' }}>Approved</option>
@@ -115,17 +115,39 @@
                                         </select>
                                         <div class="reason-group" id="reason-group-{{ $chequereceive->id }}" style="display: {{ in_array($chequereceive->cheque_status, ['Rejected', 'Bounce']) ? 'block' : 'none' }};">
                                             <textarea id="cheque_reason_{{ $chequereceive->id }}" class="form-control cheque-reason" name="cheque_reason">{{ $chequereceive->cheque_reason }}</textarea>
-                                        </div>
+                                        </div> --}}
+
+                                        @if($chequereceive->cheque_status == 'Pending')
+                                            <select id="cheque_status_{{ $chequereceive->id }}" class="form-control form-select cheque-status" name="cheque_status" data-id="{{ $chequereceive->id }}" style="cursor: pointer;" required>
+                                                <option value="" disabled>Choose...</option>
+                                                <option value="Pending" {{ $chequereceive->cheque_status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                                <option value="Approved" {{ $chequereceive->cheque_status == 'Approved' ? 'selected' : '' }}>Approved</option>
+                                                <option value="Rejected" {{ $chequereceive->cheque_status == 'Rejected' ? 'selected' : '' }}>Rejected</option>
+                                                <option value="Bounce" {{ $chequereceive->cheque_status == 'Bounce' ? 'selected' : '' }}>Bounce</option>
+                                            </select>
+                                        @elseif($chequereceive->cheque_status == 'Approved')
+                                            <select id="cheque_status_{{ $chequereceive->id }}" class="form-control cheque-status " name="cheque_status" data-id="{{ $chequereceive->id }}" required>
+                                                <option value="{{ $chequereceive->cheque_status }}"  selected>{{ $chequereceive->cheque_status }}</option>
+                                            </select>
+                                        @elseif($chequereceive->cheque_status == 'Rejected')
+                                            <select id="cheque_status_{{ $chequereceive->id }}" class="form-control cheque-status " name="cheque_status" data-id="{{ $chequereceive->id }}" data-bs-toggle="tooltip" title="Reason: {{$chequereceive->cheque_reason}}" style="cursor: pointer;" required>
+                                                <option value="{{ $chequereceive->cheque_status }}"  selected>{{ $chequereceive->cheque_status }}</option>
+                                            </select>
+                                        @elseif($chequereceive->cheque_status == 'Bounce')
+                                            <select id="cheque_status_{{ $chequereceive->id }}" class="form-control cheque-status " name="cheque_status" data-id="{{ $chequereceive->id }}" data-bs-toggle="tooltip" title="Reason: {{$chequereceive->cheque_reason}}" style="cursor: pointer;" required>
+                                                <option value="{{ $chequereceive->cheque_status }}"  selected>{{ $chequereceive->cheque_status }}</option>
+                                            </select>
+                                        @endif
                                     </td>
                                     <td>
                                         @php
-                                            $clearingDate = \Carbon\Carbon::parse($chequereceive->cheque_clearing_date);
-                                            $today = \Carbon\Carbon::today();
+                                        $clearingDate = \Carbon\Carbon::parse($chequereceive->cheque_clearing_date);
+                                        $today = \Carbon\Carbon::today();
                                         @endphp
                                         @if ($clearingDate->isPast())
-                                            Over
+                                            {{ $today->diffInDays($clearingDate) . ' days over' }}
                                         @else
-                                            {{ $today->diffInDays($clearingDate) }} days left.
+                                            {{ $today->diffInDays($clearingDate) . ' days left.' }}
                                         @endif
                                     </td>
                                     <td>
@@ -133,20 +155,23 @@
                                             <a href="{{route('pdf.chequereceive', $chequereceive->id)}}" class="btn btn-link btn-info edit" data-bs-toggle="tooltip" title="Print" target="_blank">
                                                 <i class="fa-solid fa-print"></i>
                                             </a>
-                                            <a href="{{ route('chequereceive.edit', $chequereceive->id) }}" class="btn btn-link btn-primary edit" data-bs-toggle="tooltip" title="Edit">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <form action="{{ route('chequereceive.destroy', $chequereceive->id) }}" method="POST" class="d-inline-block" onsubmit="event.preventDefault(); confirmDelete(this);">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-link btn-danger delete" data-bs-toggle="tooltip" title="Delete">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
-                                            </form>
+
+                                            @if ($chequereceive->cheque_status == 'Pending')
+                                                <a href="{{ route('chequereceive.edit', $chequereceive->id) }}" class="btn btn-link btn-primary edit" data-bs-toggle="tooltip" title="Edit">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <form action="{{ route('chequereceive.destroy', $chequereceive->id) }}" method="POST" class="d-inline-block" onsubmit="event.preventDefault(); confirmDelete(this);">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-link btn-danger delete" data-bs-toggle="tooltip" title="Delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
-                          
+
                             @endforeach
                         </tbody>
                     </table>
@@ -155,6 +180,34 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="reasonModal" tabindex="-1" aria-labelledby="reasonModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="reasonModalLabel">Reason</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="reasonForm">
+            @csrf
+            @method('post')
+            <div class="modal-body">
+                <input type="hidden" name="chequeId" id="chequeId">
+                <div class="form-group">
+                    <label for="reason" class="form-label">Cause of Bounce/Rejected:</label>
+                    <input type="text" class="form-control" name="reason" id="reason" placeholder="write check bounce/reject reason">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+
 
 @endsection
 
@@ -192,33 +245,78 @@ $(document).ready(function() {
         var reasonField = $('#cheque_reason_' + id);
 
         // Show or hide reason field based on status
-        reasonGroup.toggle(selectedStatus === 'Rejected' || selectedStatus === 'Bounce');
+        // reasonGroup.toggle(selectedStatus === 'Rejected' || selectedStatus === 'Bounce');
 
         // Clear the reason field if status is Pending or Approved
         if (selectedStatus === 'Pending' || selectedStatus === 'Approved') {
             reasonField.val(''); // Clear the reason
             reasonGroup.hide(); // Hide the reason textarea
-        }
+            $('#reasonModal').modal('hide');
 
-        // AJAX call to update cheque status
-        $.ajax({
-            url: '{{ route("chequereceive.updateStatus") }}', // Replace with your route
-            method: 'POST',
-            data: {
-                cheque_status: selectedStatus,
-                cheque_reason: selectedStatus === 'Rejected' || selectedStatus === 'Bounce' ? reasonField.val() : null,
-                id: id,
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                if (response.success) {
-                    // Optionally display a success message
+            $.ajax({
+                url: '{{ route("chequereceive.updateStatus") }}', // Replace with your route
+                method: 'POST',
+                data: {
+                    cheque_status: selectedStatus,
+                    cheque_reason: selectedStatus === 'Rejected' || selectedStatus === 'Bounce' ? reasonField.val() : null,
+                    id: id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Optionally display a success message
+                        $('#reason').val('');
+                        location.reload();
+                    }
+                },
+                error: function(xhr) {
+                    console.error(xhr.responseText);
                 }
-            },
-            error: function(xhr) {
-                console.error(xhr.responseText);
-            }
-        });
+            });
+        }
+        else{
+            $('#chequeId').val(id);
+            $('#reasonModal').modal('show');
+            $('#reasonForm').on('submit',function(e){
+                e.preventDefault();
+
+                var formData = new FormData(this);
+
+                    // Get values from the formData
+                    $chequeId = formData.get('chequeId');
+                    $cheque_reason = formData.get('reason'); // Fixed typo
+
+
+                    // Append custom data to FormData
+                    formData.append('cheque_reason', $cheque_reason);
+                    formData.append('id', $chequeId);
+                    formData.append('cheque_status', selectedStatus);
+
+                    console.log(formData);
+
+
+                    $.ajax({
+                        url: '{{ route("chequereceive.updateReason") }}', // Replace with your route
+                        method: 'POST',
+                        data: formData,
+                        processData: false, // This prevents jQuery from processing the data
+                        contentType: false, // This prevents jQuery from setting the content type
+                        success: function(response) {
+                            if (response.success) {
+                                $('#reasonModal').modal('hide');
+                                $('#reason').val('');
+                                location.reload();
+                            }
+                        },
+                        error: function(xhr) {
+                            console.error(xhr.responseText);
+                        }
+                    });
+
+            })
+        }
+        // AJAX call to update cheque status
+
     });
 
     // Handle cheque reason change

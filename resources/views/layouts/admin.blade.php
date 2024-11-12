@@ -50,9 +50,11 @@
             <div class="sidebar-logo">
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
-                    <a href="index.html" class="logo">
-                        <img src="{{ asset('admin/img/kaiadmin/logo_light.svg') }}" alt="navbar brand"
-                            class="navbar-brand" height="20" />
+                    <a href="{{route('dashboard')}}" class="logo">
+                        @php
+                            $websetting = DB::table('web_settings')->first();
+                        @endphp
+                        <img src="{{ asset('storage/' . $websetting->logo) }}" alt="navbar brand" class="navbar-brand" height="50" />
                     </a>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
@@ -75,6 +77,12 @@
                             <a href="{{route('dashboard')}}">
                                 <i class="fas fa-home"></i>
                                 <p>Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('company.index')}}">
+                                <i class="fa fa-list"></i>
+                                <p>Company</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -105,12 +113,6 @@
                             <a href="{{route('chequereceive.index')}}">
                                 <i class="fa fa-book"></i>
                                 <p>Cheque Receive</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('company.index')}}">
-                                <i class="fa fa-list"></i>
-                                <p>Company</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -164,6 +166,12 @@
                                     </li>
                                 </ul>
                             </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('websetting.index')}}">
+                                <i class="fas fa-cog"></i>
+                                <p>Web Setting</p>
+                            </a>
                         </li>
                     </ul>
                 </div>

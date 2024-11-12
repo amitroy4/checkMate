@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\VendorController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\UserRoleController;
@@ -14,12 +16,12 @@ use App\Http\Controllers\Admin\ChequePayController;
 use App\Http\Controllers\Admin\ChequePdfController;
 use App\Http\Controllers\Admin\DataTableController;
 use App\Http\Controllers\Admin\BasicTableController;
+use App\Http\Controllers\Admin\WebSettingController;
 use App\Http\Controllers\Admin\ChequeReceiveController;
 use App\Http\Controllers\Admin\ChequeBookReportController;
 use App\Http\Controllers\Admin\ChequeBookRegisterController;
 use App\Http\Controllers\Admin\ChequePaymentRegisterController;
 use App\Http\Controllers\Admin\ChequeReceiveRegisterController;
-use App\Http\Controllers\Admin\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +38,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class,'dashboard'] )->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
 
@@ -81,6 +81,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/dashboard/chequepayment-register',ChequePaymentRegisterController::class);
     Route::resource('/dashboard/chequereceive-register',ChequeReceiveRegisterController::class);
+
+    Route::resource('/dashboard/websetting',WebSettingController::class);
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

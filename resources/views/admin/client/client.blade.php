@@ -54,9 +54,9 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="form-label">Client Mobile Number</label>
+                                                <label class="form-label">Client Mobile Number <span class="required-label">*</span></label>
                                                 <input id="mobile_number" type="text" class="form-control"
-                                                    name="mobile_number" placeholder="Client Mobile Number">
+                                                    name="mobile_number" placeholder="Client Mobile Number" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
@@ -73,7 +73,7 @@
                                                     required>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-12" style="display: none;">
                                             <div class="form-group">
                                                 <label class="form-label">Status</label>
                                                 <select id="status" class="form-control" name="status">
@@ -126,7 +126,7 @@
                                             name="company_name" placeholder="Company Name">
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">Client Mobile Number</label>
+                                        <label class="form-label">Client Mobile Number <span class="required-label">*</span></label>
                                         <input id="edit_mobile_number" type="text" class="form-control"
                                             name="mobile_number" placeholder="Client Mobile Number">
                                     </div>
@@ -139,7 +139,7 @@
                                         <label class="form-label">Client Email</label>
                                         <input id="edit_email" type="email" class="form-control" name="email" placeholder="Client Email" required>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" >
                                         <label class="form-label">Status</label>
                                         <select id="edit_status" class="form-control" name="status">
                                             <option value="1">Active</option>

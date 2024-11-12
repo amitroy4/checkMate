@@ -49,7 +49,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="form-label">Vendor Mobile Number</label>
+                                                <label class="form-label">Vendor Mobile Number <span class="required-label">*</span></label>
                                                 <input id="mobile_number" type="text" class="form-control" name="mobile_number" placeholder="Vendor Mobile Number">
                                             </div>
                                         </div>
@@ -65,9 +65,9 @@
                                                 <input id="email" type="email" class="form-control" name="email" placeholder="Vendor Email" required>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-12" style="display: none;">
                                             <div class="form-group">
-                                                <label class="form-label">Status</label>
+                                                <label class="form-label" >Status</label>
                                                 <select id="status" class="form-control" name="status">
                                                     <option value="1">Active</option>
                                                     <option value="0">Inactive</option>
@@ -112,7 +112,7 @@
                                         <input id="edit_company_name" type="text" class="form-control" name="company_name" placeholder="Company Name">
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">Vendor Mobile Number</label>
+                                        <label class="form-label">Vendor Mobile Number <span class="required-label">*</span></label>
                                         <input id="edit_mobile_number" type="text" class="form-control" name="mobile_number" placeholder="Vendor Mobile Number">
                                     </div>
                                     <div class="form-group">

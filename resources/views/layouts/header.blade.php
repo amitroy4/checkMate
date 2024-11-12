@@ -31,7 +31,7 @@
             <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
                 <li class="nav-item topbar-icon d-flex justify-content-end">
 
-                 <small class="w-50 login-ip-box"> Login Ip: {{Auth::user()->ip_address}}, {{Auth::user()->last_login_at}}</small>
+                 <small class="w-60 login-ip-box text-center login-ip-box"> Login Ip: {{Auth::user()->ip_address}}, <br/>{{Auth::user()->last_login_at}}</small>
                  </li>
                 <li class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"

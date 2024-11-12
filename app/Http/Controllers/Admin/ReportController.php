@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use App\Models\ChequeReceive;
+use App\Models\WebSetting;
 
 class ReportController extends Controller
 {

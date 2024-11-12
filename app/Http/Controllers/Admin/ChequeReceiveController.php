@@ -150,6 +150,7 @@ class ChequeReceiveController extends Controller
     {
         $chequereceive = ChequeReceive::findOrFail($request->id);
         $chequereceive->cheque_reason = $request->cheque_reason;
+        $chequereceive->cheque_status = $request->cheque_status;
         $chequereceive->save();
 
         return response()->json(['success' => true]);

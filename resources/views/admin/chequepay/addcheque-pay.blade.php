@@ -34,35 +34,11 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label class="form-label">Vendor Designation</label>
-                                                    <input id="vendor_designation" type="text" class="form-control" name="vendor_designation">
+                                                    <label class="form-label">Vendor Mobile Number <span class="required-label">*</span></label>
+                                                    <input id="mobile_number" type="text" class="form-control" name="mobile_number" required>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label class="form-label">Company Name</label>
-                                                    <input id="company_name" type="text" class="form-control" name="company_name">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label class="form-label">Vendor Mobile Number</label>
-                                                    <input id="mobile_number" type="text" class="form-control" name="mobile_number">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label class="form-label">WhatsApp Number</label>
-                                                    <input id="whatsapp_number" type="text" class="form-control" name="whatsapp_number">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label class="form-label">Vendor Email</label>
-                                                    <input id="email" type="email" class="form-control" name="email" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-12" style="display: none;">
                                                 <div class="form-group">
                                                     <label class="form-label">Status</label>
                                                     <select id="status" class="form-control" name="status">
@@ -109,13 +85,6 @@
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                            <div class="form-group">
-                                                <label class="form-label">Address<span class="required-label">*</span></label>
-                                                <input id="address" type="text" class="form-control" name="address" required>
-                                                @error('address')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer border-0">
@@ -126,7 +95,7 @@
                             </div>
                         </div>
                     </div>
-                    <form action="{{ route('chequepay.store') }}" method="POST">
+                    <form action="{{ route('chequepay.store') }}" method="POST" target="_blank">
                         @csrf
                         <div class="row">
                             <div class="col-sm-3">
@@ -151,7 +120,7 @@
                                     <label for="payee">Payee <span class="required-label">*</span></label>
                                     <div class="input-group">
                                         <select class="form-select" id="payee" name="payee_id" aria-label="Example select with button addon">
-                                        <option selected>Choose...</option>
+                                        <option selected>Choose Vendor...</option>
                                         @foreach ($vendors as $vendor)
                                         <option value="{{$vendor->id}}">{{$vendor->vendor_name}}</option>
                                         @endforeach
@@ -224,22 +193,35 @@
 
 @section('scripts')
 <script>
-    $(document).ready(function () {
-        $('#is_fly_cheque').change(function () {
-            const flyChequeValue = $(this).val();
+$(document).ready(function () {
+    // Initially set the target attribute for the form based on the selected option
+    setFormTarget();
 
-            if (flyChequeValue === '1') { // Yes
-                $('#printButton').show();
-                $('#submitButton').hide();
-            } else if (flyChequeValue === '0') { // No
-                $('#submitButton').show();
-                $('#printButton').hide();
-            } else {
-                // Hide both buttons if "Choose..." is selected
-                $('#submitButton').hide();
-                $('#printButton').hide();
-            }
-        });
+    // Listen for changes on the "IS Fly Cheque" select element
+    $('#is_fly_cheque').change(function () {
+        setFormTarget();
     });
+
+    // Function to update the form target based on the "IS Fly Cheque" value
+    function setFormTarget() {
+        const flyChequeValue = $('#is_fly_cheque').val();
+
+        // Show/hide the buttons based on the selection and set the form's target
+        if (flyChequeValue === '1') { // Yes
+            $('#printButton').show();
+            $('#submitButton').hide();
+            $('form').attr('target', '_blank');  // Open in a new tab
+        } else if (flyChequeValue === '0') { // No
+            $('#submitButton').show();
+            $('#printButton').hide();
+            $('form').removeAttr('target');  // Do not open in a new tab
+        } else {
+            $('#submitButton').hide();
+            $('#printButton').hide();
+            $('form').removeAttr('target');  // Do not open in a new tab
+        }
+    }
+});
+
 </script>
 @endsection

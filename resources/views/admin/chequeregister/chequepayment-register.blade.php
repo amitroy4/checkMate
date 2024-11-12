@@ -81,14 +81,18 @@
                                 <td>{{ $chequepay->cheque_clearing_date ?? 'N/A' }}</td>
                                 <td>{{ $chequepay->paytype }}</td>
                                 <td>
-                                    <span class="badge rounded-pill bg-{{ $chequepay->cheque_status == 'Approved' ? 'success' : ($chequepay->cheque_status == 'Rejected' ? 'danger' : ($chequepay->cheque_status == 'Pending' ? 'info' : 'warning')) }}">{{ $chequepay->cheque_status }}</span>
+                                    <span class="badge rounded-pill bg-{{ $chequepay->cheque_status == 'Approved' ? 'success' : ($chequepay->cheque_status == 'Rejected' ? 'danger' : ($chequepay->cheque_status == 'Pending' ? 'info' : 'warning')) }}" data-bs-toggle="tooltip" title="Reason: {{ $chequepay->cheque_reason ?? "N/A" }}" style="cursor: pointer;">{{ $chequepay->cheque_status }}</span>
                                 </td>
                                 <td>
                                     @php
                                         $clearingDate = \Carbon\Carbon::parse($chequepay->cheque_clearing_date);
                                         $today = \Carbon\Carbon::today();
                                     @endphp
-                                    {{ $clearingDate->isPast() ? 'Over' : $today->diffInDays($clearingDate) . ' days left.' }}
+                                    @if ($clearingDate->isPast())
+                                        {{ $today->diffInDays($clearingDate) . ' days over' }}
+                                    @else
+                                        {{ $today->diffInDays($clearingDate) . ' days left.' }}
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach
