@@ -75,9 +75,9 @@
 </head>
 <body>
 
-    <div class="check">
+    {{-- <div class="check">
         <img src="{{base_path('public/admin/img/citybank.jpg')}}" alt="No cheque" style="width: 100%">
-    </div>
+    </div> --}}
     <div class="cheque">
         <div class="ac-payee">A/C PAYEE ONLY</div>
 
