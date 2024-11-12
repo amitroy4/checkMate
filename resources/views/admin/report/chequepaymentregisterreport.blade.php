@@ -5,17 +5,26 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            font-size: 12px;
         }
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgb(0, 0, 0);
         }
         .header img {
             width: 100px;
             height: auto;
         }
-        .header h1 {
+        .header h4 {
+            font-size: 16px;
             margin: 0;
+            padding: 0;
+        }
+        .header h5 {
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
         }
         .header p {
             margin: 5px 0;
@@ -25,7 +34,6 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
             font-size: 12px;
         }
         table, th, td {
@@ -36,16 +44,26 @@
         th {
             background-color: #f2f2f2;
         }
+        .phone_email{
+          padding-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <h2>Company Name</h2>
-        <p>Company Address</p>
-        <p>Phone: (123) 456-7890 | Website: www.companywebsite.com</p>
+        @php
+        $websetting = DB::table('web_settings')->first();
+            $logoPath = storage_path('app/public/' . $websetting->logo);
+            $base64 = file_exists($logoPath) ? 'data:image/' . pathinfo($logoPath, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($logoPath)) : '';
+        @endphp
+        @if($base64)
+            <img src="{{ $base64 }}" class="img-fluid" alt="Company Logo" style="width: 120px; position: absolute; top: 0; left: 0;">
+        @endif
+        <h4>{{$websetting->company_name}}</h4>
+        <p>{{$websetting->company_address}}</p>
+        <p class="phone_email">Phone: {{$websetting->contact}} | Email: {{$websetting->email}}</p>
+        <h5 style="margin-left:10px;">Cheque Pay Report</h5>
     </div>
-
-    <h4 style="margin-left:10px;">Cheque Pay Report</h4>
     <table>
         <thead>
             <tr>
