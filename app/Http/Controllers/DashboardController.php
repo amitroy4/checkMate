@@ -66,10 +66,10 @@ class DashboardController extends Controller
     }
     public function dashboard()
     {
-        $todayTotalPayAmount = ChequePay::whereDate('created_at', Carbon::today())->sum('amount');
-        $todayTotalReceiveAmount = ChequeReceive::whereDate('created_at', Carbon::today())->sum('amount');
-        $last7DaysTotalPayAmount = ChequePay::whereBetween('created_at', [Carbon::now()->subDays(7), Carbon::now()])->sum('amount');
-        $last7DaysTotalReceiveAmount = ChequeReceive::whereBetween('created_at', [Carbon::now()->subDays(7), Carbon::now()])->sum('amount');
+        $todayTotalPayAmount = ChequePay::whereDate('created_at', Carbon::today())->where('is_fly_cheque', 0)->sum('amount');
+        $todayTotalReceiveAmount = ChequeReceive::whereDate('created_at', Carbon::today())->where('is_fly_cheque', 0)->sum('amount');
+        $last7DaysTotalPayAmount = ChequePay::whereBetween('created_at', [Carbon::now()->subDays(7), Carbon::now()])->where('is_fly_cheque', 0)->sum('amount');
+        $last7DaysTotalReceiveAmount = ChequeReceive::whereBetween('created_at', [Carbon::now()->subDays(7), Carbon::now()])->where('is_fly_cheque', 0)->sum('amount');
 
 
         $sevendays = [];
@@ -83,7 +83,7 @@ class DashboardController extends Controller
             $sevendays[] = 'Day ' . ($i+1);
 
             // Calculate the total amount for that day and cast it to a string
-            $dailyTotal = (string) ChequePay::whereDate('created_at', '=', $date)->sum('amount');
+            $dailyTotal = (string) ChequePay::whereDate('created_at', '=', $date)->where('is_fly_cheque', 0)->sum('amount');
 
             // If no data, set the total to "0" as a string
             $sevenamounts[] = $dailyTotal;
@@ -100,7 +100,7 @@ class DashboardController extends Controller
             $sevendaysrec[] = 'Day ' . ($i+1);
 
             // Calculate the total amount for that day and cast it to a string
-            $dailyTotal = (string) ChequeReceive::whereDate('created_at', '=', $date)->sum('amount');
+            $dailyTotal = (string) ChequeReceive::whereDate('created_at', '=', $date)->where('is_fly_cheque', 0)->sum('amount');
 
             // If no data, set the total to "0" as a string
             $sevenamountsrec[] = $dailyTotal;
