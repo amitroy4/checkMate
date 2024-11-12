@@ -165,6 +165,12 @@
                                 </ul>
                             </div>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{route('websetting.index')}}">
+                                <i class="fas fa-cog"></i>
+                                <p>Web Setting</p>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

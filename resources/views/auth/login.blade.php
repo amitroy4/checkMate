@@ -22,7 +22,7 @@
     <!--start wrapper-->
     <div class="wrapper">
         <!--start content-->
-        <main class="authentication-content">
+        <main class="authentication-content d-flex align-items-center justify-content-center min-vh-100">
             <div class="container">
                 <div class="authentication-card mt-5">
                     <div class="row g-0">
