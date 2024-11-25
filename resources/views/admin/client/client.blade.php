@@ -8,11 +8,13 @@
             <div class="card-header">
                 <div class="d-flex align-items-center">
                     <h4 class="card-title">Manage Client</h4>
+                    @can('Add Client')
                     <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
                         data-bs-target="#addclient">
                         <i class="fa fa-plus"></i>
                         New Client
                     </button>
+                    @endcan
                 </div>
             </div>
             <div class="card-body">
@@ -169,7 +171,9 @@
                                 <th>WhatsApp No</th>
                                 <th>Email</th>
                                 <th>Company Name</th>
+                                @can('Status Client')
                                 <th>Client Status</th>
+                                @endcan
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </thead>
@@ -183,6 +187,7 @@
                                 <td>{{ $client->whatsapp_number }}</td>
                                 <td>{{ $client->email }}</td>
                                 <td>{{ $client->company_name }}</td>
+                                @can('Status Client')
                                 <td>
                                     @if ($client->status)
                                     <a href="{{route('status.client',$client->id)}}"
@@ -196,8 +201,10 @@
                                     </a>
                                     @endif
                                 </td>
+                                @endcan
                                 <td>
                                     <div class="form-button-action">
+                                        @can('Update Client')
                                         <a href="#" id="edit" class="btn btn-link btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#updateClientModal" data-client-id="{{ $client->id }}"
                                             data-client-name="{{ $client->client_name }}"
@@ -209,6 +216,8 @@
                                             title="Edit">
                                             <i class="fa fa-edit"></i>
                                         </a>
+                                        @endcan
+                                        @can('Delete Client')
                                         <form action="{{ route('client.destroy', $client->id) }}" method="POST"
                                             style="display: inline-block;"
                                             onsubmit="event.preventDefault(); confirmDelete(this);">
@@ -219,6 +228,7 @@
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </form>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

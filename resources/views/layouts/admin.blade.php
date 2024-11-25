@@ -79,42 +79,55 @@
                                 <p>Dashboard</p>
                             </a>
                         </li>
+                        @can('View Company')
                         <li class="nav-item">
                             <a href="{{route('company.index')}}">
                                 <i class="fa fa-list"></i>
                                 <p>Company</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('View Client')
                         <li class="nav-item">
                             <a href="{{route('client.index')}}">
                                 <i class="fas fa-user"></i>
                                 <p>Clients</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('View Vendor')
                         <li class="nav-item">
                             <a href="{{route('vendor.index')}}">
                                 <i class="fas fa-user-edit"></i>
                                 <p>Vendors</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('View Bank')
                         <li class="nav-item">
                             <a href="{{route('bank.index')}}">
                                 <i class="fas fa-university"></i>
                                 <p>Banks</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('View ChequePay')
                         <li class="nav-item">
                             <a href="{{route('chequepay.index')}}">
                                 <i class="fas fa-money-check-alt"></i>
                                 <p>Cheque Pay</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('View ChequeReceive')
                         <li class="nav-item">
                             <a href="{{route('chequereceive.index')}}">
                                 <i class="fa fa-book"></i>
                                 <p>Cheque Receive</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('View Report')
                         <li class="nav-item">
                             <a data-bs-toggle="collapse" href="#forms">
                                 <i class="far fa-chart-bar"></i>
@@ -123,16 +136,20 @@
                             </a>
                             <div class="collapse" id="forms">
                                 <ul class="nav nav-collapse">
+                                    @can('ChqPayReg Report')
                                     <li>
                                         <a href="{{route('chequepayment-register.index')}}">
                                             <span class="sub-item">Cheque Payment Register</span>
                                         </a>
                                     </li>
+                                    @endcan
+                                    @can('ChqRecReg Report')
                                     <li>
                                         <a href="{{route('chequereceive-register.index')}}">
                                             <span class="sub-item">Cheque Receive Register</span>
                                         </a>
                                     </li>
+                                    @endcan
                                     <li>
                                         <a href="#">
                                             <span class="sub-item">Cheque Book Status Report</span>
@@ -141,6 +158,8 @@
                                 </ul>
                             </div>
                         </li>
+                        @endcan
+                        @role('Super Admin|Admin')
                         <li class="nav-item">
                             <a data-bs-toggle="collapse" href="#users">
                                 <i class="fas fa-pen-square"></i>
@@ -160,7 +179,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="{{route('permission.index')}}">
                                             <span class="sub-item">Permission</span>
                                         </a>
                                     </li>
@@ -173,6 +192,7 @@
                                 <p>Web Setting</p>
                             </a>
                         </li>
+                        @endrole
                     </ul>
                 </div>
             </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2024 at 09:15 AM
+-- Generation Time: Nov 18, 2024 at 12:40 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ziroonebackup_cheque`
+-- Database: `ziroonebackup_cheque_role_permission`
 --
 
 -- --------------------------------------------------------
@@ -236,7 +236,46 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (22, '2024_11_07_125056_create_user_roles_table', 9),
 (25, '2024_10_24_112921_create_cheque_receives_table', 10),
 (26, '2024_10_23_115609_create_cheque_pays_table', 11),
-(28, '2024_10_20_093610_create_web_settings_table', 12);
+(28, '2024_10_20_093610_create_web_settings_table', 12),
+(29, '2024_11_17_222149_create_permission_tables', 13);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `model_has_permissions`
+--
+
+CREATE TABLE `model_has_permissions` (
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(255) NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `model_has_roles`
+--
+
+CREATE TABLE `model_has_roles` (
+  `role_id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(255) NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `model_has_roles`
+--
+
+INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
+(2, 'App\\Models\\User', 1),
+(2, 'App\\Models\\User', 12),
+(3, 'App\\Models\\User', 12),
+(3, 'App\\Models\\User', 13),
+(4, 'App\\Models\\User', 12),
+(4, 'App\\Models\\User', 13),
+(4, 'App\\Models\\User', 14),
+(4, 'App\\Models\\User', 15);
 
 -- --------------------------------------------------------
 
@@ -249,6 +288,37 @@ CREATE TABLE `password_reset_tokens` (
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `guard_name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+(1, 'Add Company', 'web', '2024-11-17 17:21:15', '2024-11-17 17:21:15'),
+(2, 'Update Company', 'web', '2024-11-17 17:21:52', '2024-11-17 17:21:52'),
+(3, 'Delete Company', 'web', '2024-11-17 17:44:20', '2024-11-17 17:44:20'),
+(4, 'Add Client', 'web', '2024-11-17 17:45:55', '2024-11-17 17:45:55'),
+(5, 'Update Client', 'web', '2024-11-17 17:46:08', '2024-11-17 17:46:08'),
+(7, 'Delete Client', 'web', '2024-11-17 18:41:46', '2024-11-17 18:41:46'),
+(8, 'Add User', 'web', '2024-11-18 05:42:24', '2024-11-18 05:42:24'),
+(9, 'Update User', 'web', '2024-11-18 05:42:32', '2024-11-18 05:42:32'),
+(10, 'Delete User', 'web', '2024-11-18 05:42:38', '2024-11-18 05:42:38'),
+(11, 'Add View', 'web', '2024-11-18 07:46:46', '2024-11-18 07:46:46'),
+(12, 'Add Manager', 'web', '2024-11-18 07:47:47', '2024-11-18 07:47:47');
 
 -- --------------------------------------------------------
 
@@ -272,6 +342,69 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `guard_name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+(2, 'Super Admin', 'web', '2024-11-17 19:18:47', '2024-11-17 19:18:47'),
+(3, 'Admin', 'web', '2024-11-17 19:53:21', '2024-11-17 19:53:21'),
+(4, 'Editor', 'web', '2024-11-18 04:18:18', '2024-11-18 04:18:18'),
+(5, 'View', 'web', '2024-11-18 07:45:54', '2024-11-18 07:45:54');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role_has_permissions`
+--
+
+CREATE TABLE `role_has_permissions` (
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `role_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `role_has_permissions`
+--
+
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
+(1, 2),
+(1, 3),
+(1, 4),
+(2, 2),
+(2, 3),
+(2, 4),
+(3, 2),
+(3, 4),
+(4, 2),
+(4, 3),
+(5, 2),
+(5, 3),
+(5, 4),
+(7, 2),
+(8, 2),
+(8, 3),
+(9, 2),
+(9, 3),
+(10, 2),
+(11, 2),
+(11, 3),
+(12, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -281,7 +414,6 @@ CREATE TABLE `users` (
   `userId` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `phone` varchar(255) DEFAULT NULL,
-  `role_id` bigint(20) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `is_superadmin` tinyint(1) NOT NULL DEFAULT 0,
   `ip_address` varchar(255) DEFAULT NULL,
@@ -297,15 +429,12 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `userId`, `email`, `phone`, `role_id`, `status`, `is_superadmin`, `ip_address`, `last_login_at`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Super Admin', 'superadmin', 'superadmin@mail.com', NULL, 1, 1, 1, '127.0.0.1', '2024-11-12 08:03:41', '2024-10-27 18:16:06', '$2y$10$yMcqsGL3O7byGACaaMLm0OvczinxU1R.IOLrIWKWeRmqSR/S7D.92', 'ENSM2i43gLMazS2NCJlwqUWgGXJQFSKTekZTPc14T1pp111GqoBthLDPj2Iz', '2024-10-27 18:16:06', '2024-11-12 08:03:41'),
-(3, 'Amit', 'amit', 'amit@gmai.com', '01236540', 3, 1, 0, '127.0.0.1', '2024-11-08 16:51:53', NULL, '$2y$10$A5voghmSnMInxNoxM9alQO5aYk32kzd5dB8yJJFE8kkSNdFD2VPB6', NULL, '2024-11-07 06:05:17', '2024-11-08 16:51:53'),
-(4, 'Afrin', 'afrin', 'afrin1@gmail.com', '654789321', 6, 0, 0, NULL, NULL, NULL, '$2y$10$.CWqhpGnAoO.apEvTa.z3OtzCwpzAG.Zq3NtTKpr7H/afUAB2O1.i', NULL, '2024-11-07 06:08:39', '2024-11-07 10:09:39'),
-(6, 'Amit Roy', 'amitroy', 'amitroyboss@gmail.com', '9652154758', 7, 1, 0, NULL, NULL, NULL, '$2y$10$n5qQd6PdxENsi9hPMQgV3.0I5JXZqxsgjHCDAGO4fqFQxMFa7DHIm', NULL, '2024-11-07 07:44:04', '2024-11-07 09:51:16'),
-(7, 'Afrin ki', 'kiaafrin', 'asja@gmai.com', '63129769', 8, 1, 0, NULL, NULL, NULL, '$2y$10$YOMW8wFAf3AGB21o5B0zE.gqXXAUTLBhH6PH7q/Gd1Lt38aIuIk2K', NULL, '2024-11-07 07:58:36', '2024-11-07 09:57:38'),
-(8, 'Amit', 'amitroy', 'yg@gmail.com', '6397629', 7, 0, 0, NULL, NULL, NULL, '$2y$10$N3sX9thshqy4TUU/xZKkjOhHACfpQIy3pvS8eSKRRViws2Ksmys7K', NULL, '2024-11-07 09:08:44', '2024-11-07 09:57:30'),
-(9, 'mehedi Hasan', 'mehedihasan', 'hehedi12@gmail.com', '456321789', 9, 1, 0, NULL, NULL, NULL, '$2y$10$uM3fl7ONQvU9zZ8gTiHW0u.e/X2jsHG9v1AWQvDpJcHQv5eCL4tha', NULL, '2024-11-07 09:14:09', '2024-11-07 09:53:42'),
-(10, 'Arif Hossen', 'Arif1', 'arif@mail.com', '123654', 6, 1, 0, '127.0.0.1', '2024-11-07 10:36:50', NULL, '$2y$10$CYzbVuuC2W9R3mQQnFOnu.pf2YmUU1GnsRMUWlx0NX7jcr7Azqo7e', NULL, '2024-11-07 10:36:39', '2024-11-07 10:36:50');
+INSERT INTO `users` (`id`, `name`, `userId`, `email`, `phone`, `status`, `is_superadmin`, `ip_address`, `last_login_at`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Super Admin', 'superadmin', 'superadmin@mail.com', '12345678900', 1, 1, '192.168.68.188', '2024-11-18 10:36:29', '2024-10-27 18:16:06', '$2y$10$6SLXYdFEisW3dEOqudsqv.lXrBMJBLUkoTfpdwrff5zbXoeuXuzfu', 'ENSM2i43gLMazS2NCJlwqUWgGXJQFSKTekZTPc14T1pp111GqoBthLDPj2Iz', '2024-10-27 18:16:06', '2024-11-18 10:36:29'),
+(12, 'Amit', 'amit', 'amit@gmail.com', '01234567890', 1, 0, NULL, NULL, NULL, '$2y$10$s.ucjlLIDN.n0f10LMSgYeTDy86Psg66TI2BfrTlyw3AdCjfi5Wtu', NULL, '2024-11-18 04:51:21', '2024-11-18 04:51:21'),
+(13, 'Arif Hossen', 'arif', 'arif@gmail.com', '09876543210', 0, 0, NULL, NULL, NULL, '$2y$10$azKh9w8rwK9KvdW.M16wJOJRIgbvb0SMn3WEgViz805AsCgXADfsK', NULL, '2024-11-18 04:53:09', '2024-11-18 05:15:01'),
+(14, 'afrin', 'afrin', 'afrin@gmail.com', '45632107890', 1, 0, '127.0.0.1', '2024-11-18 09:59:46', NULL, '$2y$10$wIP7n2NvssYTmclNabVkbOWn.5kJKp8wQEiJqtMbIMgi3bwEyt3Uq', NULL, '2024-11-18 05:21:50', '2024-11-18 09:59:46'),
+(15, 'Arnob', 'arnob', 'arnob@gmail.com', '12398745601', 1, 0, NULL, NULL, NULL, '$2y$10$rMYJGzb0em.FIfNhUqnXLuzH1rILvWLTL3EmcuMHtTZK0SZG/t29u', NULL, '2024-11-18 05:55:10', '2024-11-18 06:00:49');
 
 -- --------------------------------------------------------
 
@@ -326,7 +455,7 @@ CREATE TABLE `user_roles` (
 
 INSERT INTO `user_roles` (`id`, `role_name`, `created_at`, `updated_at`) VALUES
 (3, 'Super Admin', '2024-11-07 07:18:47', '2024-11-07 07:21:16'),
-(7, 'Manager', '2024-11-07 09:50:39', '2024-11-07 09:50:39'),
+(7, 'Manager', '2024-11-07 09:50:39', '2024-11-17 17:53:32'),
 (8, 'Editor', '2024-11-07 09:50:51', '2024-11-07 09:50:51'),
 (9, 'Modaretor', '2024-11-07 09:50:58', '2024-11-07 09:50:58');
 
@@ -385,7 +514,7 @@ CREATE TABLE `web_settings` (
 --
 
 INSERT INTO `web_settings` (`id`, `company_name`, `company_address`, `contact`, `website`, `email`, `landphone`, `logo`, `favicon`, `systemLogo`, `created_at`, `updated_at`) VALUES
-(1, 'Cheque Mate', '522/B North Shajahanpur, Dhaka.', '01234560', 'www.qbit-tech.com', 'info@qbit-tech.com', '1234567890', 'uploads/companyLogo/IvLCodnRUPlkkVWQhh6wviYqkmSKh3fitYy1AYrb.png', 'uploads/companyLogo/I3vuBj8zCtKtBxjAeC8V6WC1XYmGS8ZZuWiN4xsp.png', 'uploads/companyLogo/9qzLFYCaQliKyELtpvfjiT2y29lxRdWIcUqSOAQ2.png', NULL, '2024-11-12 06:58:28');
+(1, 'Cheque Mate', '522/B North Shajahanpur, Dhaka.', '01234560', 'www.qbit-tech.com', 'info@qbit-tech.com', '1234567890', 'uploads/companyLogo/xYKoXZjeAFGjz4RZCaFfQWQcff5wb7lQsKi8wYCI.png', 'uploads/companyLogo/cqNoKADkqx8a7GBJBTj6IZ2tiovQbAgWmGCJnyFp.png', 'uploads/companyLogo/7md44TgR2baD4cbS5Ai8sL2sATUbzhjKcbxMDFC4.png', NULL, '2024-11-18 04:08:45');
 
 --
 -- Indexes for dumped tables
@@ -443,10 +572,31 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `model_has_permissions`
+--
+ALTER TABLE `model_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  ADD KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
+-- Indexes for table `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
+  ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
 -- Indexes for table `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
+
+--
+-- Indexes for table `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`);
 
 --
 -- Indexes for table `personal_access_tokens`
@@ -455,6 +605,20 @@ ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+
+--
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`);
+
+--
+-- Indexes for table `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`role_id`),
+  ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
 
 --
 -- Indexes for table `users`
@@ -526,7 +690,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -535,10 +705,16 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user_roles`
@@ -577,6 +753,25 @@ ALTER TABLE `cheque_receives`
   ADD CONSTRAINT `cheque_receives_bank_id_foreign` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`),
   ADD CONSTRAINT `cheque_receives_client_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
   ADD CONSTRAINT `cheque_receives_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`);
+
+--
+-- Constraints for table `model_has_permissions`
+--
+ALTER TABLE `model_has_permissions`
+  ADD CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

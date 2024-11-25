@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Roles')
+@section('title', 'permissions')
 @section('content')
 
 <div class="row">
@@ -7,30 +7,30 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex align-items-center">
-                    <h4 class="card-title">Manage Role</h4>
+                    <h4 class="card-title">Manage Permission</h4>
                 </div>
             </div>
             <div class="card-body">
-                <!-- Modal for Editing role -->
-                <div class="modal fade" id="updateroleModal" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
+                <!-- Modal for Editing permission -->
+                <div class="modal fade" id="updatepermissionModal" tabindex="-1" permission="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" permission="document">
                         <div class="modal-content">
                             <div class="modal-header bg-info border-0">
-                                <h5 class="modal-title">Edit role</h5>
+                                <h5 class="modal-title">Edit Permission</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="" method="POST" id="editroleForm">
+                            <form action="" method="POST" id="editpermissionForm">
                                 @csrf
                                 @method('PUT')
                                 <!-- Use PUT for updates -->
                                 <div class="modal-body">
-                                    <input type="hidden" id="edit_role_id" name="role_id" value="">
+                                    <input type="hidden" id="edit_permission_id" name="permission_id" value="">
                                     <div class="form-group">
                                         <label class="form-label">Name <span
                                                 class="required-label">*</span></label>
-                                        <input id="edit_name" type="text" class="form-control" name="name" placeholder="Role Name"
+                                        <input id="edit_name" type="text" class="form-control" name="name" placeholder="permission Name"
                                             required>
                                     </div>
                                 </div>
@@ -44,25 +44,25 @@
                     </div>
                 </div>
 
-                <div class="modal fade" id="addroleModal" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal fade" id="addpermissionModal" tabindex="-1" permission="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" permission="document">
                         <div class="modal-content">
                             <div class="modal-header bg-info border-0">
-                                <h5 class="modal-title">Add Role</h5>
+                                <h5 class="modal-title">Add Permission</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="{{ route('manageuserrole.store') }}" method="POST">
+                            <form action="{{ route('permission.store') }}" method="POST">
                                 @csrf
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="form-label">Role Name <span
+                                                <label class="form-label">Permission Name <span
                                                         class="required-label">*</span></label>
                                                 <input id="name" type="text" class="form-control"
-                                                    name="name" placeholder="Role Name" required>
+                                                    name="name" placeholder="permission Name" required>
                                             </div>
                                         </div>
                                     </div>
@@ -76,10 +76,14 @@
                 </div>
 
                 <div class="row d-flex justify-content-around align-items-center">
+                    
                     <div class="col-6">
                         <div class="card">
                             <h5 class="card-header d-flex justify-content-between">
-                                <div>Manage Role</div> <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addroleModal" > Add Role </a>
+                                <div>Manage Permission</div><a href="#" id="edit" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#addpermissionModal">
+                                Add Permission
+                            </a>
                             </h5>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -87,28 +91,26 @@
                                         <thead>
                                             <tr>
                                                 <th>Sl</th>
-                                                <th>Role</th>
-                                                <th>Permission</th>
+                                                <th>permission</th>
                                                 <th style="width: 10%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($roles as $index => $role)
+                                            @foreach($permissions as $index => $permission)
                                             <tr>
                                                 <td>{{ $index + 1 }}</td>
-                                                <td>{{ $role->name }}</td>
-                                                <td><a href="{{ route('manageuserrole.addPermissionToRole', $role->id) }}"><i class="fa-solid fa-gears fa-2x"></i></a></td>
+                                                <td>{{ $permission->name }}</td>
                                                 <td style="width: 100px;">
                                                     <div class="form-button-action">
 
                                                         <a href="#" id="edit" class="btn btn-link btn-primary" data-bs-toggle="modal"
-                                                            data-bs-target="#updateroleModal" data-role-id="{{ $role->id }}"
-                                                            data-role-name="{{ $role->name }}"
+                                                            data-bs-target="#updatepermissionModal" data-permission-id="{{ $permission->id }}"
+                                                            data-permission-name="{{ $permission->name }}"
                                                             data-bs-toggle="tooltip"
                                                             title="Edit">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
-                                                        <form action="{{ route('manageuserrole.destroy', $role->id) }}" method="POST"
+                                                        <form action="{{ route('permission.destroy', $permission->id) }}" method="POST"
                                                             style="display: inline-block;"
                                                             onsubmit="event.preventDefault(); confirmDelete(this);">
                                                             @csrf
@@ -139,23 +141,23 @@
 @section('scripts')
 <script>
     $(document).on('click', '#edit', function () {
-        const roleId = $(this).data('role-id');
-        const roleName = $(this).data('role-name');
+        const permissionId = $(this).data('permission-id');
+        const permissionName = $(this).data('permission-name');
         console.log(status);
 
 
         // Populate the fields in the edit modal
-        $('#edit_role_id').val(roleId);
-        $('#edit_name').val(roleName);
+        $('#edit_permission_id').val(permissionId);
+        $('#edit_name').val(permissionName);
     });
 
-    $('#editroleForm').on('submit', function (e) {
+    $('#editpermissionForm').on('submit', function (e) {
         e.preventDefault(); // Prevent the default form submission
 
         // Get the form data
         const formData = $(this).serialize(); // Serializes the form's elements
 
-        const roleId = $('#edit_role_id').val(); // Get the role ID for the URL
+        const permissionId = $('#edit_permission_id').val(); // Get the permission ID for the URL
 
         $.ajaxSetup({
             headers: {
@@ -164,11 +166,11 @@
         });
 
         $.ajax({
-            url: `/dashboard/manageuserrole/${roleId}`,
+            url: `/dashboard/permission/${permissionId}`,
             type: 'PUT',
             data: formData,
             success: function (response) {
-                $('#updateroleModal').modal('hide');
+                $('#updatepermissionModal').modal('hide');
                 location.reload();
                 $.notify({
                     // Options
@@ -179,7 +181,7 @@
             error: function (xhr) {
                 console.error(xhr.responseText);
                 alert(
-                'An error occurred while updating the role. Please try again.'); // Optional role notification
+                'An error occurred while updating the permission. Please try again.'); // Optional permission notification
             }
         });
     });
@@ -194,7 +196,7 @@
         }).then((willDelete) => {
             if (willDelete) {
                 form.submit();
-                swal("Deleted!", "role been deleted.", "success");
+                swal("Deleted!", "permission been deleted.", "success");
             } else {
                 swal("Your data is safe!");
             }

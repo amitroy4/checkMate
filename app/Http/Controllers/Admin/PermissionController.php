@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\UserRole;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
-class UserRoleController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $roles = UserRole::all();
-        return view('admin.manageuser.role',compact('roles'));
+        $permissions = Permission::all();
+        return view('admin.manageuser.permission',compact('permissions'));
     }
 
     /**
@@ -30,13 +30,14 @@ class UserRoleController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
-            'role_name' => 'required|string|max:255',
+            'name' => 'required|string',
         ]);
-        $data = $request->all();
-        UserRole::create($data);
-        return redirect()->back()->with('success', 'Role added successfully.');
+
+        Permission:: create([
+            'name' => $request->name
+        ]);
+        return redirect()->route('permission.index')->with('success', 'Permission added successfully.');
     }
 
     /**
@@ -58,16 +59,15 @@ class UserRoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
     {
-
-        $role = UserRole::findOrFail($id);
-        $role->role_name = $request->role_name;
-        $role->save();
-
-        session()->flash('success', 'Role updated successfully!');
-
-        return response()->json(['success' => 'Role updated successfully!'], 200);
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+        $permission = Permission::findOrFail($id);
+        $permission->name = $request->name;
+        $permission->save();
+        session()->flash('success', 'Permission updated successfully!');
     }
 
     /**
@@ -75,7 +75,7 @@ class UserRoleController extends Controller
      */
     public function destroy(string $id)
     {
-        UserRole::destroy($id);
-        return redirect()->back()->with('success', 'Role deleted successfully.');
+        Permission::destroy($id);
+        return redirect()->back()->with('success', 'Premission deleted successfully.');
     }
 }

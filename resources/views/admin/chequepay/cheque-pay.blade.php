@@ -8,11 +8,13 @@
             <div class="card-header">
                 <div class="d-flex align-items-center justify-content-between">
                     <h4 class="card-title"> Manage Cheque Pay</h4>
+                    @can('Add ChequePay')
                     <a href="{{ route('chequepay.create') }}">
                         <button class="btn btn-primary btn-round ms-auto">
                             <i class="fa fa-plus"></i> New Cheque Pay
                         </button>
                     </a>
+                    @endcan
                 </div>
             </div>
             <div class="card-body">
@@ -89,7 +91,9 @@
                                 <th>Cheque Amount</th>
                                 <th>Clearing Date</th>
                                 <th>Cheque Type</th>
+                                @can('Status ChequePay')
                                 <th>Cheque Status</th>
+                                @endcan
                                 <th>Over Date</th>
                                 <th style="width: 10%">Action</th>
                             </tr>
@@ -105,6 +109,7 @@
                                     <td>{{ $chequepay->amount }}</td>
                                     <td>{{ $chequepay->cheque_clearing_date ?? 'N/A' }}</td>
                                     <td>{{ $chequepay->paytype }}</td>
+                                    @can('Status ChequePay')
                                     <td>
                                         {{-- <select id="cheque_status_{{ $chequepay->id }}" class="form-control form-select cheque-status" name="cheque_status" data-id="{{ $chequepay->id }}" required>
                                             <option value="" disabled>Choose...</option>
@@ -136,6 +141,7 @@
                                             </select>
                                         @endif
                                     </td>
+                                    @endcan
                                     <td>
                                         @php
                                         $clearingDate = \Carbon\Carbon::parse($chequepay->cheque_clearing_date);
@@ -149,13 +155,18 @@
                                     </td>
                                     <td>
                                         <div class="form-button-action">
+                                            @can('Print ChequePay')
                                             <a href="{{route('pdf.chequepayee', $chequepay->id)}}" class="btn btn-link btn-info edit" data-bs-toggle="tooltip" title="Print" target="_blank">
                                                 <i class="fa-solid fa-print"></i>
                                             </a>
+                                            @endcan
                                             @if ($chequepay->cheque_status == 'Pending')
+                                            @can('Update ChequePay')
                                             <a href="{{ route('chequepay.edit', $chequepay->id) }}" class="btn btn-link btn-primary edit" data-bs-toggle="tooltip" title="Edit">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
+                                            @endcan
+                                            @can('Delete ChequePay')
                                             <form action="{{ route('chequepay.destroy', $chequepay->id) }}" method="POST" class="d-inline-block" onsubmit="event.preventDefault(); confirmDelete(this);">
                                                 @csrf
                                                 @method('DELETE')
@@ -163,6 +174,7 @@
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </form>
+                                            @endcan
                                             @endif
                                         </div>
                                     </td>

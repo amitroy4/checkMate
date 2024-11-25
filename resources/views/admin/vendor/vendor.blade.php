@@ -8,10 +8,12 @@
             <div class="card-header">
                 <div class="d-flex align-items-center">
                     <h4 class="card-title">Manage Vendor</h4>
+                    @can('Add Vendor')
                     <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal" data-bs-target="#addvendor">
                         <i class="fa fa-plus"></i>
                         New Vendor
                     </button>
+                    @endcan
                 </div>
             </div>
             <div class="card-body">
@@ -151,7 +153,9 @@
                                 <th>WhatsApp No</th>
                                 <th>Email</th>
                                 <th>Company Name</th>
-                                <th>vendor Status</th>
+                                @can('Status Vendor')
+                                <th>Vendor Status</th>
+                                @endcan
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </thead>
@@ -165,6 +169,7 @@
                                     <td>{{ $vendor->whatsapp_number }}</td>
                                     <td>{{ $vendor->email }}</td>
                                     <td>{{ $vendor->company_name }}</td>
+                                    @can('Status Vendor')
                                     <td>
                                         @if ($vendor->status)
                                             <a href="{{route('status.vendor',$vendor->id)}}" class="badge rounded-pill bg-primary text-decoration-none">
@@ -176,8 +181,10 @@
                                             </a>
                                         @endif
                                     </td>
+                                    @endcan
                                     <td>
                                         <div class="form-button-action">
+                                            @can('Update Vendor')
                                             <a href="#" id="edit" class="btn btn-link btn-primary" data-bs-toggle="modal" data-bs-target="#updatevendorModal"
                                                data-vendor-id="{{ $vendor->id }}"
                                                data-vendor-name="{{ $vendor->vendor_name }}"
@@ -189,6 +196,8 @@
                                                data-status="{{ $vendor->status }}" title="Edit">
                                                 <i class="fa fa-edit"></i>
                                             </a>
+                                            @endcan
+                                            @can('Delete Vendor')
                                             <form action="{{ route('vendor.destroy', $vendor->id) }}" method="POST" style="display: inline-block;" onsubmit="event.preventDefault(); confirmDelete(this);">
                                                 @csrf
                                                 @method('DELETE')
@@ -196,6 +205,7 @@
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </form>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

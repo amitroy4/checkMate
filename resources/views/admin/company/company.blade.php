@@ -10,9 +10,11 @@
                 <div class="d-flex align-items-center">
                     <h4 class="card-title">Manage Company</h4>
                 </div>
+                @can('Add Company')
                 <a href="{{route("company.create")}}">
                     <button type="button" class="btn btn-primary">Add Company</button>
                 </a>
+                @endcan
                 {{-- @if (session('success'))
                 <span class="alert alert-success">{{session('success')}}</span>
                 @elseif (session('danger'))
@@ -28,7 +30,9 @@
                                 <th>Company Name</th>
                                 <th>Company Address</th>
                                 <th>Phone</th>
+                                @can('Status Company')
                                 <th>Status</th>
+                                @endcan
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </thead>
@@ -39,6 +43,7 @@
                                     <td>{{$company->company_name}}</td>
                                     <td>{{$company->company_address}}</td>
                                     <td>{{$company->contact_number}}</td>
+                                    @can('Status Company')
                                     <td>
                                         @if ($company->status)
                                             <a href="{{route('status.company',$company->id)}}" class="badge rounded-pill bg-primary text-decoration-none">
@@ -50,11 +55,15 @@
                                             </a>
                                         @endif
                                     </td>
+                                    @endcan
                                     <td>
                                         <div class="form-button-action ">
+                                            @can('Update Company')
                                             <a href="{{ route('company.edit', $company->id) }}" class="btn btn-link btn-primary edit ps " title="Edit">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
+                                            @endcan
+                                            @can('Delete Company')
                                             <form action="{{ route('company.destroy', $company->id) }}" method="POST" class="d-inline-block" onsubmit="event.preventDefault(); confirmDelete(this);">
                                                 @csrf
                                                 @method('DELETE')
@@ -62,7 +71,7 @@
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </form>
-
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

@@ -8,11 +8,13 @@
             <div class="card-header">
                 <div class="d-flex align-items-center justify-content-between">
                     <h4 class="card-title"> Manage Cheque Receive</h4>
+                    @can('Add ChequeReceive')
                     <a href="{{ route('chequereceive.create') }}">
                         <button class="btn btn-primary btn-round ms-auto">
                             <i class="fa fa-plus"></i> New Cheque Receive
                         </button>
                     </a>
+                    @endcan
                 </div>
             </div>
             <div class="card-body">
@@ -89,7 +91,9 @@
                                 <th>Cheque Receive Amount</th>
                                 <th>Clearing Date</th>
                                 <th>Cheque Type</th>
+                                @can('Status ChequeReceive')
                                 <th>Cheque Status</th>
+                                @endcan
                                 <th>Over Date</th>
                                 <th style="width: 10%">Action</th>
                             </tr>
@@ -105,6 +109,7 @@
                                     <td>{{ $chequereceive->amount }}</td>
                                     <td>{{ $chequereceive->cheque_clearing_date ?? 'N/A' }}</td>
                                     <td>{{ $chequereceive->receivetype }}</td>
+                                    @can('Status ChequeReceive')
                                     <td>
                                         {{-- <select id="cheque_status_{{ $chequereceive->id }}" class="form-control form-select cheque-status" name="cheque_status" data-id="{{ $chequereceive->id }}" required>
                                             <option value="" disabled>Choose...</option>
@@ -139,6 +144,7 @@
                                             </select>
                                         @endif
                                     </td>
+                                    @endcan
                                     <td>
                                         @php
                                         $clearingDate = \Carbon\Carbon::parse($chequereceive->cheque_clearing_date);
@@ -152,14 +158,19 @@
                                     </td>
                                     <td>
                                         <div class="form-button-action">
+                                            @can('Print ChequeReceive')
                                             <a href="{{route('pdf.chequereceive', $chequereceive->id)}}" class="btn btn-link btn-info edit" data-bs-toggle="tooltip" title="Print" target="_blank">
                                                 <i class="fa-solid fa-print"></i>
                                             </a>
+                                            @endcan
 
                                             @if ($chequereceive->cheque_status == 'Pending')
+                                                @can('Update ChequeReceive')
                                                 <a href="{{ route('chequereceive.edit', $chequereceive->id) }}" class="btn btn-link btn-primary edit" data-bs-toggle="tooltip" title="Edit">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                                @endcan
+                                                @can('Delete ChequeReceive')
                                                 <form action="{{ route('chequereceive.destroy', $chequereceive->id) }}" method="POST" class="d-inline-block" onsubmit="event.preventDefault(); confirmDelete(this);">
                                                     @csrf
                                                     @method('DELETE')
@@ -167,6 +178,7 @@
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </form>
+                                                @endcan
                                             @endif
                                         </div>
                                     </td>

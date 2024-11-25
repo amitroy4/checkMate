@@ -8,11 +8,13 @@
             <div class="card-header">
                 <div class="d-flex align-items-center">
                     <h4 class="card-title">Manage user</h4>
-                    <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
-                        data-bs-target="#adduser">
-                        <i class="fa fa-plus"></i>
-                        New user
-                    </button>
+                    @can('Add User')
+                        <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
+                            data-bs-target="#adduser">
+                            <i class="fa fa-plus"></i>
+                            New user
+                        </button>
+                    @endcan
                 </div>
             </div>
             <div class="card-body">
@@ -69,10 +71,10 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="form-label">Role</label>
-                                                <select id="role" class="form-control" name="role">
+                                                <select id="role" class="form-control" name="roles[]" multiple>
                                                     <option value="">Select A Role...</option>
-                                                    @foreach ($userroles as $userrole)
-                                                        <option value="{{ $userrole->id }}">{{ $userrole->role_name }}</option>
+                                                    @foreach ($roles as $role)
+                                                        <option value="{{ $role }}">{{ $role }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -138,9 +140,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Role</label>
-                                        <select id="edit_role" class="form-control" name="role">
-                                            @foreach ($userroles as $userrole)
-                                                <option value="{{ $userrole->id }}">{{ $userrole->role_name }}</option>
+                                        <select id="edit_role" class="form-control" name="roles[]" multiple>
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role }}">{{ $role }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -170,9 +172,9 @@
                                 <th>Sl</th>
                                 <th>Name</th>
                                 <th>Id</th>
-                                <th>Role</th>
                                 <th>Phone Number</th>
                                 <th>Email</th>
+                                <th>Roles</th>
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </thead>
@@ -182,9 +184,15 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->userId}}</td>
-                                <td>{{ $user->role->role_name ?? "N/A" }}</td>
                                 <td>{{ $user->phone ? $user->phone : 'N/A' }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td>
+                                    @if (!@empty($user->getRoleNames()))
+                                        @foreach ($user->getRoleNames() as $rolename)
+                                            <label class="badge badge-warning  text-white mx-1">{{$rolename}}</label>
+                                        @endforeach
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="form-button-action">
                                         @if ($user->status)
@@ -198,6 +206,7 @@
                                         <i class="fa-solid fa-lock"></i>
                                     </a>
                                     @endif
+                                    @can('Update User')
                                         <a href="#" id="edit" class="btn btn-link btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#updateuserModal" data-user-id="{{ $user->id }}"
                                             data-user-name="{{ $user->name }}"
@@ -205,11 +214,12 @@
                                             data-mobile-number="{{ $user->phone }}"
                                             data-email="{{ $user->email }}"
                                             data-status="{{ $user->status }}"
-                                            data-role="{{ $user->role_id }}"
+                                            data-role="{{ $user->getRoleNames() }}"
                                             data-bs-toggle="tooltip"
                                             title="Edit">
                                             <i class="fa fa-edit"></i>
                                         </a>
+                                    @endcan
                                         {{-- <form action="{{ route('manageuser.destroy', $user->id) }}" method="POST"
                                             style="display: inline-block;"
                                             onsubmit="event.preventDefault(); confirmDelete(this);">
@@ -285,15 +295,6 @@
                     // Options
                     message: '{{ session('
                     success ') }}'
-                }, {
-                    // Settings
-                    type: 'success',
-                    delay: 3000,
-                    allow_dismiss: true,
-                    placement: {
-                        from: "bottom",
-                        align: "right"
-                    }
                 });
             },
             error: function (xhr) {
