@@ -8,10 +8,12 @@
             <div class="card-header">
                 <div class="d-flex align-items-center">
                     <h4 class="card-title">Manage Bank</h4>
+                    @can('Add Bank')
                     <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal" data-bs-target="#addbank">
                         <i class="fa fa-plus"></i>
                         New Bank
                     </button>
+                    @endcan
                 </div>
             </div>
             <div class="card-body">
@@ -125,6 +127,7 @@
                                     <td>{{ $bank->address }}</td>
                                     <td>
                                         <div class="form-button-action">
+                                            @can('Update Bank')
                                             <a href="#" id="edit" class="btn btn-link btn-primary" data-bs-toggle="modal" data-bs-target="#updatebankModal"
                                                data-bank-id="{{ $bank->id }}"
                                                data-bank-name="{{ $bank->bank_name }}"
@@ -132,6 +135,8 @@
                                                data-address="{{ $bank->address }}" title="Edit">
                                                 <i class="fa fa-edit"></i>
                                             </a>
+                                            @endcan
+                                            @can('Delete Bank')
                                             <form action="{{ route('bank.destroy', $bank->id) }}" method="POST" style="display: inline-block;" onsubmit="event.preventDefault(); confirmDelete(this);">
                                                 @csrf
                                                 @method('DELETE')
@@ -139,6 +144,7 @@
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </form>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

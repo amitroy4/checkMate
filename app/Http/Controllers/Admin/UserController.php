@@ -4,20 +4,26 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
-use App\Models\UserRole;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        // examples:
+        $this->middleware('permission:Add User',['only'=>['store']]);
+        $this->middleware('permission:Update User',['only'=>['update']]);
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $users = User::where('is_superadmin', 0)->get();
-        $userroles = UserRole::all();
-        return view('admin.manageuser.user',compact('users','userroles'));
+        $roles = Role::pluck('name','name')->all();
+        return view('admin.manageuser.user',compact('users','roles'));
     }
 
     /**
@@ -44,16 +50,15 @@ class UserController extends Controller
         ]);
 
         // Create the user
-        User::create([
+        $user =  User::create([
             'name' => $request->name,
             'userId' => $request->user_id,  // Correctly map 'user_id' to the database field
             'phone' => $request->phone,
             'email' => $request->email,
             'status' => $request->status,
-            'role_id' => $request->role,
-
             'password' => Hash::make($request->password),  // Hash the password
         ]);
+        $user->syncRoles($request->roles);
 
         // Redirect back with success message
         return redirect()->back()->with('success', 'User added successfully.');
@@ -86,7 +91,6 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'user_id' => 'required|string|max:255',
             'phone' => 'required|string|max:255',
-            'email' => 'required|email',
             'status' => 'required',
         ]);
 
@@ -96,12 +100,13 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->email = $request->email;
         $user->status = $request->status;
-        $user->role_id = $request->role;
-        if($user->password)
+        if($request->password)
         {
             $user->password = Hash::make($request->password);
         }
         $user->save();
+
+        $user->syncRoles($request->roles);
 
         session()->flash('success', 'User updated successfully!');
 
